@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-08-13T02:52:42.748724+00:00",
+  "package": "explain-ai-generated-text",
+  "version": "0.1.1.1.7",
+  "status": "blocked",
+  "samples": {},
+  "interpretation_gate": {
+    "use_for_ai_authorship": false,
+    "use_for_year_inference": false,
+    "reason": "Compatibility probe only; upstream generalization to Japanese is not assumed."
+  },
+  "provenance": {
+    "pypi": "https://pypi.org/project/explain-ai-generated-text/0.1.1.1.7/",
+    "source": "https://github.com/ShushantaTUD/Explain_AI_Generated_Text"
+  },
+  "import_error": "OSError: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory."
+}

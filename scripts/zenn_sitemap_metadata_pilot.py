@@ -22,6 +22,7 @@ SAMPLES_PER_YEAR = 12
 TARGET_MONTH = 8
 TARGET_DAY = 1
 TARGET_HOUR_JST = 12
+MIN_BODY_LETTERS_COUNT = 1500
 PUBLISHED_WINDOW_DAYS = 7
 LASTMOD_CANDIDATE_WINDOW_DAYS = 45
 MAX_DETAIL_REQUESTS_PER_YEAR = 80
@@ -52,20 +53,13 @@ def parse_datetime(value: str) -> dt.datetime:
 
 
 def target_for_year(year: int) -> dt.datetime:
-    return dt.datetime(
-        year,
-        TARGET_MONTH,
-        TARGET_DAY,
-        TARGET_HOUR_JST,
-        tzinfo=dt.timezone(dt.timedelta(hours=9)),
-    )
+    return dt.datetime(year, TARGET_MONTH, TARGET_DAY, TARGET_HOUR_JST, tzinfo=dt.timezone(dt.timedelta(hours=9)))
 
 
 def load_sitemap_candidates(sitemaps: list[str]) -> dict[int, list[tuple[float, str, str]]]:
     result: dict[int, list[tuple[float, str, str]]] = {year: [] for year in YEARS}
     windows = {year: target_for_year(year) for year in YEARS}
     max_seconds = LASTMOD_CANDIDATE_WINDOW_DAYS * 86400
-
     for sitemap in sitemaps:
         root = ET.fromstring(fetch_xml(sitemap))
         for node in root.findall("sm:url", NS):
@@ -78,9 +72,7 @@ def load_sitemap_candidates(sitemaps: list[str]) -> dict[int, list[tuple[float, 
                 distance = abs((stamp - target).total_seconds())
                 if distance <= max_seconds:
                     result[year].append((distance, loc, lastmod))
-
     for year in YEARS:
-        # Stable tie break: URL hash prevents sitemap partition/order from choosing the sample.
         result[year].sort(key=lambda row: (row[0], hashlib.sha256(row[1].encode()).hexdigest()))
     return result
 
@@ -121,16 +113,14 @@ def build_record(source_url: str, lastmod: str, article: dict, year: int, target
         "body_letters_count": article.get("body_letters_count"),
         "author_sha256": author_hash(article),
     }
-    digest = hashlib.sha256(
-        json.dumps(stable, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
-    ).hexdigest()
+    digest = hashlib.sha256(json.dumps(stable, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
     published = parse_datetime(str(article["published_at"]))
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "source": "official-sitemap+undocumented-detail-metadata",
         "source_url": stable["source_url"],
         "year": year,
-        "cohort": "august-sitemap-pilot",
+        "cohort": "august-sitemap-pilot-v2",
         "target_at": target.isoformat(),
         "published_at": stable["published_at"],
         "distance_from_target_seconds": abs((published - target).total_seconds()),
@@ -149,7 +139,6 @@ def select_year(year: int, candidates: list[tuple[float, str, str]]) -> tuple[li
     selected: list[dict] = []
     requests = 0
     seen_paths: set[str] = set()
-
     for _, url, lastmod in candidates:
         if requests >= MAX_DETAIL_REQUESTS_PER_YEAR or len(selected) >= SAMPLES_PER_YEAR:
             break
@@ -166,15 +155,16 @@ def select_year(year: int, candidates: list[tuple[float, str, str]]) -> tuple[li
         requests += 1
 
         published_at = article.get("published_at")
+        body_letters_count = article.get("body_letters_count")
         if not isinstance(published_at, str) or article.get("article_type") != "tech":
+            continue
+        if not isinstance(body_letters_count, int) or body_letters_count < MIN_BODY_LETTERS_COUNT:
             continue
         published = parse_datetime(published_at)
         if published.year != year or abs((published - target).total_seconds()) > published_limit:
             continue
-
         detail_path = article.get("path")
         if isinstance(detail_path, str) and detail_path != path:
-            # A slug collision or redirect must not silently relabel another article.
             continue
         selected.append(build_record(url, lastmod, article, year, target))
 
@@ -211,10 +201,7 @@ def main() -> None:
 
     all_records.sort(key=lambda row: (row["year"], row["published_at"], row["source_url"]))
     OUTPUT_JSONL.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT_JSONL.write_text(
-        "".join(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n" for row in all_records),
-        encoding="utf-8",
-    )
+    OUTPUT_JSONL.write_text("".join(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n" for row in all_records), encoding="utf-8")
 
     years: dict[str, dict] = {}
     for year in YEARS:
@@ -231,20 +218,21 @@ def main() -> None:
         }
 
     summary = {
-        "schema_version": 1,
+        "schema_version": 2,
         "status": "pilot_ready",
         "generated_at": dt.datetime.now(dt.UTC).isoformat(),
         "source": "official-sitemap+undocumented-detail-metadata",
         "selection": {
-            "cohort": "august-sitemap-pilot",
+            "cohort": "august-sitemap-pilot-v2",
             "target_month_day": f"{TARGET_MONTH:02d}-{TARGET_DAY:02d}",
             "target_hour_jst": TARGET_HOUR_JST,
             "samples_per_year": SAMPLES_PER_YEAR,
             "article_type": "tech",
+            "min_body_letters_count": MIN_BODY_LETTERS_COUNT,
             "published_window_days": PUBLISHED_WINDOW_DAYS,
             "lastmod_candidate_window_days": LASTMOD_CANDIDATE_WINDOW_DAYS,
             "lastmod_is_label": False,
-            "purpose": "same-season historical discovery pilot; not the final yearly baseline",
+            "purpose": "same-season fixed-length-eligible historical pilot; not the final yearly baseline",
         },
         "years": years,
     }

@@ -5,6 +5,7 @@ on:
   push:
     branches: [main]
     paths:
+      - "site/analyze.py"
       - "site/worker.mjs"
       - "scripts/pyodide_smoke.mjs"
       - "detectors/pystylometry/pyproject.toml"
@@ -22,7 +23,7 @@ jobs:
       - uses: actions/checkout@v6
       - name: Install pinned Pyodide runtime
         run: npm install --no-save pyodide@0.27.7
-      - name: Smoke test pystylometry in WebAssembly Python
+      - name: Smoke test canonical pystylometry analysis in WebAssembly Python
         run: node scripts/pyodide_smoke.mjs
       - name: Commit compatibility evidence
         if: success()

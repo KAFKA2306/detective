@@ -7,37 +7,36 @@ const PACKAGE_VERSION = "1.4.3";
 const OUTPUT = "site/data/compatibility.json";
 
 const output = {
-  schema_version: 1,
+  schema_version: 2,
   status: "failed",
   pyodide_version: PYODIDE_VERSION,
   python_line: "3.12",
   package: PACKAGE,
   package_version: PACKAGE_VERSION,
-  metrics: ["compute_character_bigram_entropy", "compute_ngram_entropy(character, n=3)"],
+  canonical_analyzer: "site/analyze.py",
   checked_at: new Date().toISOString(),
   error: null,
 };
 
 try {
-  // The npm build resolves its WASM/stdlib assets relative to node_modules/pyodide.
-  // Do not pass the browser CDN indexURL here; the browser Worker separately pins
-  // https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.mjs.
   const pyodide = await loadPyodide();
   await pyodide.loadPackage("micropip");
   const micropip = pyodide.pyimport("micropip");
   await micropip.install(`${PACKAGE}==${PACKAGE_VERSION}`);
   micropip.destroy();
-  const result = await pyodide.runPythonAsync(`
-from pystylometry.ngrams import compute_character_bigram_entropy, compute_ngram_entropy
-text = "日本語の技術文章をブラウザ内で解析する。公開OSSだけを使う。"
-b = compute_character_bigram_entropy(text)
-t = compute_ngram_entropy(text, n=3, ngram_type="character")
-assert b.entropy >= 0
-assert t.entropy >= 0
-(b.entropy, t.entropy)
-`);
-  if (result?.destroy) result.destroy();
+
+  const analyzerSource = fs.readFileSync("site/analyze.py", "utf8");
+  await pyodide.runPythonAsync(analyzerSource);
+  const smokeText = "日本語の技術文章をブラウザ内で解析する。公開OSSだけを使う。".repeat(80);
+  pyodide.globals.set("detective_smoke_text", smokeText);
+  const jsonResult = await pyodide.runPythonAsync("detective_analyze_json(detective_smoke_text)");
+  pyodide.globals.delete("detective_smoke_text");
+  const metrics = JSON.parse(jsonResult);
+  if (metrics.analyzed_char_count !== 1000 || !Number.isFinite(metrics.char_bigram_entropy) || !Number.isFinite(metrics.char_trigram_entropy)) {
+    throw new Error(`unexpected canonical analysis result: ${jsonResult}`);
+  }
   output.status = "compatible";
+  output.analysis_window_chars = metrics.analyzed_char_count;
 } catch (error) {
   output.error = String(error?.stack || error);
   console.error(error);

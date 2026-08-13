@@ -4,17 +4,18 @@ import datetime as dt
 import hashlib
 import html.parser
 import json
-import math
 import pathlib
 import statistics
+import sys
 import time
-import unicodedata
 import urllib.parse
 import urllib.request
 
-from pystylometry.ngrams import compute_character_bigram_entropy, compute_ngram_entropy
-
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "site"))
+
+from analyze import ANALYSIS_NORMALIZATION, ANALYSIS_WINDOW_CHARS, analyze_text  # noqa: E402
+
 INPUT = ROOT / "corpus" / "zenn_august_sitemap_pilot.jsonl"
 METRICS_OUTPUT = ROOT / "corpus" / "zenn_august_pystylometry_metrics.jsonl"
 BASELINE_OUTPUT = ROOT / "site" / "data" / "baselines.json"
@@ -54,11 +55,6 @@ class VisibleTextParser(html.parser.HTMLParser):
         return "".join(self.parts)
 
 
-def normalize_text(text: str) -> str:
-    """Canonical normalization shared conceptually with the Pyodide worker."""
-    return " ".join(unicodedata.normalize("NFKC", text).split())
-
-
 def fetch_detail(source_url: str) -> dict:
     global _last_request_at
     elapsed = time.monotonic() - _last_request_at
@@ -80,27 +76,6 @@ def fetch_detail(source_url: str) -> dict:
     return article
 
 
-def finite(value: float) -> float | None:
-    return float(value) if isinstance(value, (int, float)) and math.isfinite(value) else None
-
-
-def analyze(text: str) -> dict[str, float | int | None]:
-    normalized = normalize_text(text)
-    bigram = compute_character_bigram_entropy(normalized)
-    trigram = compute_ngram_entropy(normalized, n=3, ngram_type="character")
-    return {
-        "normalized_char_count": len(normalized),
-        "char_bigram_entropy": finite(bigram.entropy),
-        "char_bigram_perplexity": finite(bigram.perplexity),
-        "char_bigram_total": int(bigram.metadata.get("total_ngrams", 0)),
-        "char_bigram_unique": int(bigram.metadata.get("total_unique_ngrams", 0)),
-        "char_trigram_entropy": finite(trigram.entropy),
-        "char_trigram_perplexity": finite(trigram.perplexity),
-        "char_trigram_total": int(trigram.metadata.get("total_ngrams", 0)),
-        "char_trigram_unique": int(trigram.metadata.get("total_unique_ngrams", 0)),
-    }
-
-
 def metric_summary(values: list[float]) -> dict[str, float | int]:
     if len(values) < 2:
         raise RuntimeError("at least two samples are required for a baseline metric")
@@ -118,6 +93,10 @@ def main() -> None:
     source_rows = [json.loads(line) for line in INPUT.read_text(encoding="utf-8").splitlines() if line.strip()]
     if not source_rows:
         raise SystemExit("metadata pilot is empty")
+    cohorts = {row.get("cohort") for row in source_rows}
+    if len(cohorts) != 1:
+        raise RuntimeError(f"mixed cohorts: {sorted(cohorts)}")
+    cohort = next(iter(cohorts))
 
     generated_at = dt.datetime.now(dt.UTC).isoformat()
     output_rows: list[dict] = []
@@ -129,32 +108,26 @@ def main() -> None:
             raise RuntimeError(f"body_html missing for {source_url}")
         parser = VisibleTextParser()
         parser.feed(body_html)
-        visible_text = parser.text()
-        metrics = analyze(visible_text)
-        if metrics["normalized_char_count"] < 100:
-            raise RuntimeError(f"visible text too short for {source_url}")
+        metrics = analyze_text(parser.text())
         output_rows.append(
             {
-                "schema_version": 1,
+                "schema_version": 2,
                 "source_url": source_url,
                 "year": int(row["year"]),
-                "cohort": row["cohort"],
+                "cohort": cohort,
                 "published_at": row["published_at"],
                 "fetched_at": generated_at,
                 "content_sha256": hashlib.sha256(body_html.encode("utf-8")).hexdigest(),
                 "extractor": "stdlib.HTMLParser visible text; script/style/noscript excluded",
-                "normalization": "Unicode NFKC + collapse whitespace",
+                "normalization": ANALYSIS_NORMALIZATION,
+                "analysis_window_chars": ANALYSIS_WINDOW_CHARS,
                 "detector": f"{PACKAGE}=={PACKAGE_VERSION}",
                 "metrics": metrics,
             }
         )
-        # body_html and visible_text are intentionally not persisted.
-        print(f"[{index}/{len(source_rows)}] {row['year']} {source_url} chars={metrics['normalized_char_count']}")
+        print(f"[{index}/{len(source_rows)}] {row['year']} {source_url} analyzed={metrics['analyzed_char_count']}")
 
-    METRICS_OUTPUT.write_text(
-        "".join(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n" for row in output_rows),
-        encoding="utf-8",
-    )
+    METRICS_OUTPUT.write_text("".join(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n" for row in output_rows), encoding="utf-8")
 
     years = sorted({int(row["year"]) for row in output_rows})
     expected_years = [2022, 2023, 2024, 2025, 2026]
@@ -163,22 +136,20 @@ def main() -> None:
     sample_counts = {str(year): sum(1 for row in output_rows if row["year"] == year) for year in years}
     if len(set(sample_counts.values())) != 1 or min(sample_counts.values()) < 10:
         raise RuntimeError(f"unbalanced/insufficient pilot: {sample_counts}")
+    if any(row["metrics"]["analyzed_char_count"] != ANALYSIS_WINDOW_CHARS for row in output_rows):
+        raise RuntimeError("analysis window mismatch")
 
     baseline_metrics: dict[str, dict[str, dict]] = {}
     for key in ("char_bigram_entropy", "char_trigram_entropy"):
         baseline_metrics[key] = {}
         for year in years:
-            values = [
-                float(row["metrics"][key])
-                for row in output_rows
-                if row["year"] == year and row["metrics"].get(key) is not None
-            ]
+            values = [float(row["metrics"][key]) for row in output_rows if row["year"] == year and row["metrics"].get(key) is not None]
             baseline_metrics[key][str(year)] = metric_summary(values)
 
     baseline = {
-        "schema_version": 2,
+        "schema_version": 3,
         "status": "pilot_ready",
-        "cohort": "august-sitemap-pilot",
+        "cohort": cohort,
         "years": years,
         "generated_at": generated_at,
         "sample_counts": sample_counts,
@@ -189,14 +160,17 @@ def main() -> None:
             "package": PACKAGE,
             "version": PACKAGE_VERSION,
             "functions": ["compute_character_bigram_entropy", "compute_ngram_entropy(character,n=3)"],
+            "canonical_analyzer": "site/analyze.py",
         },
         "preprocessing": {
             "source": "article.body_html fetched transiently",
             "extractor": "stdlib.HTMLParser visible text; script/style/noscript excluded",
-            "normalization": "Unicode NFKC + collapse whitespace",
+            "normalization": ANALYSIS_NORMALIZATION,
+            "analysis_window_chars": ANALYSIS_WINDOW_CHARS,
             "raw_body_persisted": False,
         },
         "provenance": [
+            "site/analyze.py",
             "corpus/zenn_august_sitemap_pilot.jsonl",
             "corpus/zenn_august_pystylometry_metrics.jsonl",
             "reports/zenn_august_sitemap_pilot_summary.json",
@@ -205,6 +179,7 @@ def main() -> None:
         "limitations": [
             "12 samples per year",
             "same-season August pilot, not full-year distribution",
+            "all samples and pasted text use the first 1000 normalized characters",
             "sitemap lastmod was used only for candidate discovery and may create edit-history selection bias",
             "distance is not evidence of AI authorship",
         ],

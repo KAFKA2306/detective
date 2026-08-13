@@ -1,0 +1,42 @@
+name: Zenn stylometric-ai-detector measurement
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/measure_zenn_stylometric_ai_detector.py"
+      - "corpus/zenn_august_sitemap_pilot.jsonl"
+      - "detectors/stylometric-ai-detector/uv.lock"
+      - ".github/workflows/zenn-stylometric-ai-detector-measurement.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: detector-measurements
+  cancel-in-progress: false
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v9.0.0
+      - name: Sync pinned detector environment
+        run: uv sync --project detectors/stylometric-ai-detector --locked
+      - name: Measure fixed 60-article pilot
+        run: uv run --project detectors/stylometric-ai-detector --locked python scripts/measure_zenn_stylometric_ai_detector.py
+      - name: Commit measurement evidence
+        run: |
+          git add reports/zenn_stylometric_ai_detector_2026_measurement.json
+          if git diff --cached --quiet; then
+            echo "No measurement changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data: measure Zenn pilot with stylometric-ai-detector 0.2.4"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main

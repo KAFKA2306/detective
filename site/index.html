@@ -13,21 +13,21 @@
     <header class="hero">
       <p class="eyebrow">KAFKA2306 / detective</p>
       <h1>文章は、どの年代の分布に近い？</h1>
-      <p class="lede">watermarkを仮定せず、公開OSSと2022–2026の実測分布を比較するための簡易ビューです。</p>
+      <p class="lede">watermarkを仮定せず、公開OSSと2022–2026の実測pilot分布を比較します。現在は各年12件・8月同季節・固定1,000文字の検証版です。</p>
     </header>
 
     <section class="panel input-panel" aria-labelledby="checker-title">
       <div class="section-head">
         <div>
           <p class="kicker">QUICK CHECK</p>
-          <h2 id="checker-title">テキストを貼り付ける</h2>
+          <h2 id="checker-title">1,000文字以上を貼り付ける</h2>
         </div>
         <div class="status-stack">
           <span id="runtime-status" class="status">Python runtime 読込中</span>
           <span id="baseline-status" class="status">baseline確認中</span>
         </div>
       </div>
-      <textarea id="text" rows="12" placeholder="判定したい文章をここに貼り付けます。ブラウザ内のPythonで処理します。"></textarea>
+      <textarea id="text" rows="12" placeholder="判定したい文章を1,000文字以上貼り付けます。正規化後の先頭1,000文字をブラウザ内のPythonで処理します。"></textarea>
       <div class="actions">
         <button id="analyze" type="button">簡易判定</button>
         <button id="clear" type="button" class="secondary">クリア</button>
@@ -66,7 +66,7 @@
     <section class="panel warning">
       <p class="kicker">INTERPRETATION</p>
       <h2>これは「AI製」の証明ではありません</h2>
-      <p>年代差、媒体差、著者差、ジャンル差、編集、翻訳などでも分布は変わります。年次baselineが実測されていない場合、年代判定は返しません。公開detectorのスコアも、学習domain・language外では参考値として扱います。</p>
+      <p>現在の年代表示は小規模pilotへの記述的距離です。年代差、媒体差、著者差、ジャンル差、編集、翻訳などでも分布は変わります。公開detectorのスコアも、学習domain・language外では参考値として扱います。</p>
     </section>
 
     <footer>

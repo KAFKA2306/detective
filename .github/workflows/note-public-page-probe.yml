@@ -1,0 +1,39 @@
+name: note public page probe
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/note_public_page_probe.py"
+      - "reports/note_sitemap_status.json"
+      - ".github/workflows/note-public-page-probe.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: note-public-page-probe
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Probe public article metadata extraction
+        run: python scripts/note_public_page_probe.py
+      - name: Commit probe evidence
+        if: success()
+        run: |
+          git add reports/note_public_page_status.json
+          if git diff --cached --quiet; then
+            echo "No public-page status changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data: refresh note public-page probe"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main

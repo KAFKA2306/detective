@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "status": "measurement_only",
+  "validated_year_inference_signals": [],
+  "validated_year_inference_signal_count": 0,
+  "policy": {
+    "pilot_measurement_does_not_imply_year_inference": true,
+    "single_metric_year_labels_forbidden": true,
+    "out_of_sample_validation_required": true,
+    "failed_or_blocked_upstream_oss_is_not_patched_into_acceptance": true
+  },
+  "signals": [
+    {
+      "id": "pystylometry-character-ngram-entropy",
+      "package": "pystylometry",
+      "version": "1.4.3",
+      "kind": "distribution_measurement",
+      "status": "measured_not_validated",
+      "use_for_year_inference": false,
+      "evidence": {
+        "sample_count": 60,
+        "years": [
+          2022,
+          2023,
+          2024,
+          2025,
+          2026
+        ],
+        "metrics": [
+          "char_bigram_entropy",
+          "char_trigram_entropy"
+        ]
+      },
+      "reason": "The current pilot only measures per-year entropy distributions. It has no out-of-sample validation showing that the two entropy metrics identify publication year."
+    },
+    {
+      "id": "pystylometry-normalized-compression-distance",
+      "package": "pystylometry",
+      "version": "1.4.3",
+      "kind": "language_independent_similarity",
+      "status": "rejected_for_year_inference",
+      "use_for_year_inference": false,
+      "evidence": {
+        "evaluation": "leave-one-out 1-nearest-neighbor by upstream NCD",
+        "accuracy": 0.26666666666666666,
+        "chance_accuracy": 0.2,
+        "accuracy_lift": 0.06666666666666665,
+        "within_year_mean_ncd": 0.8831587015089262,
+        "between_year_mean_ncd": 0.8874531949765984,
+        "between_minus_within_mean_ncd": 0.004294493467672189
+      },
+      "reason": "Leave-one-out 1-NN on the fixed 60-article pilot is only slightly above the balanced five-class chance rate, and within-year versus between-year NCD means are nearly identical."
+    },
+    {
+      "id": "stylometric-ai-detector-0.2.4",
+      "package": "stylometric-ai-detector",
+      "version": "0.2.4",
+      "kind": "2026_ai_human_baseline",
+      "status": "rejected_for_japanese_authorship_and_year_inference",
+      "use_for_year_inference": false,
+      "use_for_ai_authorship": false,
+      "evidence": {
+        "2022_label_counts": {
+          "AI": 12
+        },
+        "2023_label_counts": {
+          "AI": 12
+        },
+        "2024_label_counts": {
+          "AI": 11,
+          "Human": 1
+        },
+        "2025_label_counts": {
+          "AI": 12
+        }
+      },
+      "reason": "The upstream English/pre-2024 benchmark labels essentially all historical Japanese Zenn pilot articles as AI, including all 12 samples from 2022 and 2023. Its own documentation warns against cross-language/domain generalization."
+    },
+    {
+      "id": "explain-ai-generated-text-0.1.1.1.7",
+      "package": "explain-ai-generated-text",
+      "version": "0.1.1.1.7",
+      "kind": "2026_explainable_linguistic_detector",
+      "status": "blocked",
+      "use_for_year_inference": false,
+      "use_for_ai_authorship": false,
+      "evidence": {
+        "compatibility_status": "blocked",
+        "import_error": "OSError: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory."
+      },
+      "reason": "The pinned upstream package does not import in its isolated uv environment because en_core_web_sm is absent. detective does not patch the upstream package to force Japanese execution."
+    }
+  ]
+}

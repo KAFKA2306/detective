@@ -1,7 +1,7 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "status": "pilot_ready",
-  "cohort": "august-sitemap-pilot",
+  "cohort": "august-sitemap-pilot-v2",
   "years": [
     2022,
     2023,
@@ -9,7 +9,7 @@
     2025,
     2026
   ],
-  "generated_at": "2026-08-13T02:19:18.587963+00:00",
+  "generated_at": "2026-08-13T02:27:22.683748+00:00",
   "sample_counts": {
     "2022": 12,
     "2023": 12,
@@ -26,85 +26,85 @@
     "char_bigram_entropy": {
       "2022": {
         "n": 12,
-        "mean": 8.668405737490302,
-        "std": 1.0286639685937007,
-        "median": 8.709160161462579,
-        "min": 6.37663389271948,
-        "max": 10.701453126248655
+        "mean": 8.437815913548741,
+        "std": 0.3382971334911449,
+        "median": 8.459668035199618,
+        "min": 7.907159329495733,
+        "max": 8.867149083884767
       },
       "2023": {
         "n": 12,
-        "mean": 8.743495340300093,
-        "std": 1.1434290682537196,
-        "median": 9.059009879332379,
-        "min": 6.668400754671667,
-        "max": 10.593080871941966
+        "mean": 8.605096423769002,
+        "std": 0.30591336418815773,
+        "median": 8.702178470078033,
+        "min": 7.905507988196435,
+        "max": 9.148655198222825
       },
       "2024": {
         "n": 12,
-        "mean": 8.985418753898589,
-        "std": 0.8274767358605081,
-        "median": 8.95717160548974,
-        "min": 7.151576882748849,
-        "max": 10.232015694511178
+        "mean": 8.504878818864476,
+        "std": 0.4459411646454058,
+        "median": 8.619660218762203,
+        "min": 7.288929382848488,
+        "max": 8.89571367678413
       },
       "2025": {
         "n": 12,
-        "mean": 9.082337052892843,
-        "std": 0.8900059176245956,
-        "median": 9.369220217340274,
-        "min": 6.784234010507315,
-        "max": 10.081571117450155
+        "mean": 8.721069795654763,
+        "std": 0.2879508733228287,
+        "median": 8.65855546827402,
+        "min": 8.312601523644267,
+        "max": 9.235961064974614
       },
       "2026": {
         "n": 12,
-        "mean": 9.430874268302354,
-        "std": 0.9257210754889008,
-        "median": 9.529439030343513,
-        "min": 7.7390594150803595,
-        "max": 10.768194521708612
+        "mean": 8.584655539137692,
+        "std": 0.5202114831896139,
+        "median": 8.60040633856608,
+        "min": 7.545490540078615,
+        "max": 9.29962307612729
       }
     },
     "char_trigram_entropy": {
       "2022": {
         "n": 12,
-        "mean": 9.421216255841337,
-        "std": 1.3032778243532113,
-        "median": 9.475450200706302,
-        "min": 6.448743900171438,
-        "max": 11.901693171985908
+        "mean": 9.025219567276121,
+        "std": 0.22908000304094844,
+        "median": 9.0041477958023,
+        "min": 8.530365868077311,
+        "max": 9.3267651661067
       },
       "2023": {
         "n": 12,
-        "mean": 9.55536414011888,
-        "std": 1.287544274491414,
-        "median": 10.012277219612052,
-        "min": 7.250250716833203,
-        "max": 11.54583760526646
+        "mean": 9.093672817638064,
+        "std": 0.2802823801103861,
+        "median": 9.17371692910416,
+        "min": 8.471399126538335,
+        "max": 9.562202881526837
       },
       "2024": {
         "n": 12,
-        "mean": 9.834095633252076,
-        "std": 0.8587524100953027,
-        "median": 9.789232194745999,
-        "min": 8.313783699396055,
-        "max": 11.249563379067615
+        "mean": 9.062387268584487,
+        "std": 0.2228527692698258,
+        "median": 9.075109208991975,
+        "min": 8.578186332266286,
+        "max": 9.337382519513163
       },
       "2025": {
         "n": 12,
-        "mean": 9.767690482159646,
-        "std": 1.038678133534381,
-        "median": 10.024075366539659,
-        "min": 7.061446925565128,
-        "max": 10.876265181979385
+        "mean": 9.196455503018177,
+        "std": 0.23877013724745258,
+        "median": 9.146387522233368,
+        "min": 8.81058388457887,
+        "max": 9.576407271103594
       },
       "2026": {
         "n": 12,
-        "mean": 10.377660304405618,
-        "std": 0.873448448493276,
-        "median": 10.219281876137455,
-        "min": 9.203687745540408,
-        "max": 12.09165692906907
+        "mean": 9.165047503146395,
+        "std": 0.3106907002122326,
+        "median": 9.181263326012377,
+        "min": 8.641373024077684,
+        "max": 9.657452029849415
       }
     }
   },
@@ -114,15 +114,18 @@
     "functions": [
       "compute_character_bigram_entropy",
       "compute_ngram_entropy(character,n=3)"
-    ]
+    ],
+    "canonical_analyzer": "site/analyze.py"
   },
   "preprocessing": {
     "source": "article.body_html fetched transiently",
     "extractor": "stdlib.HTMLParser visible text; script/style/noscript excluded",
     "normalization": "Unicode NFKC + collapse whitespace",
+    "analysis_window_chars": 1000,
     "raw_body_persisted": false
   },
   "provenance": [
+    "site/analyze.py",
     "corpus/zenn_august_sitemap_pilot.jsonl",
     "corpus/zenn_august_pystylometry_metrics.jsonl",
     "reports/zenn_august_sitemap_pilot_summary.json",
@@ -131,6 +134,7 @@
   "limitations": [
     "12 samples per year",
     "same-season August pilot, not full-year distribution",
+    "all samples and pasted text use the first 1000 normalized characters",
     "sitemap lastmod was used only for candidate discovery and may create edit-history selection bias",
     "distance is not evidence of AI authorship"
   ]

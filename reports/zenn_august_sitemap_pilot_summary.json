@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "status": "not_run",
-  "generated_at": null,
+  "status": "pilot_ready",
+  "generated_at": "2026-08-13T02:17:02.273984+00:00",
   "source": "official-sitemap+undocumented-detail-metadata",
   "selection": {
     "cohort": "august-sitemap-pilot",
@@ -14,5 +14,56 @@
     "lastmod_is_label": false,
     "purpose": "same-season historical discovery pilot; not the final yearly baseline"
   },
-  "years": {}
+  "years": {
+    "2022": {
+      "count": 12,
+      "published_at_min": "2022-07-25T16:13:22.733+09:00",
+      "published_at_max": "2022-08-01T13:37:06.464+09:00",
+      "unique_author_hashes": 12,
+      "liked_count_median": 5,
+      "body_letters_count_median": 2004,
+      "sitemap_candidate_count": 6091,
+      "detail_request_count": 15
+    },
+    "2023": {
+      "count": 12,
+      "published_at_min": "2023-07-28T15:57:39.450+09:00",
+      "published_at_max": "2023-08-03T10:00:00.360+09:00",
+      "unique_author_hashes": 11,
+      "liked_count_median": 3,
+      "body_letters_count_median": 2720,
+      "sitemap_candidate_count": 11320,
+      "detail_request_count": 19
+    },
+    "2024": {
+      "count": 12,
+      "published_at_min": "2024-08-01T09:02:18.631+09:00",
+      "published_at_max": "2024-08-07T11:30:00.613+09:00",
+      "unique_author_hashes": 12,
+      "liked_count_median": 3,
+      "body_letters_count_median": 4428,
+      "sitemap_candidate_count": 11860,
+      "detail_request_count": 16
+    },
+    "2025": {
+      "count": 12,
+      "published_at_min": "2025-07-28T16:43:28.159+09:00",
+      "published_at_max": "2025-08-07T16:53:30.322+09:00",
+      "unique_author_hashes": 11,
+      "liked_count_median": 3,
+      "body_letters_count_median": 3139,
+      "sitemap_candidate_count": 14587,
+      "detail_request_count": 18
+    },
+    "2026": {
+      "count": 12,
+      "published_at_min": "2026-08-01T11:35:56.753+09:00",
+      "published_at_max": "2026-08-06T11:45:47.070+09:00",
+      "unique_author_hashes": 8,
+      "liked_count_median": 1,
+      "body_letters_count_median": 3506,
+      "sitemap_candidate_count": 13059,
+      "detail_request_count": 17
+    }
+  }
 }

@@ -12,11 +12,17 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: zenn-pilot-write
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: main
       - uses: astral-sh/setup-uv@v9.0.0
       - name: Sync pinned pystylometry environment
         run: uv sync --project detectors/pystylometry --locked

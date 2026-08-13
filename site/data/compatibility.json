@@ -1,14 +1,12 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "status": "compatible",
   "pyodide_version": "0.27.7",
   "python_line": "3.12",
   "package": "pystylometry",
   "package_version": "1.4.3",
-  "metrics": [
-    "compute_character_bigram_entropy",
-    "compute_ngram_entropy(character, n=3)"
-  ],
-  "checked_at": "2026-08-13T02:02:43.894Z",
-  "error": null
+  "canonical_analyzer": "site/analyze.py",
+  "checked_at": "2026-08-13T02:24:23.215Z",
+  "error": null,
+  "analysis_window_chars": 1000
 }

@@ -1,21 +1,55 @@
 const $ = (id) => document.getElementById(id);
 let baselines = null;
 
+// Browser-side compatibility profile for stylometric-ai-detector 0.2.4.
+// Canonical Python source:
+// https://github.com/dinis-a/stylometric-ai-detector/blob/main/stylometric_ai_detector/features.py
+const ASCII_PUNCTUATION = new Set(Array.from(`!"#$%&'()*+,-./:;<=>?@[\\]^_\`{|}~`));
+
+function isCased(ch) {
+  return ch.toUpperCase() !== ch.toLowerCase();
+}
+
+function isUpperAlpha(word) {
+  if (!/^\p{L}+$/u.test(word)) return false;
+  const cased = Array.from(word).filter(isCased);
+  return cased.length > 0 && cased.every((ch) => ch === ch.toUpperCase());
+}
+
+function isTitleCase(word) {
+  let hasCased = false;
+  let needUpper = true;
+  for (const ch of Array.from(word)) {
+    if (!isCased(ch)) {
+      needUpper = true;
+      continue;
+    }
+    hasCased = true;
+    const isUpper = ch === ch.toUpperCase();
+    if (needUpper ? !isUpper : isUpper) return false;
+    needUpper = false;
+  }
+  return hasCased;
+}
+
 function surfaceProfile(text) {
   const chars = Array.from(text);
   const words = text.trim() ? text.trim().split(/\s+/u) : [];
-  const punctuation = chars.filter((c) => /[\p{P}\p{S}]/u.test(c)).length;
-  const sentences = text.split(/[。！？.!?]+/u).map((s) => s.trim()).filter(Boolean);
-  const avgWord = words.length ? words.reduce((n, w) => n + Array.from(w).length, 0) / words.length : 0;
+  const punctuation = chars.filter((c) => ASCII_PUNCTUATION.has(c)).length;
+  const sentences = text.split(/[.!?]+/u).map((s) => s.trim()).filter(Boolean);
+  const sentenceCount = Math.max(sentences.length, 1);
+  const avgWord = words.length
+    ? words.reduce((n, w) => n + Array.from(w).length, 0) / words.length
+    : 0;
   return {
     char_count: chars.length,
     word_count: words.length,
     avg_word_len: avgWord,
     punct_count: punctuation,
-    sentence_count: sentences.length,
-    avg_sentence_len: sentences.length ? words.length / sentences.length : 0,
-    upper_case_count: words.filter((w) => /[A-Z]/.test(w) && w === w.toUpperCase()).length,
-    title_case_count: words.filter((w) => /^[A-Z][a-z]+$/.test(w)).length,
+    sentence_count: sentenceCount,
+    avg_sentence_len: words.length / sentenceCount,
+    upper_case_count: words.filter(isUpperAlpha).length,
+    title_case_count: words.filter(isTitleCase).length,
   };
 }
 
@@ -61,7 +95,9 @@ async function loadData() {
     status.className = "status blocked";
   }
 
-  $("checked-at").textContent = catalog.checked_at ? `PyPI checked ${catalog.checked_at.slice(0,10)}` : "PyPI refresh pending";
+  $("checked-at").textContent = catalog.checked_at
+    ? `PyPI checked ${catalog.checked_at.slice(0, 10)}`
+    : "PyPI refresh pending";
   $("detectors").innerHTML = catalog.detectors.map((d) => `
     <article class="detector">
       <div class="detector-head"><h3>${d.id}</h3><code>${d.pinned_version}</code></div>
@@ -81,18 +117,18 @@ $("analyze").addEventListener("click", () => {
     $("verdict-note").textContent = `標準化距離 ${nearest.distance.toFixed(2)}。これは著者属性やAI生成を証明する値ではありません。`;
   } else {
     $("verdict").textContent = "年代判定はまだ実行しません";
-    $("verdict-note").textContent = "2022–2026の実測baselineが0件のためfail-closedです。下には公開baseline OSSと同じ表層特徴のプロファイルだけを表示します。";
+    $("verdict-note").textContent = "2022–2026の実測baselineが0件のためfail-closedです。下には stylometric-ai-detector 0.2.4 の公開特徴定義に合わせた互換プロファイルだけを表示します。";
   }
   $("metrics").innerHTML = [
     ["文字数", profile.char_count],
     ["空白区切り語数", profile.word_count],
     ["平均語長", profile.avg_word_len],
-    ["句読点・記号", profile.punct_count],
-    ["文数", profile.sentence_count],
+    ["ASCII punctuation", profile.punct_count],
+    ["文数 [.?!]", profile.sentence_count],
     ["平均文長（語）", profile.avg_sentence_len],
     ["全大文字語", profile.upper_case_count],
     ["Title Case語", profile.title_case_count],
-  ].map(([k,v]) => metricCard(k,v)).join("");
+  ].map(([k, v]) => metricCard(k, v)).join("");
 });
 
 $("clear").addEventListener("click", () => {

@@ -1,0 +1,489 @@
+{
+  "schema_version": 1,
+  "status": "measured_not_validated",
+  "generated_at": "2026-08-13T02:53:23.756965+00:00",
+  "package": "stylometric-ai-detector",
+  "version": "0.2.4",
+  "upstream_role": "2026 lightweight stylometric AI/Human benchmark",
+  "input": {
+    "cohort": "august-sitemap-pilot-v2",
+    "years": [
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "samples_per_year": 12,
+    "analysis_window_chars": 1000,
+    "normalization": "Unicode NFKC + collapse whitespace; same contract as site/analyze.py",
+    "raw_body_persisted": false
+  },
+  "feature_names": [
+    "avg_sentence_len",
+    "avg_word_len",
+    "char_count",
+    "punct_count",
+    "sentence_count",
+    "title_case_count",
+    "upper_case_count",
+    "word_count"
+  ],
+  "years": {
+    "2022": {
+      "sample_count": 12,
+      "features": {
+        "avg_sentence_len": {
+          "n": 12,
+          "mean": 21.720995038100302,
+          "median": 12.570707070707071,
+          "std": 35.43212057487341,
+          "min": 4.2105263157894735,
+          "max": 132.0,
+          "iqr": 12.3
+        },
+        "avg_word_len": {
+          "n": 12,
+          "mean": 15.016485968775402,
+          "median": 11.144485294117647,
+          "std": 13.250981758922274,
+          "min": 5.809523809523809,
+          "max": 54.611111111111114,
+          "iqr": 7.455555555555556
+        },
+        "char_count": {
+          "n": 12,
+          "mean": 1000.0,
+          "median": 1000.0,
+          "std": 0.0,
+          "min": 1000.0,
+          "max": 1000.0,
+          "iqr": 0.0
+        },
+        "punct_count": {
+          "n": 12,
+          "mean": 72.0,
+          "median": 68.5,
+          "std": 50.94025020461807,
+          "min": 6.0,
+          "max": 184.0,
+          "iqr": 77.0
+        },
+        "sentence_count": {
+          "n": 12,
+          "mean": 8.5,
+          "median": 8.5,
+          "std": 6.142253066039588,
+          "min": 1.0,
+          "max": 20.0,
+          "iqr": 7.0
+        },
+        "title_case_count": {
+          "n": 12,
+          "mean": 12.0,
+          "median": 11.0,
+          "std": 8.011355577043012,
+          "min": 0.0,
+          "max": 23.0,
+          "iqr": 16.0
+        },
+        "upper_case_count": {
+          "n": 12,
+          "mean": 3.1666666666666665,
+          "median": 0.0,
+          "std": 4.323999271157397,
+          "min": 0.0,
+          "max": 11.0,
+          "iqr": 5.0
+        },
+        "word_count": {
+          "n": 12,
+          "mean": 85.25,
+          "median": 82.5,
+          "std": 37.95481763647643,
+          "min": 18.0,
+          "max": 147.0,
+          "iqr": 51.0
+        }
+      },
+      "upstream_ai_probability": {
+        "n": 12,
+        "mean": 0.7808333333333334,
+        "median": 0.78,
+        "std": 0.11665476129731411,
+        "min": 0.59,
+        "max": 0.98,
+        "iqr": 0.15000000000000002
+      },
+      "upstream_label_counts": {
+        "AI": 12
+      }
+    },
+    "2023": {
+      "sample_count": 12,
+      "features": {
+        "avg_sentence_len": {
+          "n": 12,
+          "mean": 15.877083333333333,
+          "median": 16.28333333333333,
+          "std": 8.76572837832232,
+          "min": 2.6666666666666665,
+          "max": 32.0,
+          "iqr": 12.625
+        },
+        "avg_word_len": {
+          "n": 12,
+          "mean": 17.73386462789775,
+          "median": 16.729310344827585,
+          "std": 7.722417644775767,
+          "min": 9.536842105263158,
+          "max": 30.28125,
+          "iqr": 13.167443135105508
+        },
+        "char_count": {
+          "n": 12,
+          "mean": 1000.0,
+          "median": 1000.0,
+          "std": 0.0,
+          "min": 1000.0,
+          "max": 1000.0,
+          "iqr": 0.0
+        },
+        "punct_count": {
+          "n": 12,
+          "mean": 46.75,
+          "median": 35.5,
+          "std": 30.53500227012213,
+          "min": 14.0,
+          "max": 106.0,
+          "iqr": 43.0
+        },
+        "sentence_count": {
+          "n": 12,
+          "mean": 5.416666666666667,
+          "median": 5.5,
+          "std": 3.3427896171076075,
+          "min": 1.0,
+          "max": 12.0,
+          "iqr": 4.0
+        },
+        "title_case_count": {
+          "n": 12,
+          "mean": 10.666666666666666,
+          "median": 4.5,
+          "std": 12.441377688498923,
+          "min": 0.0,
+          "max": 36.0,
+          "iqr": 15.0
+        },
+        "upper_case_count": {
+          "n": 12,
+          "mean": 2.1666666666666665,
+          "median": 1.5,
+          "std": 2.6227443411030134,
+          "min": 0.0,
+          "max": 8.0,
+          "iqr": 3.0
+        },
+        "word_count": {
+          "n": 12,
+          "mean": 62.083333333333336,
+          "median": 56.5,
+          "std": 23.899251921854006,
+          "min": 32.0,
+          "max": 95.0,
+          "iqr": 48.0
+        }
+      },
+      "upstream_ai_probability": {
+        "n": 12,
+        "mean": 0.845,
+        "median": 0.845,
+        "std": 0.0987651024124688,
+        "min": 0.68,
+        "max": 0.96,
+        "iqr": 0.19999999999999996
+      },
+      "upstream_label_counts": {
+        "AI": 12
+      }
+    },
+    "2024": {
+      "sample_count": 12,
+      "features": {
+        "avg_sentence_len": {
+          "n": 12,
+          "mean": 12.195745054929066,
+          "median": 7.8352941176470585,
+          "std": 12.979058782120328,
+          "min": 1.6956521739130435,
+          "max": 43.5,
+          "iqr": 9.939655172413794
+        },
+        "avg_word_len": {
+          "n": 12,
+          "mean": 17.276295811387648,
+          "median": 17.443035835023665,
+          "std": 9.914827386572625,
+          "min": 3.37117903930131,
+          "max": 40.708333333333336,
+          "iqr": 11.083586626139818
+        },
+        "char_count": {
+          "n": 12,
+          "mean": 1000.0,
+          "median": 1000.0,
+          "std": 0.0,
+          "min": 1000.0,
+          "max": 1000.0,
+          "iqr": 0.0
+        },
+        "punct_count": {
+          "n": 12,
+          "mean": 49.333333333333336,
+          "median": 37.5,
+          "std": 29.56451599571023,
+          "min": 16.0,
+          "max": 98.0,
+          "iqr": 41.0
+        },
+        "sentence_count": {
+          "n": 12,
+          "mean": 10.916666666666666,
+          "median": 8.0,
+          "std": 8.306167843381461,
+          "min": 2.0,
+          "max": 29.0,
+          "iqr": 9.0
+        },
+        "title_case_count": {
+          "n": 12,
+          "mean": 13.666666666666666,
+          "median": 9.0,
+          "std": 12.145581563480256,
+          "min": 4.0,
+          "max": 44.0,
+          "iqr": 8.0
+        },
+        "upper_case_count": {
+          "n": 12,
+          "mean": 2.5833333333333335,
+          "median": 2.0,
+          "std": 3.629633924274241,
+          "min": 0.0,
+          "max": 12.0,
+          "iqr": 2.0
+        },
+        "word_count": {
+          "n": 12,
+          "mean": 76.41666666666667,
+          "median": 54.5,
+          "std": 56.01210637537264,
+          "min": 24.0,
+          "max": 229.0,
+          "iqr": 46.0
+        }
+      },
+      "upstream_ai_probability": {
+        "n": 12,
+        "mean": 0.8025,
+        "median": 0.79,
+        "std": 0.10314376551026419,
+        "min": 0.66,
+        "max": 1.0,
+        "iqr": 0.12
+      },
+      "upstream_label_counts": {
+        "AI": 11,
+        "Human": 1
+      }
+    },
+    "2025": {
+      "sample_count": 12,
+      "features": {
+        "avg_sentence_len": {
+          "n": 12,
+          "mean": 17.48387896825397,
+          "median": 12.666666666666668,
+          "std": 13.499935130292462,
+          "min": 2.375,
+          "max": 38.0,
+          "iqr": 22.5
+        },
+        "avg_word_len": {
+          "n": 12,
+          "mean": 16.093200840415744,
+          "median": 13.720588235294118,
+          "std": 7.945581764792662,
+          "min": 5.5855263157894735,
+          "max": 29.333333333333332,
+          "iqr": 14.48815789473684
+        },
+        "char_count": {
+          "n": 12,
+          "mean": 1000.0,
+          "median": 1000.0,
+          "std": 0.0,
+          "min": 1000.0,
+          "max": 1000.0,
+          "iqr": 0.0
+        },
+        "punct_count": {
+          "n": 12,
+          "mean": 48.0,
+          "median": 39.5,
+          "std": 33.65331268308448,
+          "min": 9.0,
+          "max": 105.0,
+          "iqr": 58.0
+        },
+        "sentence_count": {
+          "n": 12,
+          "mean": 7.833333333333333,
+          "median": 6.0,
+          "std": 6.9128777501037,
+          "min": 1.0,
+          "max": 24.0,
+          "iqr": 6.0
+        },
+        "title_case_count": {
+          "n": 12,
+          "mean": 10.583333333333334,
+          "median": 11.0,
+          "std": 6.801849124697748,
+          "min": 1.0,
+          "max": 24.0,
+          "iqr": 9.0
+        },
+        "upper_case_count": {
+          "n": 12,
+          "mean": 3.0,
+          "median": 1.5,
+          "std": 4.112066501054051,
+          "min": 0.0,
+          "max": 13.0,
+          "iqr": 4.0
+        },
+        "word_count": {
+          "n": 12,
+          "mean": 72.33333333333333,
+          "median": 68.0,
+          "std": 35.558743543947706,
+          "min": 33.0,
+          "max": 152.0,
+          "iqr": 45.0
+        }
+      },
+      "upstream_ai_probability": {
+        "n": 12,
+        "mean": 0.805,
+        "median": 0.7949999999999999,
+        "std": 0.10220300653823519,
+        "min": 0.66,
+        "max": 0.92,
+        "iqr": 0.21999999999999997
+      },
+      "upstream_label_counts": {
+        "AI": 12
+      }
+    },
+    "2026": {
+      "sample_count": 12,
+      "features": {
+        "avg_sentence_len": {
+          "n": 12,
+          "mean": 10.30678811928812,
+          "median": 8.482142857142858,
+          "std": 5.790000090682005,
+          "min": 5.055555555555555,
+          "max": 26.0,
+          "iqr": 3.916666666666666
+        },
+        "avg_word_len": {
+          "n": 12,
+          "mean": 16.267875107945475,
+          "median": 12.95625,
+          "std": 10.21787173196195,
+          "min": 5.951388888888889,
+          "max": 37.5,
+          "iqr": 18.334105263157895
+        },
+        "char_count": {
+          "n": 12,
+          "mean": 1000.0,
+          "median": 1000.0,
+          "std": 0.0,
+          "min": 1000.0,
+          "max": 1000.0,
+          "iqr": 0.0
+        },
+        "punct_count": {
+          "n": 12,
+          "mean": 88.08333333333333,
+          "median": 85.5,
+          "std": 56.46472484228672,
+          "min": 19.0,
+          "max": 162.0,
+          "iqr": 107.0
+        },
+        "sentence_count": {
+          "n": 12,
+          "mean": 9.0,
+          "median": 9.0,
+          "std": 5.325752187591567,
+          "min": 2.0,
+          "max": 18.0,
+          "iqr": 8.0
+        },
+        "title_case_count": {
+          "n": 12,
+          "mean": 6.583333333333333,
+          "median": 4.5,
+          "std": 6.1119604552108,
+          "min": 0.0,
+          "max": 17.0,
+          "iqr": 9.0
+        },
+        "upper_case_count": {
+          "n": 12,
+          "mean": 2.6666666666666665,
+          "median": 1.0,
+          "std": 3.312053286059415,
+          "min": 0.0,
+          "max": 11.0,
+          "iqr": 4.0
+        },
+        "word_count": {
+          "n": 12,
+          "mean": 79.25,
+          "median": 72.5,
+          "std": 43.02457014734298,
+          "min": 26.0,
+          "max": 144.0,
+          "iqr": 77.0
+        }
+      },
+      "upstream_ai_probability": {
+        "n": 12,
+        "mean": 0.77,
+        "median": 0.74,
+        "std": 0.09273618495495702,
+        "min": 0.68,
+        "max": 0.97,
+        "iqr": 0.020000000000000018
+      },
+      "upstream_label_counts": {
+        "AI": 12
+      }
+    }
+  },
+  "interpretation_gate": {
+    "use_for_ai_authorship": false,
+    "use_for_year_inference": false,
+    "reason": "Upstream explicitly documents English-only, single-dataset, pre-2024 training and warns against cross-language/domain/model-generation generalization. Japanese outputs are retained only as observed benchmark behavior."
+  },
+  "provenance": {
+    "pypi": "https://pypi.org/project/stylometric-ai-detector/0.2.4/",
+    "source": "https://github.com/dinis-a/stylometric-ai-detector"
+  }
+}

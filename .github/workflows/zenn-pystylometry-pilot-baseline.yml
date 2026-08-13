@@ -1,0 +1,38 @@
+name: Zenn pystylometry pilot baseline
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/build_zenn_pystylometry_pilot_baseline.py"
+      - "corpus/zenn_august_sitemap_pilot.jsonl"
+      - ".github/workflows/zenn-pystylometry-pilot-baseline.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v9.0.0
+      - name: Sync pinned pystylometry environment
+        run: uv sync --project detectors/pystylometry --locked
+      - name: Build derived metrics and pilot baseline
+        run: uv run --project detectors/pystylometry --locked python "$GITHUB_WORKSPACE/scripts/build_zenn_pystylometry_pilot_baseline.py"
+      - name: Commit derived-only baseline
+        if: success()
+        run: |
+          git add corpus/zenn_august_pystylometry_metrics.jsonl site/data/baselines.json
+          if git diff --cached --quiet; then
+            echo "No baseline changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data: build pystylometry August pilot baseline"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main

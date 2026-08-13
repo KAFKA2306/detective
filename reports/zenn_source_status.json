@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "status": "not_tested",
+  "checked_at": null,
+  "source": "zenn-undocumented-articles-json",
+  "source_documented_by_zenn": false,
+  "endpoint": "https://zenn.dev/api/articles?order=latest&count=5&page=1",
+  "robots_url": "https://zenn.dev/robots.txt",
+  "robots_allows_endpoint": null,
+  "article_count": 0,
+  "article_fields": [],
+  "required_fields_present": false,
+  "published_at_min": null,
+  "published_at_max": null,
+  "liked_count_available": false,
+  "next_page_present": false,
+  "error": null
+}

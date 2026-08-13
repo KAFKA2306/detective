@@ -58,6 +58,17 @@ function baselineUsable() {
   return baselines && ["pilot_ready", "ready"].includes(baselines.status) && baselines.metrics;
 }
 
+function baselineLabel() {
+  if (!baselines) return "baseline unknown";
+  const years = Array.isArray(baselines.years) ? `${baselines.years[0]}–${baselines.years.at(-1)}` : "year unknown";
+  const counts = Object.values(baselines.sample_counts || {});
+  const n = counts.length && counts.every((value) => value === counts[0]) ? counts[0] : "?";
+  const detector = baselines.detector
+    ? `${baselines.detector.package} ${baselines.detector.version}`
+    : "detector unknown";
+  return `Zenn tech ${years} / ${n}件・年 / ${baselines.cohort || "cohort unknown"} / ${detector}`;
+}
+
 function nearestYear(metrics) {
   if (!baselineUsable()) return null;
   const configured = Array.isArray(baselines.distance_metrics)
@@ -146,12 +157,13 @@ $("analyze").addEventListener("click", async () => {
 
   const metrics = response.result;
   const nearest = nearestYear(metrics);
+  const source = baselineLabel();
   if (nearest && baselines.status === "pilot_ready") {
     $("verdict").textContent = `pilotで最も近い年次分布: ${nearest.year}`;
-    $("verdict-note").textContent = `各年12件・8月同季節・先頭1,000文字のcharacter n-gram entropyによる記述的距離 ${nearest.distance.toFixed(2)}。AI生成の証明ではありません。`;
+    $("verdict-note").textContent = `${source}。8月同季節・正規化後先頭1,000文字のcharacter n-gram entropyによる記述的距離 ${nearest.distance.toFixed(2)}。AI生成の証明ではありません。`;
   } else if (nearest) {
     $("verdict").textContent = `最も近い年次分布: ${nearest.year}`;
-    $("verdict-note").textContent = `実測baselineに対する標準化距離 ${nearest.distance.toFixed(2)}。AI生成の証明ではありません。`;
+    $("verdict-note").textContent = `${source}。実測baselineに対する標準化距離 ${nearest.distance.toFixed(2)}。AI生成の証明ではありません。`;
   } else {
     $("verdict").textContent = "年代判定はまだ実行しません";
     $("verdict-note").textContent = "実測baselineが利用できないためfail-closedです。pystylometryのPython正準関数が返した統計値だけを表示します。";

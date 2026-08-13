@@ -1,0 +1,42 @@
+name: Zenn pystylometry NCD year separation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/measure_zenn_pystylometry_ncd.py"
+      - "corpus/zenn_august_sitemap_pilot.jsonl"
+      - "detectors/pystylometry/uv.lock"
+      - ".github/workflows/zenn-pystylometry-ncd.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: detector-measurements
+  cancel-in-progress: false
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v9.0.0
+      - name: Sync pinned pystylometry environment
+        run: uv sync --project detectors/pystylometry --locked
+      - name: Evaluate NCD year separation
+        run: uv run --project detectors/pystylometry --locked python scripts/measure_zenn_pystylometry_ncd.py
+      - name: Commit NCD evidence
+        run: |
+          git add reports/zenn_pystylometry_ncd_year_separation.json
+          if git diff --cached --quiet; then
+            echo "No NCD evidence changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data: evaluate Zenn year separation with pystylometry NCD"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main

@@ -46,6 +46,23 @@ robots.txt は一般User-agentに `/search` をDisallowしており、サイト�
 - 同一URLを不必要に再取得しない
 - raw HTML / Markdownをrepositoryへcommitしない
 
+## note
+
+noteはZennと取得経路を共有しません。2026-08-13確認時点の `https://note.com/robots.txt` では、一般User-agentに `/api/*` と `/search` がDisallowされ、`https://note.com/sitemaps/production/note.com/sitemap.xml.gz` がSitemapとして案内されています。
+
+そのためdetectiveのnote collectorは次を固定ルールとします。
+
+- `/api/*` を収集に使わない
+- `/search` を収集に使わない
+- robots.txtが案内する公式sitemapだけを候補発見に使う
+- 公開記事ページだけを低頻度で読む
+- 本文は一時解析のみで、Git historyへ保存しない
+- `top` はnote公式が同一基準のランキングとして公開した集合だけに使う
+- それ以外の反応値上位集合は `high-engagement` と呼び、全noteのglobal TOPとは主張しない
+- 2026年が未完年の間は、2022通年と2026通年を直接比較せず、同じ期間窓だけを比較する
+
+noteのcohortはZenn baselineへ混ぜず、Pagesでも別系列として表示します。
+
 ## 年次比較のselection policy
 
 年代差と人気度・著者・topic差を混同しないため、最低でも2 cohortを分離します。
@@ -57,6 +74,10 @@ robots.txt は一般User-agentに `/search` をDisallowしており、サイト�
 ### `high-engagement`
 
 公開されているengagement情報を取得できる場合のみ構築する補助cohort。engagement取得方法が公式に安定提供されていない場合は、主解析へ混ぜません。
+
+### `official-ranked`
+
+媒体運営者が順位・選出基準・集計期間を明示した集合。媒体間・年代間で基準が一致しない場合は同じランキング系列として比較しません。
 
 ## 年代推定の公開条件
 

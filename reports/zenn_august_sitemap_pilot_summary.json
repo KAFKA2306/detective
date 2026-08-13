@@ -1,59 +1,60 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "status": "pilot_ready",
-  "generated_at": "2026-08-13T02:17:02.273984+00:00",
+  "generated_at": "2026-08-13T02:25:39.509645+00:00",
   "source": "official-sitemap+undocumented-detail-metadata",
   "selection": {
-    "cohort": "august-sitemap-pilot",
+    "cohort": "august-sitemap-pilot-v2",
     "target_month_day": "08-01",
     "target_hour_jst": 12,
     "samples_per_year": 12,
     "article_type": "tech",
+    "min_body_letters_count": 1500,
     "published_window_days": 7,
     "lastmod_candidate_window_days": 45,
     "lastmod_is_label": false,
-    "purpose": "same-season historical discovery pilot; not the final yearly baseline"
+    "purpose": "same-season fixed-length-eligible historical pilot; not the final yearly baseline"
   },
   "years": {
     "2022": {
       "count": 12,
-      "published_at_min": "2022-07-25T16:13:22.733+09:00",
-      "published_at_max": "2022-08-01T13:37:06.464+09:00",
+      "published_at_min": "2022-07-30T20:19:16.809+09:00",
+      "published_at_max": "2022-08-01T14:03:55.630+09:00",
       "unique_author_hashes": 12,
       "liked_count_median": 5,
-      "body_letters_count_median": 2004,
+      "body_letters_count_median": 3804,
       "sitemap_candidate_count": 6091,
-      "detail_request_count": 15
+      "detail_request_count": 21
     },
     "2023": {
       "count": 12,
       "published_at_min": "2023-07-28T15:57:39.450+09:00",
       "published_at_max": "2023-08-03T10:00:00.360+09:00",
-      "unique_author_hashes": 11,
-      "liked_count_median": 3,
-      "body_letters_count_median": 2720,
-      "sitemap_candidate_count": 11320,
-      "detail_request_count": 19
+      "unique_author_hashes": 12,
+      "liked_count_median": 9,
+      "body_letters_count_median": 4908,
+      "sitemap_candidate_count": 11322,
+      "detail_request_count": 27
     },
     "2024": {
       "count": 12,
       "published_at_min": "2024-08-01T09:02:18.631+09:00",
-      "published_at_max": "2024-08-07T11:30:00.613+09:00",
-      "unique_author_hashes": 12,
-      "liked_count_median": 3,
-      "body_letters_count_median": 4428,
+      "published_at_max": "2024-08-05T10:29:37.027+09:00",
+      "unique_author_hashes": 11,
+      "liked_count_median": 4,
+      "body_letters_count_median": 5597,
       "sitemap_candidate_count": 11860,
-      "detail_request_count": 16
+      "detail_request_count": 19
     },
     "2025": {
       "count": 12,
       "published_at_min": "2025-07-28T16:43:28.159+09:00",
       "published_at_max": "2025-08-07T16:53:30.322+09:00",
-      "unique_author_hashes": 11,
+      "unique_author_hashes": 10,
       "liked_count_median": 3,
-      "body_letters_count_median": 3139,
-      "sitemap_candidate_count": 14587,
-      "detail_request_count": 18
+      "body_letters_count_median": 3547,
+      "sitemap_candidate_count": 14585,
+      "detail_request_count": 21
     },
     "2026": {
       "count": 12,
@@ -62,7 +63,7 @@
       "unique_author_hashes": 8,
       "liked_count_median": 1,
       "body_letters_count_median": 3506,
-      "sitemap_candidate_count": 13059,
+      "sitemap_candidate_count": 13028,
       "detail_request_count": 17
     }
   }

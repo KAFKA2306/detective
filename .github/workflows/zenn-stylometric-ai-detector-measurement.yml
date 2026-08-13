@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - "scripts/measure_zenn_stylometric_ai_detector.py"
+      - "scripts/summarize_2026_oss_distribution_shift.py"
       - "corpus/zenn_august_sitemap_pilot.jsonl"
       - "detectors/stylometric-ai-detector/uv.lock"
       - ".github/workflows/zenn-stylometric-ai-detector-measurement.yml"
@@ -27,9 +28,11 @@ jobs:
         run: uv sync --project detectors/stylometric-ai-detector --locked
       - name: Measure fixed 60-article pilot
         run: uv run --project detectors/stylometric-ai-detector --locked python scripts/measure_zenn_stylometric_ai_detector.py
+      - name: Summarize 2022 to 2026 upstream feature shifts
+        run: uv run --project detectors/stylometric-ai-detector --locked python scripts/summarize_2026_oss_distribution_shift.py
       - name: Commit measurement evidence
         run: |
-          git add reports/zenn_stylometric_ai_detector_2026_measurement.json
+          git add reports/zenn_stylometric_ai_detector_2026_measurement.json reports/zenn_2026_oss_distribution_shift.json
           if git diff --cached --quiet; then
             echo "No measurement changes"
             exit 0

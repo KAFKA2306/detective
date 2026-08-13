@@ -1,0 +1,40 @@
+name: note sitemap probe
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 2 * * 1"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/note_sitemap_probe.py"
+      - ".github/workflows/note-sitemap-probe.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: note-source-probe
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Probe robots and official sitemap
+        run: python scripts/note_sitemap_probe.py
+      - name: Commit source evidence
+        if: success()
+        run: |
+          git add reports/note_sitemap_status.json
+          if git diff --cached --quiet; then
+            echo "No source-status changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data: refresh note sitemap source status"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main

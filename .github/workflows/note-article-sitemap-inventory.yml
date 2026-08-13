@@ -1,0 +1,41 @@
+name: note article sitemap inventory
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "29 2 * * 1"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/note_article_sitemap_inventory.py"
+      - "reports/note_sitemap_status.json"
+      - ".github/workflows/note-article-sitemap-inventory.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: note-source-inventory
+  cancel-in-progress: false
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Inventory note article sitemaps
+        run: python scripts/note_article_sitemap_inventory.py
+      - name: Commit inventory evidence
+        if: success()
+        run: |
+          git add reports/note_article_sitemap_inventory.json
+          if git diff --cached --quiet; then
+            echo "No inventory changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data: refresh note article sitemap inventory"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main

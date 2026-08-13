@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "status": "compatible",
+  "checked_at": "2026-08-13T02:46:13.738797+00:00",
+  "source": "note public /n/ pages selected from official sitemap",
+  "collection_paths": [
+    "/sitemaps/*",
+    "/*/n/*"
+  ],
+  "forbidden_paths_used": false,
+  "sitemap_url_count": 263545,
+  "sample_method": "60 URLs with lexicographically smallest SHA-256(URL); deterministic discovery probe only",
+  "sample_count": 60,
+  "sample_set_sha256": "dccb8e6e2eb8f870c4e606457ead13d2ffb99008eda2e90aa01374521fcd176a",
+  "published_at_extracted": 58,
+  "published_at_rate": 0.9666666666666667,
+  "like_count_extracted": 0,
+  "like_count_rate": 0.0,
+  "published_year_counts": {
+    "2026": 58
+  },
+  "like_count_observations_by_year": {},
+  "errors": {
+    "HTTPError": 2
+  },
+  "raw_html_persisted": false,
+  "caveat": "This probe tests public-page metadata extraction only; it does not define or claim global top articles."
+}

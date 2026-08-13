@@ -1,11 +1,58 @@
 {
   "schema_version": 1,
-  "status": "not_tested",
-  "checked_at": null,
+  "status": "compatible",
+  "checked_at": "2026-08-13T02:13:11.485121+00:00",
   "sitemap_index": "https://zenn.dev/sitemaps/_index.xml",
-  "child_count": 0,
-  "categories": {},
-  "sample_children": [],
+  "child_count": 25,
+  "categories": {
+    "article": 13,
+    "book": 1,
+    "other": 3,
+    "publication": 1,
+    "user": 7
+  },
+  "sample_children": [
+    {
+      "loc": "https://zenn.dev/sitemaps/static.xml",
+      "lastmod": null
+    },
+    {
+      "loc": "https://zenn.dev/sitemaps/article1.xml.gz",
+      "lastmod": null
+    },
+    {
+      "loc": "https://zenn.dev/sitemaps/article2.xml.gz",
+      "lastmod": null
+    },
+    {
+      "loc": "https://zenn.dev/sitemaps/article3.xml.gz",
+      "lastmod": null
+    },
+    {
+      "loc": "https://zenn.dev/sitemaps/article4.xml.gz",
+      "lastmod": null
+    },
+    {
+      "loc": "https://zenn.dev/sitemaps/user4.xml.gz",
+      "lastmod": null
+    },
+    {
+      "loc": "https://zenn.dev/sitemaps/user5.xml.gz",
+      "lastmod": null
+    },
+    {
+      "loc": "https://zenn.dev/sitemaps/user6.xml.gz",
+      "lastmod": null
+    },
+    {
+      "loc": "https://zenn.dev/sitemaps/user7.xml.gz",
+      "lastmod": null
+    },
+    {
+      "loc": "https://zenn.dev/sitemaps/publication1.xml.gz",
+      "lastmod": null
+    }
+  ],
   "lastmod_min": null,
   "lastmod_max": null,
   "error": null

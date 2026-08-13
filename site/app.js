@@ -1,5 +1,6 @@
 const $ = (id) => document.getElementById(id);
 let baselines = null;
+let validation = null;
 let workerReady = false;
 let requestId = 0;
 const pending = new Map();
@@ -19,7 +20,7 @@ worker.addEventListener("message", (event) => {
     $("runtime-status").textContent = "Python runtime unavailable";
     $("runtime-status").className = "status blocked";
     $("analyze").disabled = true;
-    $("verdict").textContent = "判定できません";
+    $("verdict").textContent = "測定できません";
     $("verdict-note").textContent = msg.error;
     $("result").hidden = false;
     return;
@@ -65,15 +66,36 @@ function baselineLabel() {
   return `Zenn tech ${years} / ${n}件・年 / ${baselines.cohort || "cohort unknown"} / ${detector}`;
 }
 
+function signalEvidence(signal) {
+  const e = signal.evidence || {};
+  if (signal.id === "pystylometry-normalized-compression-distance") {
+    return `LOO accuracy ${(Number(e.accuracy) * 100).toFixed(1)}% / chance ${(Number(e.chance_accuracy) * 100).toFixed(1)}% / NCD gap ${Number(e.between_minus_within_mean_ncd).toFixed(4)}`;
+  }
+  if (signal.id === "stylometric-ai-detector-0.2.4") {
+    const y22 = e["2022_label_counts"] || {};
+    const y23 = e["2023_label_counts"] || {};
+    return `2022 AI=${y22.AI || 0}/12 · 2023 AI=${y23.AI || 0}/12`;
+  }
+  if (signal.id === "explain-ai-generated-text-0.1.1.1.7") {
+    return e.import_error || e.compatibility_status || "blocked";
+  }
+  if (signal.id === "pystylometry-character-ngram-entropy") {
+    return `${e.sample_count || "?"} samples · ${(e.metrics || []).join(" / ")}`;
+  }
+  return "evidence recorded";
+}
+
 async function loadData() {
-  const [baselineRes, detectorRes, compatibilityRes] = await Promise.all([
+  const [baselineRes, detectorRes, compatibilityRes, validationRes] = await Promise.all([
     fetch("./data/baselines.json", { cache: "no-store" }),
     fetch("./data/detectors.json", { cache: "no-store" }),
     fetch("./data/compatibility.json", { cache: "no-store" }),
+    fetch("./data/signal_validation.json", { cache: "no-store" }),
   ]);
   baselines = await baselineRes.json();
   const catalog = await detectorRes.json();
   const compatibility = await compatibilityRes.json();
+  validation = await validationRes.json();
 
   const status = $("baseline-status");
   if (baselines.status === "validated_ready") {
@@ -88,6 +110,21 @@ async function loadData() {
     status.textContent = "年代baseline 未検証";
     status.className = "status blocked";
   }
+
+  const validatedCount = Number(validation.validated_year_inference_signal_count || 0);
+  $("validation-status").textContent = validatedCount
+    ? `validated signals · ${validatedCount}`
+    : "year signals · 0 validated";
+  $("validation-status").className = validatedCount ? "status ready" : "status blocked";
+  $("validation-summary").textContent = validatedCount
+    ? `${validatedCount}個のout-of-sample検証済みシグナルだけが年代表示に利用できます。`
+    : "現時点で年代判定に採用できるシグナルは0件です。測定値は表示しますが、最寄り年は返しません。";
+  $("validation-signals").innerHTML = validation.signals.map((signal) => `
+    <article class="detector">
+      <div class="detector-head"><h3>${signal.id}</h3><code>${signal.status}</code></div>
+      <p>${signalEvidence(signal)}</p>
+      <p>${signal.reason || ""}</p>
+    </article>`).join("");
 
   $("checked-at").textContent = catalog.checked_at
     ? `PyPI checked ${catalog.checked_at.slice(0, 10)}`
@@ -127,8 +164,9 @@ $("analyze").addEventListener("click", async () => {
 
   const metrics = response.result;
   const source = baselineLabel();
-  $("verdict").textContent = "年代判定は保留しています";
-  $("verdict-note").textContent = `${source}。現在のpilotはcharacter bigram/trigram entropyの分布測定に留まり、年代識別性能を検証していません。2026年研究・公開OSSの複数指標で分離性能を検証後、合格した指標だけ判定へ使用します。`;
+  const validatedCount = Number(validation?.validated_year_inference_signal_count || 0);
+  $("verdict").textContent = validatedCount ? "検証済み年代判定器の接続待ち" : "年代判定は保留しています";
+  $("verdict-note").textContent = `${source}。現在の検証済み年代シグナルは${validatedCount}件です。pilot測定値だけから年を返しません。`;
   $("metrics").innerHTML = [
     ["入力文字数（正規化後）", metrics.normalized_char_count],
     ["解析文字数", metrics.analyzed_char_count],
@@ -149,5 +187,7 @@ $("clear").addEventListener("click", () => {
 loadData().catch((error) => {
   $("baseline-status").textContent = "データ読込エラー";
   $("baseline-status").className = "status blocked";
+  $("validation-status").textContent = "validation読込エラー";
+  $("validation-status").className = "status blocked";
   console.error(error);
 });

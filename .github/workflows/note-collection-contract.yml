@@ -1,0 +1,21 @@
+name: note collection contract
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - name: Verify note collection evidence
+        run: node scripts/note_collection_contract_test.mjs
+      - name: Verify clean checkout
+        run: test -z "$(git status --porcelain --untracked-files=all)"

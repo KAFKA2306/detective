@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "not_tested",
+  "status": "compatible",
   "pyodide_version": "0.27.7",
   "python_line": "3.12",
   "package": "pystylometry",
@@ -9,6 +9,6 @@
     "compute_character_bigram_entropy",
     "compute_ngram_entropy(character, n=3)"
   ],
-  "checked_at": null,
+  "checked_at": "2026-08-13T02:02:43.894Z",
   "error": null
 }

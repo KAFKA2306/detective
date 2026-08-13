@@ -12,23 +12,32 @@ permissions:
   contents: write
 
 jobs:
-  collect:
+  collect-and-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v9.0.0
       - name: Build same-season historical metadata pilot
         run: python scripts/zenn_sitemap_metadata_pilot.py
-      - name: Commit metadata-only pilot
+      - name: Sync pinned pystylometry environment
+        run: uv sync --project detectors/pystylometry --locked
+      - name: Build derived metrics and fixed-length pilot baseline
+        run: uv run --project detectors/pystylometry --locked python "$GITHUB_WORKSPACE/scripts/build_zenn_pystylometry_pilot_baseline.py"
+      - name: Commit coherent pilot snapshot
         if: success()
         run: |
-          git add corpus/zenn_august_sitemap_pilot.jsonl reports/zenn_august_sitemap_pilot_summary.json
+          git add \
+            corpus/zenn_august_sitemap_pilot.jsonl \
+            reports/zenn_august_sitemap_pilot_summary.json \
+            corpus/zenn_august_pystylometry_metrics.jsonl \
+            site/data/baselines.json
           if git diff --cached --quiet; then
             echo "No pilot changes"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "data: freeze Zenn August sitemap metadata pilot"
+          git commit -m "data: refresh coherent Zenn August pilot"
           git fetch origin main
           git rebase origin/main
           git push origin HEAD:main

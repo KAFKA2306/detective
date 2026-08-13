@@ -1,0 +1,36 @@
+name: Zenn sitemap probe
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/zenn_sitemap_probe.py"
+      - ".github/workflows/zenn-sitemap-probe.yml"
+  schedule:
+    - cron: "17 2 * * 1"
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Probe official sitemap index
+        run: python scripts/zenn_sitemap_probe.py
+      - name: Commit sitemap evidence
+        if: success()
+        run: |
+          if git diff --quiet -- reports/zenn_sitemap_status.json; then
+            echo "No sitemap metadata changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/zenn_sitemap_status.json
+          git commit -m "chore: refresh Zenn sitemap evidence"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main

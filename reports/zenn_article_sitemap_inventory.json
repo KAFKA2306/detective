@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "status": "not_run",
+  "checked_at": null,
+  "source": "official-zenn-sitemap-index",
+  "article_sitemap_count": 0,
+  "total_article_urls": 0,
+  "lastmod_min": null,
+  "lastmod_max": null,
+  "sitemaps": [],
+  "note": "lastmod is sitemap modification metadata and is not treated as publication time"
+}

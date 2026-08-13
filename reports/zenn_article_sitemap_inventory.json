@@ -1,12 +1,117 @@
 {
   "schema_version": 1,
-  "status": "not_run",
-  "checked_at": null,
+  "status": "compatible",
+  "checked_at": "2026-08-13T02:14:10.976161+00:00",
   "source": "official-zenn-sitemap-index",
-  "article_sitemap_count": 0,
-  "total_article_urls": 0,
-  "lastmod_min": null,
-  "lastmod_max": null,
-  "sitemaps": [],
+  "article_sitemap_count": 13,
+  "total_article_urls": 268211,
+  "lastmod_min": "2013-05-19T00:00:00+09:00",
+  "lastmod_max": "2026-08-12T01:50:52+09:00",
+  "sitemaps": [
+    {
+      "sitemap": "https://zenn.dev/sitemaps/article1.xml.gz",
+      "url_count": 20985,
+      "lastmod_min": "2020-09-16T18:47:26+09:00",
+      "lastmod_max": "2026-08-02T03:17:27+09:00",
+      "first_url": "https://zenn.dev/zenn/articles/connect-to-github",
+      "last_url": "https://zenn.dev/media_engine/articles/after-installing-git-the-site-stopped-working"
+    },
+    {
+      "sitemap": "https://zenn.dev/sitemaps/article2.xml.gz",
+      "url_count": 20941,
+      "lastmod_min": "2018-08-20T11:00:00+09:00",
+      "lastmod_max": "2026-08-08T17:11:55+09:00",
+      "first_url": "https://zenn.dev/kawarimidoll/articles/f02d2891a9634d",
+      "last_url": "https://zenn.dev/tasu/articles/3a0ab197ca94ce"
+    },
+    {
+      "sitemap": "https://zenn.dev/sitemaps/article3.xml.gz",
+      "url_count": 21877,
+      "lastmod_min": "2013-05-19T00:00:00+09:00",
+      "lastmod_max": "2026-08-08T20:15:20+09:00",
+      "first_url": "https://zenn.dev/yoshii0110/articles/f5ca51e023fc45",
+      "last_url": "https://zenn.dev/fikastudio/articles/18033e8fd2e9dd"
+    },
+    {
+      "sitemap": "https://zenn.dev/sitemaps/article4.xml.gz",
+      "url_count": 22268,
+      "lastmod_min": "2022-09-05T00:00:00+09:00",
+      "lastmod_max": "2026-08-12T01:43:06+09:00",
+      "first_url": "https://zenn.dev/syoyo/articles/be67854097a758",
+      "last_url": "https://zenn.dev/adverdest/articles/needless_unicorn_restart?locale=en"
+    },
+    {
+      "sitemap": "https://zenn.dev/sitemaps/article5.xml.gz",
+      "url_count": 21876,
+      "lastmod_min": "2023-09-03T22:23:00+09:00",
+      "lastmod_max": "2026-08-12T01:43:04+09:00",
+      "first_url": "https://zenn.dev/mynameisvince/articles/d82ad4d62bf038",
+      "last_url": "https://zenn.dev/xcter/articles/5eee9451ae25f6"
+    },
+    {
+      "sitemap": "https://zenn.dev/sitemaps/article6.xml.gz",
+      "url_count": 20260,
+      "lastmod_min": "2024-02-29T14:33:01+09:00",
+      "lastmod_max": "2026-08-11T14:58:03+09:00",
+      "first_url": "https://zenn.dev/aldagram_tech/articles/b588f15c35047a",
+      "last_url": "https://zenn.dev/ncdc/articles/349b7a8a28330a"
+    },
+    {
+      "sitemap": "https://zenn.dev/sitemaps/article7.xml.gz",
+      "url_count": 22944,
+      "lastmod_min": "2024-08-02T17:13:52+09:00",
+      "lastmod_max": "2026-08-08T17:12:04+09:00",
+      "first_url": "https://zenn.dev/penguin800dash/articles/714a1bb84abff4",
+      "last_url": "https://zenn.dev/sthairno/articles/73e24b35f3de63"
+    },
+    {
+      "sitemap": "https://zenn.dev/sitemaps/article8.xml.gz",
+      "url_count": 20750,
+      "lastmod_min": "2024-12-23T05:20:26+09:00",
+      "lastmod_max": "2026-08-11T23:15:40+09:00",
+      "first_url": "https://zenn.dev/cover_corp/articles/fa3be55ecb1d78",
+      "last_url": "https://zenn.dev/sotarok/articles/8c8164258fffe5"
+    },
+    {
+      "sitemap": "https://zenn.dev/sitemaps/article9.xml.gz",
+      "url_count": 18297,
+      "lastmod_min": "2025-04-28T10:51:52+09:00",
+      "lastmod_max": "2026-08-11T09:59:49+09:00",
+      "first_url": "https://zenn.dev/x_point_1/articles/1633f2ebfad0ba",
+      "last_url": "https://zenn.dev/yukamiya/articles/c563e8b1af5cb3?locale=en"
+    },
+    {
+      "sitemap": "https://zenn.dev/sitemaps/article10.xml.gz",
+      "url_count": 22608,
+      "lastmod_min": "2025-08-17T21:30:42+09:00",
+      "lastmod_max": "2026-08-11T23:03:15+09:00",
+      "first_url": "https://zenn.dev/tomokusaba/articles/c37aadf984fcd0",
+      "last_url": "https://zenn.dev/kura_04/articles/advent-calendar-2025-12-17"
+    },
+    {
+      "sitemap": "https://zenn.dev/sitemaps/article11.xml.gz",
+      "url_count": 22288,
+      "lastmod_min": "2025-12-17T19:43:24+09:00",
+      "lastmod_max": "2026-08-11T12:04:09+09:00",
+      "first_url": "https://zenn.dev/dev_commune/articles/a0de3ec5e6589b",
+      "last_url": "https://zenn.dev/byteinsight/articles/57bd27506c6572"
+    },
+    {
+      "sitemap": "https://zenn.dev/sitemaps/article12.xml.gz",
+      "url_count": 22537,
+      "lastmod_min": "2026-03-25T00:17:05+09:00",
+      "lastmod_max": "2026-08-12T01:26:12+09:00",
+      "first_url": "https://zenn.dev/bestat/articles/6df400b8ff370a",
+      "last_url": "https://zenn.dev/hcproduce_blog/articles/fbf825af5e592e"
+    },
+    {
+      "sitemap": "https://zenn.dev/sitemaps/article13.xml.gz",
+      "url_count": 10580,
+      "lastmod_min": "2026-06-18T08:11:02+09:00",
+      "lastmod_max": "2026-08-12T01:50:52+09:00",
+      "first_url": "https://zenn.dev/kooshin/articles/20260617_ios-xe-mcp-server1",
+      "last_url": "https://zenn.dev/danielokada/articles/442fb6ae213bf0"
+    }
+  ],
   "note": "lastmod is sitemap modification metadata and is not treated as publication time"
 }

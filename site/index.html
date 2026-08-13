@@ -25,6 +25,7 @@
         <div class="status-stack">
           <span id="runtime-status" class="status">Python runtime 読込中</span>
           <span id="baseline-status" class="status">baseline確認中</span>
+          <span id="validation-status" class="status">validation確認中</span>
         </div>
       </div>
       <textarea id="text" rows="12" placeholder="測定したい文章を1,000文字以上貼り付けます。正規化後の先頭1,000文字をブラウザ内のPythonで処理します。"></textarea>
@@ -40,6 +41,17 @@
       <h2 id="verdict">—</h2>
       <p id="verdict-note" class="note"></p>
       <div id="metrics" class="metric-grid"></div>
+    </section>
+
+    <section class="panel">
+      <div class="section-head">
+        <div>
+          <p class="kicker">VALIDATION GATE</p>
+          <h2>年代判定へ使えるシグナル</h2>
+        </div>
+      </div>
+      <p id="validation-summary" class="note">検証結果を読込中</p>
+      <div id="validation-signals" class="detector-list"></div>
     </section>
 
     <section class="panel">

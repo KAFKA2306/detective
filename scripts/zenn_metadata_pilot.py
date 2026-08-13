@@ -5,6 +5,7 @@ import hashlib
 import json
 import pathlib
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -45,8 +46,17 @@ def fetch_page(page: int) -> dict:
         f"{API_BASE}?{query}",
         headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
     )
-    with urllib.request.urlopen(request, timeout=20) as response:
-        payload = json.load(response)
+    try:
+        with urllib.request.urlopen(request, timeout=20) as response:
+            payload = json.load(response)
+    except urllib.error.HTTPError as exc:
+        # Zenn returns HTTP 404 when a page index is beyond the current
+        # pagination range. During exponential search this is a valid upper
+        # boundary, not a reason to weaken the cohort selection criteria.
+        if exc.code == 404 and page > 1:
+            payload = {"articles": [], "next_page": None, "out_of_range": True}
+        else:
+            raise
     _last_request_at = time.monotonic()
     if not isinstance(payload, dict):
         raise RuntimeError(f"page {page}: non-object response")

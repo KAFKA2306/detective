@@ -19,9 +19,10 @@ const output = {
 };
 
 try {
-  const pyodide = await loadPyodide({
-    indexURL: `https://cdn.jsdelivr.net/pyodide/v${PYODIDE_VERSION}/full/`,
-  });
+  // The npm build resolves its WASM/stdlib assets relative to node_modules/pyodide.
+  // Do not pass the browser CDN indexURL here; the browser Worker separately pins
+  // https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.mjs.
+  const pyodide = await loadPyodide();
   await pyodide.loadPackage("micropip");
   const micropip = pyodide.pyimport("micropip");
   await micropip.install(`${PACKAGE}==${PACKAGE_VERSION}`);

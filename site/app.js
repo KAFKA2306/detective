@@ -54,10 +54,6 @@ function metricCard(label, value) {
   return `<div class="metric"><strong>${formatted}</strong><span>${label}</span></div>`;
 }
 
-function baselineUsable() {
-  return baselines && ["pilot_ready", "ready"].includes(baselines.status) && baselines.metrics;
-}
-
 function baselineLabel() {
   if (!baselines) return "baseline unknown";
   const years = Array.isArray(baselines.years) ? `${baselines.years[0]}–${baselines.years.at(-1)}` : "year unknown";
@@ -67,32 +63,6 @@ function baselineLabel() {
     ? `${baselines.detector.package} ${baselines.detector.version}`
     : "detector unknown";
   return `Zenn tech ${years} / ${n}件・年 / ${baselines.cohort || "cohort unknown"} / ${detector}`;
-}
-
-function nearestYear(metrics) {
-  if (!baselineUsable()) return null;
-  const configured = Array.isArray(baselines.distance_metrics)
-    ? baselines.distance_metrics
-    : Object.keys(baselines.metrics);
-  const comparable = configured.filter((key) => baselines.metrics[key] && Number.isFinite(Number(metrics[key])));
-  if (!comparable.length) return null;
-
-  const distances = baselines.years.map((year) => {
-    let sum = 0;
-    let used = 0;
-    for (const key of comparable) {
-      const stat = baselines.metrics[key][String(year)];
-      const value = Number(metrics[key]);
-      if (!stat || !Number.isFinite(stat.mean) || !Number.isFinite(stat.std) || stat.std <= 0) continue;
-      const z = (value - stat.mean) / stat.std;
-      sum += z * z;
-      used += 1;
-    }
-    return { year, distance: used ? Math.sqrt(sum / used) : Infinity, used };
-  }).filter((x) => Number.isFinite(x.distance));
-
-  distances.sort((a, b) => a.distance - b.distance);
-  return distances[0] || null;
 }
 
 async function loadData() {
@@ -106,16 +76,16 @@ async function loadData() {
   const compatibility = await compatibilityRes.json();
 
   const status = $("baseline-status");
-  if (baselines.status === "ready") {
-    status.textContent = `baseline ready · ${baselines.years.join("–")}`;
+  if (baselines.status === "validated_ready") {
+    status.textContent = `validated baseline · ${baselines.years.join("–")}`;
     status.className = "status ready";
   } else if (baselines.status === "pilot_ready") {
     const counts = Object.values(baselines.sample_counts || {});
     const n = counts.length && counts.every((value) => value === counts[0]) ? counts[0] : "?";
-    status.textContent = `pilot baseline · ${n}件/年`;
-    status.className = "status ready";
+    status.textContent = `pilot measurement only · ${n}件/年`;
+    status.className = "status blocked";
   } else {
-    status.textContent = "年代baseline 未構築";
+    status.textContent = "年代baseline 未検証";
     status.className = "status blocked";
   }
 
@@ -147,27 +117,18 @@ $("analyze").addEventListener("click", async () => {
 
   const response = await analyzeInPython(text);
   $("analyze").disabled = false;
-  $("analyze").textContent = "簡易判定";
+  $("analyze").textContent = "簡易測定";
   if (response.error) {
-    $("verdict").textContent = "判定できません";
+    $("verdict").textContent = "測定できません";
     $("verdict-note").textContent = response.error;
     $("metrics").innerHTML = "";
     return;
   }
 
   const metrics = response.result;
-  const nearest = nearestYear(metrics);
   const source = baselineLabel();
-  if (nearest && baselines.status === "pilot_ready") {
-    $("verdict").textContent = `pilotで最も近い年次分布: ${nearest.year}`;
-    $("verdict-note").textContent = `${source}。8月同季節・正規化後先頭1,000文字のcharacter n-gram entropyによる記述的距離 ${nearest.distance.toFixed(2)}。AI生成の証明ではありません。`;
-  } else if (nearest) {
-    $("verdict").textContent = `最も近い年次分布: ${nearest.year}`;
-    $("verdict-note").textContent = `${source}。実測baselineに対する標準化距離 ${nearest.distance.toFixed(2)}。AI生成の証明ではありません。`;
-  } else {
-    $("verdict").textContent = "年代判定はまだ実行しません";
-    $("verdict-note").textContent = "実測baselineが利用できないためfail-closedです。pystylometryのPython正準関数が返した統計値だけを表示します。";
-  }
+  $("verdict").textContent = "年代判定は保留しています";
+  $("verdict-note").textContent = `${source}。現在のpilotはcharacter bigram/trigram entropyの分布測定に留まり、年代識別性能を検証していません。2026年研究・公開OSSの複数指標で分離性能を検証後、合格した指標だけ判定へ使用します。`;
   $("metrics").innerHTML = [
     ["入力文字数（正規化後）", metrics.normalized_char_count],
     ["解析文字数", metrics.analyzed_char_count],

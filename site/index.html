@@ -4,22 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <title>detective — 文章分布の簡易判定</title>
-  <meta name="description" content="公開OSSと年次コーパスを使った文章分布のメタレビュー・簡易判定UI">
+  <title>detective — 文章分布の測定</title>
+  <meta name="description" content="2026年研究と公開OSSを使った文章分布のメタレビュー・測定UI">
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
   <main class="shell">
     <header class="hero">
       <p class="eyebrow">KAFKA2306 / detective</p>
-      <h1>文章は、どの年代の分布に近い？</h1>
-      <p class="lede">watermarkを仮定せず、公開OSSと2022–2026の実測pilot分布を比較します。現在は各年12件・8月同季節・固定1,000文字の検証版です。</p>
+      <h1>文章の統計は、年代で本当に変わっている？</h1>
+      <p class="lede">watermarkを仮定せず、2026年研究と公開OSSで2022–2026の文章分布を実測します。現在の各年12件・8月同季節・固定1,000文字コーパスはpilotであり、年代判定にはまだ使いません。</p>
     </header>
 
     <section class="panel input-panel" aria-labelledby="checker-title">
       <div class="section-head">
         <div>
-          <p class="kicker">QUICK CHECK</p>
+          <p class="kicker">QUICK MEASURE</p>
           <h2 id="checker-title">1,000文字以上を貼り付ける</h2>
         </div>
         <div class="status-stack">
@@ -27,9 +27,9 @@
           <span id="baseline-status" class="status">baseline確認中</span>
         </div>
       </div>
-      <textarea id="text" rows="12" placeholder="判定したい文章を1,000文字以上貼り付けます。正規化後の先頭1,000文字をブラウザ内のPythonで処理します。"></textarea>
+      <textarea id="text" rows="12" placeholder="測定したい文章を1,000文字以上貼り付けます。正規化後の先頭1,000文字をブラウザ内のPythonで処理します。"></textarea>
       <div class="actions">
-        <button id="analyze" type="button">簡易判定</button>
+        <button id="analyze" type="button">簡易測定</button>
         <button id="clear" type="button" class="secondary">クリア</button>
       </div>
       <p class="privacy">入力文はPagesから判定APIへ送信しません。Web Worker内のPyodideでPython処理します。初回のみPython runtimeと公開wheelをCDN/PyPIから取得します。</p>
@@ -65,8 +65,8 @@
 
     <section class="panel warning">
       <p class="kicker">INTERPRETATION</p>
-      <h2>これは「AI製」の証明ではありません</h2>
-      <p>現在の年代表示は小規模pilotへの記述的距離です。年代差、媒体差、著者差、ジャンル差、編集、翻訳などでも分布は変わります。公開detectorのスコアも、学習domain・language外では参考値として扱います。</p>
+      <h2>現在は測定段階です</h2>
+      <p>character n-gram entropyだけでは年代を識別できることを示していません。2026年研究・公開OSSの複数指標を同一コーパスで実測し、out-of-sampleで分離性能を確認できた指標だけを年代比較に昇格します。AI生成の証明にも使用しません。</p>
     </section>
 
     <footer>

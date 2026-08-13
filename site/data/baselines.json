@@ -1,16 +1,137 @@
 {
-  "schema_version": 1,
-  "status": "not_ready",
-  "years": [2022, 2023, 2024, 2025, 2026],
-  "generated_at": null,
+  "schema_version": 2,
+  "status": "pilot_ready",
+  "cohort": "august-sitemap-pilot",
+  "years": [
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "generated_at": "2026-08-13T02:19:18.587963+00:00",
   "sample_counts": {
-    "2022": 0,
-    "2023": 0,
-    "2024": 0,
-    "2025": 0,
-    "2026": 0
+    "2022": 12,
+    "2023": 12,
+    "2024": 12,
+    "2025": 12,
+    "2026": 12
   },
-  "metrics": {},
-  "provenance": [],
-  "message": "No measured temporal baseline has been committed yet. Year estimation is disabled."
+  "distance_metrics": [
+    "char_bigram_entropy",
+    "char_trigram_entropy"
+  ],
+  "distance_method": "RMS of per-year z-scores; descriptive pilot only",
+  "metrics": {
+    "char_bigram_entropy": {
+      "2022": {
+        "n": 12,
+        "mean": 8.668405737490302,
+        "std": 1.0286639685937007,
+        "median": 8.709160161462579,
+        "min": 6.37663389271948,
+        "max": 10.701453126248655
+      },
+      "2023": {
+        "n": 12,
+        "mean": 8.743495340300093,
+        "std": 1.1434290682537196,
+        "median": 9.059009879332379,
+        "min": 6.668400754671667,
+        "max": 10.593080871941966
+      },
+      "2024": {
+        "n": 12,
+        "mean": 8.985418753898589,
+        "std": 0.8274767358605081,
+        "median": 8.95717160548974,
+        "min": 7.151576882748849,
+        "max": 10.232015694511178
+      },
+      "2025": {
+        "n": 12,
+        "mean": 9.082337052892843,
+        "std": 0.8900059176245956,
+        "median": 9.369220217340274,
+        "min": 6.784234010507315,
+        "max": 10.081571117450155
+      },
+      "2026": {
+        "n": 12,
+        "mean": 9.430874268302354,
+        "std": 0.9257210754889008,
+        "median": 9.529439030343513,
+        "min": 7.7390594150803595,
+        "max": 10.768194521708612
+      }
+    },
+    "char_trigram_entropy": {
+      "2022": {
+        "n": 12,
+        "mean": 9.421216255841337,
+        "std": 1.3032778243532113,
+        "median": 9.475450200706302,
+        "min": 6.448743900171438,
+        "max": 11.901693171985908
+      },
+      "2023": {
+        "n": 12,
+        "mean": 9.55536414011888,
+        "std": 1.287544274491414,
+        "median": 10.012277219612052,
+        "min": 7.250250716833203,
+        "max": 11.54583760526646
+      },
+      "2024": {
+        "n": 12,
+        "mean": 9.834095633252076,
+        "std": 0.8587524100953027,
+        "median": 9.789232194745999,
+        "min": 8.313783699396055,
+        "max": 11.249563379067615
+      },
+      "2025": {
+        "n": 12,
+        "mean": 9.767690482159646,
+        "std": 1.038678133534381,
+        "median": 10.024075366539659,
+        "min": 7.061446925565128,
+        "max": 10.876265181979385
+      },
+      "2026": {
+        "n": 12,
+        "mean": 10.377660304405618,
+        "std": 0.873448448493276,
+        "median": 10.219281876137455,
+        "min": 9.203687745540408,
+        "max": 12.09165692906907
+      }
+    }
+  },
+  "detector": {
+    "package": "pystylometry",
+    "version": "1.4.3",
+    "functions": [
+      "compute_character_bigram_entropy",
+      "compute_ngram_entropy(character,n=3)"
+    ]
+  },
+  "preprocessing": {
+    "source": "article.body_html fetched transiently",
+    "extractor": "stdlib.HTMLParser visible text; script/style/noscript excluded",
+    "normalization": "Unicode NFKC + collapse whitespace",
+    "raw_body_persisted": false
+  },
+  "provenance": [
+    "corpus/zenn_august_sitemap_pilot.jsonl",
+    "corpus/zenn_august_pystylometry_metrics.jsonl",
+    "reports/zenn_august_sitemap_pilot_summary.json",
+    "reports/zenn_article_sitemap_inventory.json"
+  ],
+  "limitations": [
+    "12 samples per year",
+    "same-season August pilot, not full-year distribution",
+    "sitemap lastmod was used only for candidate discovery and may create edit-history selection bias",
+    "distance is not evidence of AI authorship"
+  ]
 }

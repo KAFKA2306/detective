@@ -1,0 +1,41 @@
+name: explain-ai-generated-text Japanese probe
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/probe_explain_ai_generated_text_japanese.py"
+      - "detectors/explain-ai-generated-text/uv.lock"
+      - ".github/workflows/explain-ai-generated-text-japanese-probe.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: detector-measurements
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v9.0.0
+      - name: Sync pinned detector environment
+        run: uv sync --project detectors/explain-ai-generated-text --locked
+      - name: Probe documented API on English control and Japanese text
+        run: uv run --project detectors/explain-ai-generated-text --locked python scripts/probe_explain_ai_generated_text_japanese.py
+      - name: Commit compatibility evidence
+        run: |
+          git add reports/explain_ai_generated_text_japanese_compatibility.json
+          if git diff --cached --quiet; then
+            echo "No compatibility changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data: record explain-ai-generated-text Japanese compatibility"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main

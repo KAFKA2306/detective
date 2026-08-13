@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>detective — 文章分布の簡易判定</title>
+  <meta name="description" content="公開OSSと年次コーパスを使った文章分布のメタレビュー・簡易判定UI">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <p class="eyebrow">KAFKA2306 / detective</p>
+      <h1>文章は、どの年代の分布に近い？</h1>
+      <p class="lede">watermarkを仮定せず、公開OSSと2022–2026の実測分布を比較するための簡易ビューです。</p>
+    </header>
+
+    <section class="panel input-panel" aria-labelledby="checker-title">
+      <div class="section-head">
+        <div>
+          <p class="kicker">QUICK CHECK</p>
+          <h2 id="checker-title">テキストを貼り付ける</h2>
+        </div>
+        <span id="baseline-status" class="status">baseline確認中</span>
+      </div>
+      <textarea id="text" rows="12" placeholder="判定したい文章をここに貼り付けます。ブラウザ内で処理します。"></textarea>
+      <div class="actions">
+        <button id="analyze" type="button">簡易判定</button>
+        <button id="clear" type="button" class="secondary">クリア</button>
+      </div>
+      <p class="privacy">入力文はこの静的Pagesからサーバーへ送信しません。</p>
+    </section>
+
+    <section id="result" class="panel result-panel" aria-live="polite" hidden>
+      <p class="kicker">RESULT</p>
+      <h2 id="verdict">—</h2>
+      <p id="verdict-note" class="note"></p>
+      <div id="metrics" class="metric-grid"></div>
+    </section>
+
+    <section class="panel">
+      <div class="section-head">
+        <div>
+          <p class="kicker">OSS META REVIEW</p>
+          <h2>比較対象</h2>
+        </div>
+        <span id="checked-at" class="muted"></span>
+      </div>
+      <div id="detectors" class="detector-list"></div>
+    </section>
+
+    <section class="panel warning">
+      <p class="kicker">INTERPRETATION</p>
+      <h2>これは「AI製」の証明ではありません</h2>
+      <p>年代差、媒体差、著者差、ジャンル差、編集、翻訳などでも分布は変わります。年次baselineが実測されていない場合、年代判定は返しません。公開detectorのスコアも、学習domain・language外では参考値として扱います。</p>
+    </section>
+
+    <footer>
+      <a href="https://github.com/KAFKA2306/detective">GitHub / evidence / source</a>
+    </footer>
+  </main>
+  <script src="./app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+schema_version = 1
+
+[[detector]]
+id = "pystylometry"
+package = "pystylometry"
+pinned_version = "1.4.3"
+role = "stylometry"
+pypi_url = "https://pypi.org/project/pystylometry/1.4.3/"
+repository_url = "https://github.com/craigtrim/pystylometry"
+license = "MIT"
+notes = "50+ metrics across 11 modules. Use primarily as a style/distribution measurement library, not as proof of AI authorship."
+
+[[detector]]
+id = "stylometric-ai-detector"
+package = "stylometric-ai-detector"
+pinned_version = "0.2.4"
+role = "stylometry-ml-baseline"
+pypi_url = "https://pypi.org/project/stylometric-ai-detector/0.2.4/"
+repository_url = "https://github.com/dinis-a/stylometric-ai-detector"
+license = "MIT"
+notes = "Random Forest baseline using 8 surface stylometric features. Upstream explicitly warns that it may not generalize across domains, languages, or model generations."
+
+[[detector]]
+id = "explain-ai-generated-text"
+package = "explain-ai-generated-text"
+pinned_version = "0.1.1.1.7"
+role = "explainable-ai-text-baseline"
+pypi_url = "https://pypi.org/project/explain-ai-generated-text/0.1.1.1.7/"
+repository_url = "https://github.com/ShushantaTUD/Explain_AI_Generated_Text"
+license = "MIT (declared by PyPI/README)"
+notes = "40+ linguistic features with SHAP, XGBoost and Random Forest. Treat outputs as benchmark signals, not ground truth."

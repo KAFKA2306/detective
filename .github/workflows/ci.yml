@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v9
+      - name: Verify lockfile
+        run: uv lock --check
+      - name: Validate detector catalog
+        run: uv run --locked python scripts/check_catalog.py
+      - name: Validate JSON
+        run: |
+          python -m json.tool site/data/baselines.json >/dev/null
+          python -m json.tool site/data/detectors.json >/dev/null

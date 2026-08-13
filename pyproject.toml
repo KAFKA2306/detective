@@ -1,0 +1,9 @@
+[project]
+name = "detective-meta-review"
+version = "0.1.0"
+description = "Reproducible meta-review and operations harness for public text-analysis OSS"
+requires-python = ">=3.11,<3.15"
+dependencies = []
+
+[dependency-groups]
+dev = []

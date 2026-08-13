@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "status": "not_ready",
+  "years": [2022, 2023, 2024, 2025, 2026],
+  "generated_at": null,
+  "sample_counts": {
+    "2022": 0,
+    "2023": 0,
+    "2024": 0,
+    "2025": 0,
+    "2026": 0
+  },
+  "metrics": {},
+  "provenance": [],
+  "message": "No measured temporal baseline has been committed yet. Year estimation is disabled."
+}

@@ -1,0 +1,20 @@
+schema_version = 1
+
+[corpus]
+id = "zenn-temporal-public"
+status = "planned"
+language = "ja"
+domain = "technical-writing"
+years = [2022, 2023, 2024, 2025, 2026]
+selection_policy = "Freeze public articles by year with explicit provenance; control topic, author concentration, length and popularity before interpreting year effects."
+
+[corpus.safety]
+no_invented_samples = true
+fail_closed_without_baseline = true
+store_source_url = true
+store_fetched_at = true
+store_sha256 = true
+
+[corpus.outputs]
+manifest = "corpus/manifest.jsonl"
+baseline = "site/data/baselines.json"

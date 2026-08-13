@@ -21,3 +21,6 @@ jobs:
         run: |
           python -m json.tool site/data/baselines.json >/dev/null
           python -m json.tool site/data/detectors.json >/dev/null
+          python -m json.tool site/data/compatibility.json >/dev/null
+      - name: Verify pasted-text privacy architecture
+        run: node scripts/privacy_architecture_test.mjs

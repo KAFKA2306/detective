@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "status": "compatible",
+  "checked_at": "2026-08-13T02:42:50.661066+00:00",
+  "robots_url": "https://note.com/robots.txt",
+  "collector_policy": "robots+sitemap only; no /api/* or /search collection",
+  "robots_disallow": [
+    "/embed/*",
+    "/intent/*",
+    "/preview/*",
+    "/api/*",
+    "/pdf/*",
+    "/wrap_up/*",
+    "/search",
+    "/login?*",
+    "/signup?*",
+    "/m/*/archive",
+    "/*/archives",
+    "/*/archives/*",
+    "/*/followers",
+    "/*/followings",
+    "/*/likes",
+    "/*/magazines",
+    "/*/menu/*",
+    "/*/message",
+    "/*/terms/specified"
+  ],
+  "sitemap_url": "https://note.com/sitemaps/production/note.com/sitemap.xml.gz",
+  "sitemap": {
+    "kind": "sitemapindex",
+    "child_sitemap_count": 8,
+    "child_sitemaps_sample": [
+      "https://note.com/sitemaps/production/note.com/indexes.xml.gz",
+      "https://note.com/sitemaps/production/note.com/notes.xml.gz",
+      "https://note.com/sitemaps/production/note.com/notes1.xml.gz",
+      "https://note.com/sitemaps/production/note.com/notes2.xml.gz",
+      "https://note.com/sitemaps/production/note.com/notes3.xml.gz",
+      "https://note.com/sitemaps/production/note.com/notes4.xml.gz",
+      "https://note.com/sitemaps/production/note.com/notes5.xml.gz",
+      "https://note.com/sitemaps/production/note.com/magazines.xml.gz"
+    ]
+  },
+  "error": null
+}

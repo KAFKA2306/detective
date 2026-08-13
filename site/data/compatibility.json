@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "status": "not_tested",
+  "pyodide_version": "0.27.7",
+  "python_line": "3.12",
+  "package": "pystylometry",
+  "package_version": "1.4.3",
+  "metrics": [
+    "compute_character_bigram_entropy",
+    "compute_ngram_entropy(character, n=3)"
+  ],
+  "checked_at": null,
+  "error": null
+}

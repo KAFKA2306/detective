@@ -1,0 +1,5 @@
+[project]
+name = "detective-env-explain-ai-generated-text"
+version = "0.0.0"
+requires-python = ">=3.11,<3.12"
+dependencies = ["explain-ai-generated-text==0.1.1.1.7"]

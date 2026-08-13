@@ -1,0 +1,38 @@
+name: Pyodide compatibility
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "site/worker.mjs"
+      - "scripts/pyodide_smoke.mjs"
+      - "detectors/pystylometry/pyproject.toml"
+      - ".github/workflows/compatibility.yml"
+  schedule:
+    - cron: "41 1 * * 1"
+
+permissions:
+  contents: write
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install pinned Pyodide runtime
+        run: npm install --no-save pyodide@0.27.7
+      - name: Smoke test pystylometry in WebAssembly Python
+        run: node scripts/pyodide_smoke.mjs
+      - name: Commit compatibility evidence
+        if: success()
+        run: |
+          if git diff --quiet -- site/data/compatibility.json; then
+            echo "No compatibility metadata changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/data/compatibility.json
+          git commit -m "chore: refresh Pyodide compatibility evidence"
+          git push

@@ -1,74 +1,71 @@
 const $ = (id) => document.getElementById(id);
 let baselines = null;
+let workerReady = false;
+let requestId = 0;
+const pending = new Map();
 
-// Browser-side compatibility profile for stylometric-ai-detector 0.2.4.
-// Canonical Python source:
-// https://github.com/dinis-a/stylometric-ai-detector/blob/main/stylometric_ai_detector/features.py
-const ASCII_PUNCTUATION = new Set(Array.from(`!"#$%&'()*+,-./:;<=>?@[\\]^_\`{|}~`));
+const worker = new Worker("./worker.mjs", { type: "module" });
 
-function isCased(ch) {
-  return ch.toUpperCase() !== ch.toLowerCase();
-}
-
-function isUpperAlpha(word) {
-  if (!/^\p{L}+$/u.test(word)) return false;
-  const cased = Array.from(word).filter(isCased);
-  return cased.length > 0 && cased.every((ch) => ch === ch.toUpperCase());
-}
-
-function isTitleCase(word) {
-  let hasCased = false;
-  let needUpper = true;
-  for (const ch of Array.from(word)) {
-    if (!isCased(ch)) {
-      needUpper = true;
-      continue;
-    }
-    hasCased = true;
-    const isUpper = ch === ch.toUpperCase();
-    if (needUpper ? !isUpper : isUpper) return false;
-    needUpper = false;
+worker.addEventListener("message", (event) => {
+  const msg = event.data || {};
+  if (msg.type === "ready") {
+    workerReady = true;
+    $("runtime-status").textContent = `Pyodide ${msg.pyodide_version} / pystylometry ${msg.package_version}`;
+    $("runtime-status").className = "status ready";
+    $("analyze").disabled = false;
+    return;
   }
-  return hasCased;
-}
+  if (msg.type === "init-error") {
+    $("runtime-status").textContent = "Python runtime unavailable";
+    $("runtime-status").className = "status blocked";
+    $("analyze").disabled = true;
+    $("verdict").textContent = "判定できません";
+    $("verdict-note").textContent = msg.error;
+    $("result").hidden = false;
+    return;
+  }
+  const resolve = pending.get(msg.id);
+  if (resolve) {
+    pending.delete(msg.id);
+    resolve(msg);
+  }
+});
 
-function surfaceProfile(text) {
-  const chars = Array.from(text);
-  const words = text.trim() ? text.trim().split(/\s+/u) : [];
-  const punctuation = chars.filter((c) => ASCII_PUNCTUATION.has(c)).length;
-  const sentences = text.split(/[.!?]+/u).map((s) => s.trim()).filter(Boolean);
-  const sentenceCount = Math.max(sentences.length, 1);
-  const avgWord = words.length
-    ? words.reduce((n, w) => n + Array.from(w).length, 0) / words.length
-    : 0;
-  return {
-    char_count: chars.length,
-    word_count: words.length,
-    avg_word_len: avgWord,
-    punct_count: punctuation,
-    sentence_count: sentenceCount,
-    avg_sentence_len: words.length / sentenceCount,
-    upper_case_count: words.filter(isUpperAlpha).length,
-    title_case_count: words.filter(isTitleCase).length,
-  };
+worker.addEventListener("error", (event) => {
+  $("runtime-status").textContent = "Worker error";
+  $("runtime-status").className = "status blocked";
+  $("analyze").disabled = true;
+  console.error(event);
+});
+
+function analyzeInPython(text) {
+  return new Promise((resolve) => {
+    const id = ++requestId;
+    pending.set(id, resolve);
+    worker.postMessage({ type: "analyze", id, text });
+  });
 }
 
 function metricCard(label, value) {
-  const formatted = Number.isInteger(value) ? value.toLocaleString() : value.toFixed(2);
+  const n = Number(value);
+  const formatted = Number.isFinite(n)
+    ? (Number.isInteger(n) ? n.toLocaleString() : n.toFixed(3))
+    : "—";
   return `<div class="metric"><strong>${formatted}</strong><span>${label}</span></div>`;
 }
 
-function nearestYear(profile) {
+function nearestYear(metrics) {
   if (!baselines || baselines.status !== "ready" || !baselines.metrics) return null;
-  const comparable = Object.keys(profile).filter((key) => baselines.metrics[key]);
+  const comparable = Object.keys(metrics).filter((key) => baselines.metrics[key]);
   if (!comparable.length) return null;
   const distances = baselines.years.map((year) => {
     let sum = 0;
     let used = 0;
     for (const key of comparable) {
       const stat = baselines.metrics[key][String(year)];
-      if (!stat || !Number.isFinite(stat.mean) || !Number.isFinite(stat.std) || stat.std <= 0) continue;
-      const z = (profile[key] - stat.mean) / stat.std;
+      const value = Number(metrics[key]);
+      if (!stat || !Number.isFinite(value) || !Number.isFinite(stat.mean) || !Number.isFinite(stat.std) || stat.std <= 0) continue;
+      const z = (value - stat.mean) / stat.std;
       sum += z * z;
       used += 1;
     }
@@ -79,12 +76,14 @@ function nearestYear(profile) {
 }
 
 async function loadData() {
-  const [baselineRes, detectorRes] = await Promise.all([
+  const [baselineRes, detectorRes, compatibilityRes] = await Promise.all([
     fetch("./data/baselines.json", { cache: "no-store" }),
     fetch("./data/detectors.json", { cache: "no-store" }),
+    fetch("./data/compatibility.json", { cache: "no-store" }),
   ]);
   baselines = await baselineRes.json();
   const catalog = await detectorRes.json();
+  const compatibility = await compatibilityRes.json();
 
   const status = $("baseline-status");
   if (baselines.status === "ready") {
@@ -104,30 +103,51 @@ async function loadData() {
       <p>${d.notes || ""}</p>
       <p><a href="${d.pypi_url}" rel="noreferrer">PyPI</a> · <a href="${d.repository_url}" rel="noreferrer">source</a></p>
     </article>`).join("");
+
+  const compat = $("compatibility");
+  compat.textContent = compatibility.status === "compatible"
+    ? `WASM smoke test: PASS (${compatibility.pyodide_version} / ${compatibility.package} ${compatibility.package_version})`
+    : `WASM smoke test: ${compatibility.status}`;
 }
 
-$("analyze").addEventListener("click", () => {
+$("analyze").disabled = true;
+$("analyze").addEventListener("click", async () => {
   const text = $("text").value.trim();
-  if (!text) return;
-  const profile = surfaceProfile(text);
-  const nearest = nearestYear(profile);
+  if (!text || !workerReady) return;
+  $("analyze").disabled = true;
+  $("analyze").textContent = "解析中…";
   $("result").hidden = false;
+  $("verdict").textContent = "Pythonで解析中";
+  $("verdict-note").textContent = "入力文はWeb Worker内のPyodideへ渡されます。";
+
+  const response = await analyzeInPython(text);
+  $("analyze").disabled = false;
+  $("analyze").textContent = "簡易判定";
+  if (response.error) {
+    $("verdict").textContent = "判定できません";
+    $("verdict-note").textContent = response.error;
+    $("metrics").innerHTML = "";
+    return;
+  }
+
+  const metrics = response.result;
+  const nearest = nearestYear(metrics);
   if (nearest) {
     $("verdict").textContent = `最も近い年次分布: ${nearest.year}`;
-    $("verdict-note").textContent = `標準化距離 ${nearest.distance.toFixed(2)}。これは著者属性やAI生成を証明する値ではありません。`;
+    $("verdict-note").textContent = `実測baselineに対する標準化距離 ${nearest.distance.toFixed(2)}。AI生成の証明ではありません。`;
   } else {
     $("verdict").textContent = "年代判定はまだ実行しません";
-    $("verdict-note").textContent = "2022–2026の実測baselineが0件のためfail-closedです。下には stylometric-ai-detector 0.2.4 の公開特徴定義に合わせた互換プロファイルだけを表示します。";
+    $("verdict-note").textContent = "2022–2026の実測baselineが未構築のためfail-closedです。下にはpystylometryのPython正準関数が返した文字n-gram統計だけを表示します。";
   }
   $("metrics").innerHTML = [
-    ["文字数", profile.char_count],
-    ["空白区切り語数", profile.word_count],
-    ["平均語長", profile.avg_word_len],
-    ["ASCII punctuation", profile.punct_count],
-    ["文数 [.?!]", profile.sentence_count],
-    ["平均文長（語）", profile.avg_sentence_len],
-    ["全大文字語", profile.upper_case_count],
-    ["Title Case語", profile.title_case_count],
+    ["文字bigram entropy", metrics.char_bigram_entropy],
+    ["文字bigram perplexity", metrics.char_bigram_perplexity],
+    ["文字trigram entropy", metrics.char_trigram_entropy],
+    ["文字trigram perplexity", metrics.char_trigram_perplexity],
+    ["bigram数", metrics.char_bigram_total],
+    ["unique bigram", metrics.char_bigram_unique],
+    ["trigram数", metrics.char_trigram_total],
+    ["unique trigram", metrics.char_trigram_unique],
   ].map(([k, v]) => metricCard(k, v)).join("");
 });
 

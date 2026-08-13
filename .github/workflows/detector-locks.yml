@@ -1,0 +1,38 @@
+name: Lock detector environments
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "detectors/**/pyproject.toml"
+      - ".github/workflows/detector-locks.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v9.0.0
+      - name: Generate isolated locks
+        run: |
+          for project in detectors/*; do
+            if [ -f "$project/pyproject.toml" ]; then
+              echo "locking $project"
+              (cd "$project" && uv lock)
+            fi
+          done
+      - name: Commit lockfiles
+        run: |
+          if git diff --quiet -- detectors; then
+            echo "No lock changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add detectors/*/uv.lock
+          git commit -m "chore: lock detector environments"
+          git push

@@ -22,14 +22,17 @@
           <p class="kicker">QUICK CHECK</p>
           <h2 id="checker-title">テキストを貼り付ける</h2>
         </div>
-        <span id="baseline-status" class="status">baseline確認中</span>
+        <div class="status-stack">
+          <span id="runtime-status" class="status">Python runtime 読込中</span>
+          <span id="baseline-status" class="status">baseline確認中</span>
+        </div>
       </div>
-      <textarea id="text" rows="12" placeholder="判定したい文章をここに貼り付けます。ブラウザ内で処理します。"></textarea>
+      <textarea id="text" rows="12" placeholder="判定したい文章をここに貼り付けます。ブラウザ内のPythonで処理します。"></textarea>
       <div class="actions">
         <button id="analyze" type="button">簡易判定</button>
         <button id="clear" type="button" class="secondary">クリア</button>
       </div>
-      <p class="privacy">入力文はこの静的Pagesからサーバーへ送信しません。</p>
+      <p class="privacy">入力文はPagesから判定APIへ送信しません。Web Worker内のPyodideでPython処理します。初回のみPython runtimeと公開wheelをCDN/PyPIから取得します。</p>
     </section>
 
     <section id="result" class="panel result-panel" aria-live="polite" hidden>
@@ -37,6 +40,16 @@
       <h2 id="verdict">—</h2>
       <p id="verdict-note" class="note"></p>
       <div id="metrics" class="metric-grid"></div>
+    </section>
+
+    <section class="panel">
+      <div class="section-head">
+        <div>
+          <p class="kicker">RUNTIME COMPATIBILITY</p>
+          <h2>ブラウザ実行互換性</h2>
+        </div>
+      </div>
+      <p id="compatibility" class="note">WASM smoke test確認中</p>
     </section>
 
     <section class="panel">

@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "status": "not_tested",
+  "checked_at": null,
+  "sitemap_index": "https://zenn.dev/sitemaps/_index.xml",
+  "child_count": 0,
+  "categories": {},
+  "sample_children": [],
+  "lastmod_min": null,
+  "lastmod_max": null,
+  "error": null
+}

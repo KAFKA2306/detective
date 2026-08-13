@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "status": "measured_not_validated",
+  "generated_at": "2026-08-13T02:56:17.054099+00:00",
+  "package": "pystylometry",
+  "version": "1.4.3",
+  "metric": "compute_compression_distance / normalized compression distance",
+  "input": {
+    "cohort": "august-sitemap-pilot-v2",
+    "sample_count": 60,
+    "samples_per_year": 12,
+    "analysis_window_chars": 1000,
+    "raw_body_persisted": false
+  },
+  "evaluation": {
+    "method": "leave-one-out 1-nearest-neighbor by upstream NCD",
+    "chance_accuracy_balanced_5_class": 0.2,
+    "accuracy": 0.26666666666666666,
+    "correct": 16,
+    "total": 60,
+    "confusion_matrix": {
+      "2022": {
+        "2022": 1,
+        "2023": 6,
+        "2024": 4,
+        "2025": 1,
+        "2026": 0
+      },
+      "2023": {
+        "2022": 3,
+        "2023": 3,
+        "2024": 4,
+        "2025": 0,
+        "2026": 2
+      },
+      "2024": {
+        "2022": 2,
+        "2023": 7,
+        "2024": 2,
+        "2025": 1,
+        "2026": 0
+      },
+      "2025": {
+        "2022": 0,
+        "2023": 2,
+        "2024": 6,
+        "2025": 4,
+        "2026": 0
+      },
+      "2026": {
+        "2022": 1,
+        "2023": 1,
+        "2024": 3,
+        "2025": 1,
+        "2026": 6
+      }
+    }
+  },
+  "pairwise": {
+    "pair_count": 1770,
+    "within_year_mean_ncd": 0.8831587015089262,
+    "within_year_median_ncd": 0.8770382754695504,
+    "between_year_mean_ncd": 0.8874531949765984,
+    "between_year_median_ncd": 0.8809458201452244
+  },
+  "interpretation_gate": {
+    "use_for_year_inference": false,
+    "reason": "Pilot evaluation only. Promote only after larger seasonal cohorts and author/topic confound audit reproduce out-of-sample separation."
+  },
+  "provenance": {
+    "upstream_docs": "https://github.com/craigtrim/pystylometry/blob/main/docs/authorship/compression.md",
+    "source": "https://github.com/craigtrim/pystylometry"
+  }
+}

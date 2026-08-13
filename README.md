@@ -2,111 +2,104 @@
 
 **文章の統計が違って見えても、それだけで「AIが書いた」とは言えない。**
 
-同じ日本語の技術文章でも、年代、媒体、著者、編集、翻訳などが変われば分布は動きます。たとえば2022年の文章と2026年の文章に差が見えたとき、その差を生成AIだけの影響として扱うと、年代差や媒体差をAI判定へ混ぜてしまいます。
+`detective` は、2022–2026の公開技術文章を同じ条件で比較し、既存OSSが捉える文章統計の時系列変化を観測するメタレビュー基盤です。watermarkや独自AI detectorを前提にせず、年代・媒体・著者・文章長などのdistribution shiftそのものを測ります。
 
-detectiveは、2022–2026の公開技術文章を年次で固定し、既存OSSを同じ条件で継続比較して、文章統計の時系列分布変化を観測するメタレビュー基盤です。ここで初めて stylometry、AI-text detection、Pyodide、character n-gram などの技術を使います。watermark detectorではなく、実測baselineが足りないときは判定を返しません。
+## Live
 
-READMEの入口は [`KAFKA2306/articles#34`](https://github.com/KAFKA2306/articles/issues/34) の「広い問題 → 具体例 → 技術」の編集原則を維持し、年代差や統計的距離をAI生成の断定へ広げません。
+**GitHub Pages:** https://kafka2306.github.io/detective/
 
-## 目的
+1,000文字以上の文章を貼ると、ブラウザ内のPythonでcharacter n-gram統計を計算し、現在の小規模pilotで2022–2026のどの年次分布に最も近いかを表示します。
 
-- 2022–2026 の公開技術文章を年次で固定・監査する
-- 既存の stylometry / AI-text detection OSS を `uv` で再現可能に管理する
-- 自前detectorを新設せず、OSSごとの出力・前提・限界を横並びで比較する
-- GitHub Pages に「テキストを貼るだけ」の簡易判定UIを公開する
-- 実測baselineが未構築・不十分な場合は年代推定を返さず fail-closed にする
+これは**AI生成の証明ではありません**。現在の出力はあくまで実測pilotへの記述的距離です。
 
-## 現在のアーキテクチャ
+## 現在のpilot
+
+- 対象: Zennの公開tech記事
+- 年: 2022 / 2023 / 2024 / 2025 / 2026
+- 同季節化: 各年8月1日12:00 JST近傍、公開日±7日
+- 件数: **各年12件、計60件**
+- 長さgate: `body_letters_count >= 1500`
+- 解析窓: **Unicode NFKC + 空白正規化後の先頭1,000文字**
+- raw本文: repositoryへ保存しない
+- 保存: URL / published_at / cohort / SHA-256 / OSS由来派生統計 / provenance
+
+歴史URLの候補発見にはZenn公式robots.txtが案内するsitemapを使います。13本のarticle sitemapをinventoryした結果、2026-08-13時点で **268,211 article URLs** を確認しています。sitemapの`lastmod`は公開日とはみなさず、候補発見だけに使い、年代ラベルは記事metadataの`published_at`で再検証します。
+
+## 現在の実測結果
+
+長さを揃えたpilotでは、年次分布はかなり重なっています。平均値は以下です。
+
+| year | char bigram entropy | char trigram entropy |
+|---:|---:|---:|
+| 2022 | 8.438 | 9.025 |
+| 2023 | 8.605 | 9.094 |
+| 2024 | 8.505 | 9.062 |
+| 2025 | 8.721 | 9.196 |
+| 2026 | 8.585 | 9.165 |
+
+full-textのまま比較した初期pilotではより大きい年次差が見えましたが、短文を含む長さ依存が混ざっていたため採用しませんでした。現在は全sampleと入力文を同じ1,000文字窓へ統制しています。
+
+## Pagesアーキテクチャ
 
 ```text
-2022–2026 public corpus
-        ↓
-Actions: provenance / OSS meta review / baseline build
-        ↓
-static baseline artifacts
-        ↓
 GitHub Pages
-        ↓
+  ↓
 Web Worker
-        ↓
-Pyodide 0.27.7 (Python 3.12)
-        ↓
-pystylometry 1.4.3 canonical Python functions
-        ↓
-character bigram / trigram entropy → year-distance UI
+  ↓
+Pyodide 0.27.7 / Python 3.12
+  ↓
+site/analyze.py  ← canonical Python implementation
+  ↓
+pystylometry 1.4.3
+  ↓
+character bigram / trigram entropy
+  ↓
+versioned yearly baseline JSON
 ```
 
-Pages側で分析式をJavaScriptへ複製しません。入力文はWeb Worker内のPythonへ渡し、`pystylometry`の公開関数を直接呼びます。
+Pythonの分析式をJavaScriptへ複製しません。`site/analyze.py`を、Pages Worker・WASM smoke test・offline baseline buildの3経路から共通利用します。
 
-現在ブラウザで採用している指標は、日本語の無分かち書きでも使いやすいcharacter n-gram系です。
-
-- `compute_character_bigram_entropy`
-- `compute_ngram_entropy(..., n=3, ngram_type="character")`
-
-`site/data/compatibility.json` はActionsのWASM smoke testで更新します。2026-08-13時点で **Pyodide 0.27.7 + pystylometry 1.4.3 = compatible** を実測確認済みです。
+入力文はWeb Workerへ渡した後、分析pathから`fetch` / `XMLHttpRequest` / `sendBeacon` / `WebSocket` / `EventSource`へ到達しないことをCIの`privacy_architecture_test.mjs`でfail-close検査します。初回runtime取得ではPyodide CDNと公開wheelへの通信がありますが、貼り付け文章を判定APIへ送信するserver-side inferenceはありません。
 
 ## OSS比較対象
 
-| OSS | 固定版 | 役割 | 実行環境 |
+| OSS | 固定版 | 役割 | 環境 |
 |---|---:|---|---|
-| `pystylometry` | 1.4.3 | stylometry / browser指標 | `detectors/pystylometry/uv.lock` |
+| `pystylometry` | 1.4.3 | stylometry / Pages指標 | `detectors/pystylometry/uv.lock` |
 | `stylometric-ai-detector` | 0.2.4 | 8特徴 + Random Forest baseline | `detectors/stylometric-ai-detector/uv.lock` |
 | `explain-ai-generated-text` | 0.1.1.1.7 | 40+ linguistic features + SHAP系 baseline | `detectors/explain-ai-generated-text/uv.lock` |
 
-各OSSは依存衝突を避けるため**独立した`pyproject.toml + uv.lock`**で管理します。比較対象の正式版・PyPI・source URLは [`detectors.toml`](detectors.toml) を正準とします。
+各OSSは依存衝突を避けるため**独立した`pyproject.toml + uv.lock`**で固定します。比較対象の正式版・PyPI・source URLは [`detectors.toml`](detectors.toml) が正準です。
 
-## 再現性
-
-rootの運用スクリプトも`uv`管理です。
+## 再現
 
 ```bash
 uv sync --locked
 uv run --locked python scripts/check_catalog.py
-uv run --locked python scripts/meta_review.py
-```
 
-各detector環境は個別に同期できます。
-
-```bash
 uv sync --project detectors/pystylometry --locked
-uv sync --project detectors/stylometric-ai-detector --locked
-uv sync --project detectors/explain-ai-generated-text --locked
+uv run --project detectors/pystylometry --locked \
+  python scripts/build_zenn_pystylometry_pilot_baseline.py
 ```
 
-GitHub Actionsは各lockfileを再生成し、差分がある場合だけcommitします。
+主なActions:
 
-## Pages
+- `CI` — lock/catalog/JSON/privacy architecture
+- `Pyodide compatibility` — WASM上でcanonical analyzerをsmoke test
+- `OSS meta review` — PyPI version evidenceを週次更新
+- `Zenn source probe` / `Zenn sitemap probe` — 外部source schemaをfail-close監査
+- `Zenn sitemap metadata pilot` — metadata選定→派生統計→baselineを1 snapshotで更新
+- `Deploy Pages` — evidence更新後も自動再deploy
 
-静的UIは [`site/`](site/) にあります。
+## データ方針
 
-現在、コードとdeploy workflowは実装済みですが、repository側の**初回Pages site有効化だけ**GitHubの`GITHUB_TOKEN`では実行できませんでした。
+Zenn本文は公開Git historyへ保存しません。取得時に一時処理し、`content_sha256`と派生統計だけを残します。詳細は [`docs/CORPUS_POLICY.md`](docs/CORPUS_POLICY.md)。
 
-一度だけ次を設定してください。
+## 解釈上の境界
 
-**Settings → Pages → Build and deployment → Source: GitHub Actions**
+現在のpilotには、各年12件、8月限定、sitemap `lastmod` を候補発見に使うことによる編集履歴selection bias、著者構成差などの制約があります。したがって、表示される「近い年代」をClaude/AI生成判定へ読み替えてはいけません。
 
-有効化後は `.github/workflows/pages.yml` が `site/` を自動deployします。
-
-## コーパス方針
-
-Zennを主要な観測対象候補にしますが、投稿本文をこのrepositoryへ再配布しません。Zenn利用規約では投稿者のコンテンツについて無断転載・二次配布を認めていないためです。
-
-保存対象は原則として以下です。
-
-- source URL
-- published/fetched timestamp
-- selection cohort
-- SHA-256
-- OSSが算出した派生統計量
-- 再現に必要なprovenance
-
-取得時だけ一時的に本文を処理し、公開artifactには本文を含めない設計にします。詳細は [`docs/CORPUS_POLICY.md`](docs/CORPUS_POLICY.md) を参照してください。
-
-## 判定の意味
-
-このサイトは「Claude製」「AI製」などを断定するwatermark detectorではありません。
-
-表示するのは、公開OSSが算出した文章統計と、実測済み年次baselineとの距離です。年代差、媒体差、著者差、ジャンル差、編集、翻訳などでも分布は変化します。英語中心で設計されたdetectorを日本語へ適用する場合は、その一般化を保証せず参考値として扱います。
+次の評価単位は、同じ仕組みのまま季節窓・sample数・cohortを増やし、年代差が再現するかを確認することです。
 
 ## 一次情報
 
@@ -123,13 +116,14 @@ Zennを主要な観測対象候補にしますが、投稿本文をこのreposit
 ## Status
 
 - [x] 空repoから初期化
-- [x] OSSメタレビューを正準化
+- [x] GitHub Pages公開
+- [x] Web Worker + Pyodide + canonical Python分析
+- [x] `pystylometry==1.4.3` WASM compatibility PASS
+- [x] 貼付テキストのnetwork sink CI検査
 - [x] 3 detectorを独立`uv.lock`で固定
-- [x] Pages UIをWeb Worker + Pyodideへ分離
-- [x] `pystylometry` canonical Python関数をWASMで実行
-- [x] WASM compatibility smoke testをActions化
-- [x] baseline未構築時をfail-closed化
-- [ ] GitHub Pagesをrepository設定で初回有効化
-- [ ] 2022–2026 corpusを固定
-- [ ] 年次baselineを実測生成
-- [ ] Pagesで年代距離を有効化
+- [x] 公式sitemap経由の歴史URL inventory
+- [x] 2022–2026同季節pilotを固定
+- [x] 固定1,000文字pilot baselineを実測生成
+- [x] Pagesでpilot年代距離を表示
+- [ ] sample数・季節窓・cohortを増やして再現性を検証
+- [ ] full-year/高engagement cohortを別系統で評価

@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "status": "descriptive_pilot_only",
+  "source_package": "stylometric-ai-detector",
+  "source_version": "0.2.4",
+  "cohort": "august-sitemap-pilot-v2",
+  "samples_per_year": 12,
+  "analysis_window_chars": 1000,
+  "comparison": "2022 vs 2026",
+  "features": {
+    "avg_sentence_len": {
+      "2022_mean": 21.720995038100302,
+      "2026_mean": 10.30678811928812,
+      "absolute_change": -11.414206918812182,
+      "pooled_sd": 25.386603450269448,
+      "cohen_d_2026_minus_2022": -0.4496153627314423,
+      "absolute_cohen_d": 0.4496153627314423,
+      "eligible_for_interpretation": true
+    },
+    "avg_word_len": {
+      "2022_mean": 15.016485968775402,
+      "2026_mean": 16.267875107945475,
+      "absolute_change": 1.2513891391700724,
+      "pooled_sd": 11.832020543975528,
+      "cohen_d_2026_minus_2022": 0.10576292819295673,
+      "absolute_cohen_d": 0.10576292819295673,
+      "eligible_for_interpretation": true
+    },
+    "char_count": {
+      "2022_mean": 1000.0,
+      "2026_mean": 1000.0,
+      "absolute_change": 0.0,
+      "pooled_sd": null,
+      "cohen_d_2026_minus_2022": null,
+      "absolute_cohen_d": null,
+      "eligible_for_interpretation": false
+    },
+    "punct_count": {
+      "2022_mean": 72.0,
+      "2026_mean": 88.08333333333333,
+      "absolute_change": 16.08333333333333,
+      "pooled_sd": 53.77347972013826,
+      "cohen_d_2026_minus_2022": 0.2990941523040417,
+      "absolute_cohen_d": 0.2990941523040417,
+      "eligible_for_interpretation": true
+    },
+    "sentence_count": {
+      "2022_mean": 8.5,
+      "2026_mean": 9.0,
+      "absolute_change": 0.5,
+      "pooled_sd": 5.748517595472292,
+      "cohen_d_2026_minus_2022": 0.0869789457361695,
+      "absolute_cohen_d": 0.0869789457361695,
+      "eligible_for_interpretation": true
+    },
+    "title_case_count": {
+      "2022_mean": 12.0,
+      "2026_mean": 6.583333333333333,
+      "absolute_change": -5.416666666666667,
+      "pooled_sd": 7.125232585252174,
+      "cohen_d_2026_minus_2022": -0.7602091022092525,
+      "absolute_cohen_d": 0.7602091022092525,
+      "eligible_for_interpretation": true
+    },
+    "upper_case_count": {
+      "2022_mean": 3.1666666666666665,
+      "2026_mean": 2.6666666666666665,
+      "absolute_change": -0.5,
+      "pooled_sd": 3.851406669430448,
+      "cohen_d_2026_minus_2022": -0.12982269672237462,
+      "absolute_cohen_d": 0.12982269672237462,
+      "eligible_for_interpretation": true
+    },
+    "word_count": {
+      "2022_mean": 85.25,
+      "2026_mean": 79.25,
+      "absolute_change": -6.0,
+      "pooled_sd": 40.568964851113826,
+      "cohen_d_2026_minus_2022": -0.14789630502083834,
+      "absolute_cohen_d": 0.14789630502083834,
+      "eligible_for_interpretation": true
+    }
+  },
+  "ranked_by_absolute_cohen_d": [
+    {
+      "feature": "title_case_count",
+      "2022_mean": 12.0,
+      "2026_mean": 6.583333333333333,
+      "absolute_change": -5.416666666666667,
+      "pooled_sd": 7.125232585252174,
+      "cohen_d_2026_minus_2022": -0.7602091022092525,
+      "absolute_cohen_d": 0.7602091022092525,
+      "eligible_for_interpretation": true
+    },
+    {
+      "feature": "avg_sentence_len",
+      "2022_mean": 21.720995038100302,
+      "2026_mean": 10.30678811928812,
+      "absolute_change": -11.414206918812182,
+      "pooled_sd": 25.386603450269448,
+      "cohen_d_2026_minus_2022": -0.4496153627314423,
+      "absolute_cohen_d": 0.4496153627314423,
+      "eligible_for_interpretation": true
+    },
+    {
+      "feature": "punct_count",
+      "2022_mean": 72.0,
+      "2026_mean": 88.08333333333333,
+      "absolute_change": 16.08333333333333,
+      "pooled_sd": 53.77347972013826,
+      "cohen_d_2026_minus_2022": 0.2990941523040417,
+      "absolute_cohen_d": 0.2990941523040417,
+      "eligible_for_interpretation": true
+    },
+    {
+      "feature": "word_count",
+      "2022_mean": 85.25,
+      "2026_mean": 79.25,
+      "absolute_change": -6.0,
+      "pooled_sd": 40.568964851113826,
+      "cohen_d_2026_minus_2022": -0.14789630502083834,
+      "absolute_cohen_d": 0.14789630502083834,
+      "eligible_for_interpretation": true
+    },
+    {
+      "feature": "upper_case_count",
+      "2022_mean": 3.1666666666666665,
+      "2026_mean": 2.6666666666666665,
+      "absolute_change": -0.5,
+      "pooled_sd": 3.851406669430448,
+      "cohen_d_2026_minus_2022": -0.12982269672237462,
+      "absolute_cohen_d": 0.12982269672237462,
+      "eligible_for_interpretation": true
+    },
+    {
+      "feature": "avg_word_len",
+      "2022_mean": 15.016485968775402,
+      "2026_mean": 16.267875107945475,
+      "absolute_change": 1.2513891391700724,
+      "pooled_sd": 11.832020543975528,
+      "cohen_d_2026_minus_2022": 0.10576292819295673,
+      "absolute_cohen_d": 0.10576292819295673,
+      "eligible_for_interpretation": true
+    },
+    {
+      "feature": "sentence_count",
+      "2022_mean": 8.5,
+      "2026_mean": 9.0,
+      "absolute_change": 0.5,
+      "pooled_sd": 5.748517595472292,
+      "cohen_d_2026_minus_2022": 0.0869789457361695,
+      "absolute_cohen_d": 0.0869789457361695,
+      "eligible_for_interpretation": true
+    }
+  ],
+  "interpretation_gate": {
+    "use_for_year_inference": false,
+    "multiple_testing_claims": false,
+    "causal_ai_claim": false,
+    "reason": "These are descriptive effect sizes from a 12-per-year pilot. Upstream whitespace/sentence/case features are not validated for Japanese and may encode topic/formatting/English-tokenization artifacts."
+  }
+}

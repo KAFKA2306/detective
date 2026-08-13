@@ -1,0 +1,43 @@
+name: OSS signal validation registry
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/build_signal_validation.py"
+      - "site/data/baselines.json"
+      - "reports/zenn_pystylometry_ncd_year_separation.json"
+      - "reports/zenn_stylometric_ai_detector_2026_measurement.json"
+      - "reports/explain_ai_generated_text_japanese_compatibility.json"
+      - ".github/workflows/signal-validation.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: signal-validation
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build signal validation registry
+        run: python scripts/build_signal_validation.py
+      - name: Validate JSON
+        run: python -m json.tool site/data/signal_validation.json >/dev/null
+      - name: Commit registry
+        run: |
+          git add site/data/signal_validation.json
+          if git diff --cached --quiet; then
+            echo "No validation registry changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data: refresh OSS signal validation registry"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main

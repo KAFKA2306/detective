@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "status": "not_run",
+  "generated_at": null,
+  "source": "official-sitemap+undocumented-detail-metadata",
+  "selection": {
+    "cohort": "august-sitemap-pilot",
+    "target_month_day": "08-01",
+    "target_hour_jst": 12,
+    "samples_per_year": 12,
+    "article_type": "tech",
+    "published_window_days": 7,
+    "lastmod_candidate_window_days": 45,
+    "lastmod_is_label": false,
+    "purpose": "same-season historical discovery pilot; not the final yearly baseline"
+  },
+  "years": {}
+}

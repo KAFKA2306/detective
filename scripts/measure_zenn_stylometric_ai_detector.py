@@ -6,23 +6,21 @@ import html.parser
 import json
 import pathlib
 import statistics
-import sys
 import time
+import unicodedata
 import urllib.parse
 import urllib.request
 
 from stylometric_ai_detector import extract_stylometric_features, predict
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "site"))
-from analyze import ANALYSIS_WINDOW_CHARS, normalize_text  # noqa: E402
-
 INPUT = ROOT / "corpus" / "zenn_august_sitemap_pilot.jsonl"
 OUTPUT = ROOT / "reports" / "zenn_stylometric_ai_detector_2026_measurement.json"
 USER_AGENT = "KAFKA2306-detective/0.1 (+https://github.com/KAFKA2306/detective)"
 REQUEST_INTERVAL_SECONDS = 0.40
 PACKAGE = "stylometric-ai-detector"
 VERSION = "0.2.4"
+ANALYSIS_WINDOW_CHARS = 1000
 
 _last_request_at = 0.0
 
@@ -51,6 +49,10 @@ class VisibleTextParser(html.parser.HTMLParser):
 
     def text(self) -> str:
         return "".join(self.parts)
+
+
+def normalize_text(text: str) -> str:
+    return " ".join(unicodedata.normalize("NFKC", text).split())
 
 
 def fetch_detail(source_url: str) -> dict:
@@ -158,7 +160,7 @@ def main() -> None:
             "years": years,
             "samples_per_year": 12,
             "analysis_window_chars": ANALYSIS_WINDOW_CHARS,
-            "normalization": "site/analyze.py normalize_text",
+            "normalization": "Unicode NFKC + collapse whitespace; same contract as site/analyze.py",
             "raw_body_persisted": False,
         },
         "feature_names": feature_names,

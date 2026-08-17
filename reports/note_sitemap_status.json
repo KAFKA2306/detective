@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "status": "compatible",
-  "checked_at": "2026-08-13T02:42:50.661066+00:00",
+  "checked_at": "2026-08-17T03:15:15.910613+00:00",
   "robots_url": "https://note.com/robots.txt",
   "collector_policy": "robots+sitemap only; no /api/* or /search collection",
   "robots_disallow": [

@@ -1,40 +1,49 @@
 {
   "schema_version": 1,
-  "checked_at": "2026-08-13T01:53:26+00:00",
-  "source": "PyPI project pages verified 2026-08-13 + detectors.toml",
+  "checked_at": "2026-08-17T01:57:45.925306+00:00",
+  "source": "PyPI JSON API + detectors.toml",
   "detectors": [
     {
       "id": "pystylometry",
       "package": "pystylometry",
       "pinned_version": "1.4.3",
-      "latest_version": "1.4.3",
-      "update_available": false,
       "role": "stylometry",
       "pypi_url": "https://pypi.org/project/pystylometry/1.4.3/",
       "repository_url": "https://github.com/craigtrim/pystylometry",
-      "notes": "50+ metrics across 11 modules; distribution measurement baseline."
+      "license": "MIT",
+      "notes": "50+ metrics across 11 modules. Use primarily as a style/distribution measurement library, not as proof of AI authorship.",
+      "latest_version": "1.4.3",
+      "pinned_release_date": "2026-02-07T03:56:37.124952Z",
+      "update_available": false,
+      "pypi_refresh_error": null
     },
     {
       "id": "stylometric-ai-detector",
       "package": "stylometric-ai-detector",
       "pinned_version": "0.2.4",
-      "latest_version": "0.2.4",
-      "update_available": false,
       "role": "stylometry-ml-baseline",
       "pypi_url": "https://pypi.org/project/stylometric-ai-detector/0.2.4/",
       "repository_url": "https://github.com/dinis-a/stylometric-ai-detector",
-      "notes": "Upstream warns against assuming cross-domain/language/model-generation generalization."
+      "license": "MIT",
+      "notes": "Random Forest baseline using 8 surface stylometric features. Upstream explicitly warns that it may not generalize across domains, languages, or model generations.",
+      "latest_version": "0.2.4",
+      "pinned_release_date": "2026-07-10T09:12:03.029395Z",
+      "update_available": false,
+      "pypi_refresh_error": null
     },
     {
       "id": "explain-ai-generated-text",
       "package": "explain-ai-generated-text",
       "pinned_version": "0.1.1.1.7",
-      "latest_version": "0.1.1.1.7",
-      "update_available": false,
       "role": "explainable-ai-text-baseline",
       "pypi_url": "https://pypi.org/project/explain-ai-generated-text/0.1.1.1.7/",
       "repository_url": "https://github.com/ShushantaTUD/Explain_AI_Generated_Text",
-      "notes": "40+ linguistic features with SHAP/XGBoost/Random Forest."
+      "license": "MIT (declared by PyPI/README)",
+      "notes": "40+ linguistic features with SHAP, XGBoost and Random Forest. Treat outputs as benchmark signals, not ground truth.",
+      "latest_version": "0.1.1.1.7",
+      "pinned_release_date": "2026-01-08T11:39:23.717093Z",
+      "update_available": false,
+      "pypi_refresh_error": null
     }
   ]
 }

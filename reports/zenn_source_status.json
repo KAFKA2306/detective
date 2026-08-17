@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "status": "compatible",
-  "checked_at": "2026-08-13T02:07:41.664157+00:00",
+  "checked_at": "2026-08-17T03:08:18.241147+00:00",
   "source": "zenn-undocumented-articles-json",
   "source_documented_by_zenn": false,
   "endpoint": "https://zenn.dev/api/articles?order=latest&count=5&page=1",
@@ -31,8 +31,8 @@
     "user"
   ],
   "required_fields_present": true,
-  "published_at_min": "2026-08-13T10:58:43.937+09:00",
-  "published_at_max": "2026-08-13T11:04:07.200+09:00",
+  "published_at_min": "2026-08-17T11:56:10.582+09:00",
+  "published_at_max": "2026-08-17T12:03:49.500+09:00",
   "liked_count_available": true,
   "next_page_present": true,
   "error": null

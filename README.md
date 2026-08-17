@@ -1,5 +1,9 @@
 # detective
 
+[![CI](https://github.com/KAFKA2306/detective/actions/workflows/ci.yml/badge.svg)](https://github.com/KAFKA2306/detective/actions/workflows/ci.yml)
+[![Pyodide compatibility](https://github.com/KAFKA2306/detective/actions/workflows/compatibility.yml/badge.svg)](https://github.com/KAFKA2306/detective/actions/workflows/compatibility.yml)
+[![Deploy Pages](https://github.com/KAFKA2306/detective/actions/workflows/pages.yml/badge.svg)](https://github.com/KAFKA2306/detective/actions/workflows/pages.yml)
+
 **文章の統計が違って見えても、それだけで「AIが書いた」「この年代に書かれた」とは言えない。**
 
 `detective` は、2022–2026の公開技術文章を同じ条件で比較し、2026年の研究と公開OSSが捉える文章統計の時系列変化を継続監査するメタレビュー基盤です。watermarkや独自AI detectorを前提にせず、年代・媒体・著者・文章長などのdistribution shiftそのものを測ります。

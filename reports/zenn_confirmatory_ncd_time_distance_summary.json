@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "source_manifest_sha256": "5c327554327a92e16ed5a6a9333b2cf51d08d2be181387ee2edf2212a988bfd3",
+  "source_pair_count": 24310,
+  "source_workflow_run": 32387953391,
+  "source_artifact_id": 9413775014,
+  "source_artifact_sha256": "12b7512207bb66f5880fd92e810486b4cf1a35e0fd9596f235098ff6279a5c3e",
+  "analysis": {
+    "all_pairs": {
+      "n": 24310,
+      "month_gap_ncd_pearson_r": 0.007318536482328841,
+      "month_gap_range": [0, 54]
+    },
+    "different_author_pairs": {
+      "n": 24302,
+      "month_gap_ncd_pearson_r": 0.0073856689254758
+    },
+    "same_author_pairs": {
+      "n": 8,
+      "mean": 0.8287082818080812,
+      "median": 0.8258398636107614,
+      "min": 0.8089647812166488,
+      "max": 0.852603706972639,
+      "month_gap_range": [9, 24],
+      "by_month_gap": [
+        {"month_gap": 9, "n": 1, "mean": 0.852603706972639, "median": 0.852603706972639, "min": 0.852603706972639, "max": 0.852603706972639},
+        {"month_gap": 10, "n": 1, "mean": 0.8524743230625583, "median": 0.8524743230625583, "min": 0.8524743230625583, "max": 0.8524743230625583},
+        {"month_gap": 11, "n": 2, "mean": 0.811978403367495, "median": 0.811978403367495, "min": 0.8089647812166488, "max": 0.8149920255183413},
+        {"month_gap": 14, "n": 1, "mean": 0.8281979458450047, "median": 0.8281979458450047, "min": 0.8281979458450047, "max": 0.8281979458450047},
+        {"month_gap": 19, "n": 1, "mean": 0.8103025347506132, "median": 0.8103025347506132, "min": 0.8103025347506132, "max": 0.8103025347506132},
+        {"month_gap": 21, "n": 1, "mean": 0.8234817813765182, "median": 0.8234817813765182, "min": 0.8234817813765182, "max": 0.8234817813765182},
+        {"month_gap": 24, "n": 1, "mean": 0.8386491557223265, "median": 0.8386491557223265, "min": 0.8386491557223265, "max": 0.8386491557223265}
+      ]
+    }
+  },
+  "interpretation": {
+    "inferential_author_effect_claimed": false,
+    "reason": "Same-author pairs are sparse and pair observations are not statistically independent when an author contributes more than two documents."
+  }
+}

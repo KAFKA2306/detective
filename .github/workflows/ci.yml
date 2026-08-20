@@ -23,6 +23,8 @@ jobs:
         run: uv run --locked python -m unittest tests/test_audit_zenn_confirmatory_composition.py
       - name: Validate confirmatory entropy measurement
         run: uv run --locked python -m unittest tests/test_measure_zenn_confirmatory_entropy.py
+      - name: Validate confirmatory detector drift measurement
+        run: uv run --locked python -m unittest tests/test_measure_zenn_confirmatory_detector_drift.py
       - name: Validate confirmatory NCD time-distance analysis
         run: uv run --locked python -m unittest tests/test_analyze_zenn_confirmatory_ncd_time_distance.py
       - name: Validate JSON

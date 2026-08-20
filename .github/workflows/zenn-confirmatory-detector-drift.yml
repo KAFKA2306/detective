@@ -3,6 +3,8 @@ name: Zenn confirmatory detector drift
 on:
   pull_request:
     paths:
+      - "detectors/stylometric-ai-detector/pyproject.toml"
+      - "detectors/stylometric-ai-detector/uv.lock"
       - "scripts/measure_zenn_confirmatory_detector_drift.py"
       - "tests/test_measure_zenn_confirmatory_detector_drift.py"
       - "reports/zenn_confirmatory_selection.json"
@@ -18,9 +20,11 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: astral-sh/setup-uv@v9.0.0
-      - name: Verify detector lock
-        run: uv lock --project detectors/stylometric-ai-detector --check
+      - name: Resolve detector environment
+        run: uv lock --project detectors/stylometric-ai-detector
       - name: Measure frozen confirmatory corpus
         run: |
           uv run --project detectors/stylometric-ai-detector --locked \
@@ -42,5 +46,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: zenn-confirmatory-detector-drift
-          path: ${{ runner.temp }}/zenn_confirmatory_detector_drift.json
+          path: |
+            ${{ runner.temp }}/zenn_confirmatory_detector_drift.json
+            detectors/stylometric-ai-detector/uv.lock
           retention-days: 30

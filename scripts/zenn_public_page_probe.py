@@ -23,8 +23,10 @@ _last_request_at = 0.0
 
 PUBLISHED_PATTERNS = [
     re.compile(r'<meta[^>]+property=["\']article:published_time["\'][^>]+content=["\']([^"\']+)', re.I),
+    re.compile(r'<time[^>]+datetime=["\']([^"\']+)["\']', re.I),
     re.compile(r'"datePublished"\s*:\s*"([^"]+)"'),
     re.compile(r'"published_at"\s*:\s*"([^"]+)"'),
+    re.compile(r'"publishedAt"\s*:\s*"([^"]+)"'),
 ]
 TYPE_PATTERNS = [
     re.compile(r'"article_type"\s*:\s*"(tech|idea)"', re.I),
@@ -138,7 +140,7 @@ def main() -> None:
         "errors": dict(sorted(errors.items())),
         "raw_html_persisted": False,
         "observations": observations,
-        "status": "compatible" if published_ok == len(sample) and author_ok == len(sample) else "blocked",
+        "status": "compatible" if published_ok == len(sample) and type_ok == len(sample) and author_ok == len(sample) else "blocked",
         "note": "This probe validates public-page metadata availability only. It does not collect article bodies or define the confirmatory corpus.",
     }
     OUTPUT.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

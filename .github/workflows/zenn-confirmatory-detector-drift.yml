@@ -1,0 +1,46 @@
+name: Zenn confirmatory detector drift
+
+on:
+  pull_request:
+    paths:
+      - "scripts/measure_zenn_confirmatory_detector_drift.py"
+      - "tests/test_measure_zenn_confirmatory_detector_drift.py"
+      - "reports/zenn_confirmatory_selection.json"
+      - ".github/workflows/zenn-confirmatory-detector-drift.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v9.0.0
+      - name: Verify detector lock
+        run: uv lock --project detectors/stylometric-ai-detector --check
+      - name: Measure frozen confirmatory corpus
+        run: |
+          uv run --project detectors/stylometric-ai-detector --locked \
+            python scripts/measure_zenn_confirmatory_detector_drift.py \
+            --output "$RUNNER_TEMP/zenn_confirmatory_detector_drift.json"
+      - name: Print verified aggregate
+        run: |
+          python - "$RUNNER_TEMP/zenn_confirmatory_detector_drift.json" <<'PY'
+          import json, pathlib, sys
+          report = json.loads(pathlib.Path(sys.argv[1]).read_text())
+          print(json.dumps({
+              "source_manifest_sha256": report["source_manifest_sha256"],
+              "selected_rows_requested": report["selected_rows_requested"],
+              "measured_rows": report["measured_rows"],
+              "errors": report["errors"],
+              "analysis": report["analysis"],
+          }, ensure_ascii=False, indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zenn-confirmatory-detector-drift
+          path: ${{ runner.temp }}/zenn_confirmatory_detector_drift.json
+          retention-days: 30

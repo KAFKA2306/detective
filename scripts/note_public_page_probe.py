@@ -12,6 +12,7 @@ import time
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
+from html.parser import HTMLParser
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "reports" / "note_sitemap_status.json"
@@ -34,6 +35,43 @@ LIKE_PATTERNS = [
     re.compile(r'"likesCount"\s*:\s*(\d+)'),
     re.compile(r'"like_count"\s*:\s*(\d+)'),
 ]
+
+
+class ReactionButtonParser(HTMLParser):
+    """Extract conservative numeric candidates from server-rendered buttons."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self._in_button = False
+        self._button_text: list[str] = []
+        self._button_is_reaction = False
+        self.reaction_counts: list[int] = []
+        self.numeric_button_counts: list[int] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag.lower() != "button" or self._in_button:
+            return
+        self._in_button = True
+        self._button_text = []
+        values = " ".join(value or "" for _, value in attrs).lower()
+        self._button_is_reaction = "スキ" in values or "like" in values or "reaction" in values
+
+    def handle_data(self, data: str) -> None:
+        if self._in_button:
+            self._button_text.append(data)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag.lower() != "button" or not self._in_button:
+            return
+        text = "".join(self._button_text).strip().replace(",", "")
+        if text.isdigit():
+            value = int(text)
+            self.numeric_button_counts.append(value)
+            if self._button_is_reaction:
+                self.reaction_counts.append(value)
+        self._in_button = False
+        self._button_text = []
+        self._button_is_reaction = False
 
 
 def throttled_fetch(url: str, *, sitemap: bool = False) -> bytes:
@@ -93,6 +131,27 @@ def first_match(patterns: list[re.Pattern[str]], text: str) -> str | None:
     return None
 
 
+def public_reaction_count(source: str) -> str | None:
+    structured = first_match(LIKE_PATTERNS, source)
+    if structured is not None:
+        return structured
+
+    parser = ReactionButtonParser()
+    parser.feed(source)
+
+    labeled = set(parser.reaction_counts)
+    if len(labeled) == 1:
+        return str(next(iter(labeled)))
+
+    # Public note pages currently render the reaction count as button text. Only
+    # accept the unlabeled fallback when the page exposes one unique numeric
+    # button value, so unrelated button numbers cannot silently become likes.
+    numeric = set(parser.numeric_button_counts)
+    if len(numeric) == 1:
+        return str(next(iter(numeric)))
+    return None
+
+
 def main() -> None:
     urls = all_article_urls()
     sample = deterministic_sample(urls)
@@ -109,7 +168,7 @@ def main() -> None:
         try:
             source = throttled_fetch(url).decode("utf-8", errors="replace")
             published = first_match(PUBLISHED_PATTERNS, source)
-            like_raw = first_match(LIKE_PATTERNS, source)
+            like_raw = public_reaction_count(source)
             if published:
                 published_success += 1
                 year_match = re.search(r"(20\d{2})", published)

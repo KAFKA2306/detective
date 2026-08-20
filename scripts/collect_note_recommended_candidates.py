@@ -19,7 +19,8 @@ MONTHS = tuple(range(1, 8))
 REQUEST_INTERVAL_SECONDS = 0.35
 HREF_RE = re.compile(r'href=["\']([^"\']+)["\']', re.I)
 ABSOLUTE_NOTE_RE = re.compile(r"https://note\.com/[A-Za-z0-9_-]+/n/[A-Za-z0-9_-]+")
-INFO_NOTE_RE = re.compile(r"(?:https://note\.com)?/info/n/[A-Za-z0-9_-]+")
+ABSOLUTE_INFO_RE = re.compile(r"https://note\.com/info/n/[A-Za-z0-9_-]+")
+RELATIVE_INFO_RE = re.compile(r"(?<![A-Za-z0-9_.:/-])/info/n/[A-Za-z0-9_-]+")
 
 _last_request_at = 0.0
 
@@ -59,7 +60,8 @@ def note_links(source: str, base_url: str) -> list[str]:
     decoded = normalized_embedded_source(source)
     raw_links = list(HREF_RE.findall(decoded))
     raw_links.extend(ABSOLUTE_NOTE_RE.findall(decoded))
-    raw_links.extend(INFO_NOTE_RE.findall(decoded))
+    raw_links.extend(ABSOLUTE_INFO_RE.findall(decoded))
+    raw_links.extend(RELATIVE_INFO_RE.findall(decoded))
     for raw_href in raw_links:
         url = urllib.parse.urljoin(base_url, raw_href)
         if allowed_note_url(url):

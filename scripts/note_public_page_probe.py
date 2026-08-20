@@ -143,9 +143,6 @@ def public_reaction_count(source: str) -> str | None:
     if len(labeled) == 1:
         return str(next(iter(labeled)))
 
-    # Public note pages currently render the reaction count as button text. Only
-    # accept the unlabeled fallback when the page exposes one unique numeric
-    # button value, so unrelated button numbers cannot silently become likes.
     numeric = set(parser.numeric_button_counts)
     if len(numeric) == 1:
         return str(next(iter(numeric)))
@@ -163,12 +160,27 @@ def main() -> None:
     years: collections.Counter[int] = collections.Counter()
     likes_by_year: dict[int, list[int]] = collections.defaultdict(list)
     errors: collections.Counter[str] = collections.Counter()
+    records: list[dict[str, object]] = []
 
     for index, url in enumerate(sample, start=1):
+        fetched_at = dt.datetime.now(dt.UTC).isoformat()
+        record: dict[str, object] = {
+            "source_url": url,
+            "source_url_sha256": hashlib.sha256(url.encode("utf-8")).hexdigest(),
+            "fetched_at": fetched_at,
+            "published_at": None,
+            "public_reaction_count": None,
+            "page_sha256": None,
+            "error": None,
+        }
         try:
-            source = throttled_fetch(url).decode("utf-8", errors="replace")
+            raw = throttled_fetch(url)
+            source = raw.decode("utf-8", errors="replace")
             published = first_match(PUBLISHED_PATTERNS, source)
             like_raw = public_reaction_count(source)
+            record["page_sha256"] = hashlib.sha256(raw).hexdigest()
+            record["published_at"] = published
+            record["public_reaction_count"] = int(like_raw) if like_raw is not None else None
             if published:
                 published_success += 1
                 year_match = re.search(r"(20\d{2})", published)
@@ -182,10 +194,12 @@ def main() -> None:
             print(f"[{index}/{len(sample)}] published={bool(published)} like={like_raw is not None} {url}")
         except Exception as exc:
             errors[type(exc).__name__] += 1
+            record["error"] = type(exc).__name__
             print(f"[{index}/{len(sample)}] ERROR {type(exc).__name__}: {exc} {url}")
+        records.append(record)
 
     report = {
-        "schema_version": 1,
+        "schema_version": 2,
         "status": "compatible" if published_success >= int(SAMPLE_SIZE * 0.8) else "blocked",
         "checked_at": dt.datetime.now(dt.UTC).isoformat(),
         "source": "note public /n/ pages selected from official sitemap",
@@ -202,8 +216,9 @@ def main() -> None:
         "published_year_counts": {str(year): count for year, count in sorted(years.items())},
         "like_count_observations_by_year": {str(year): len(values) for year, values in sorted(likes_by_year.items())},
         "errors": dict(sorted(errors.items())),
+        "records": records,
         "raw_html_persisted": False,
-        "caveat": "This probe tests public-page metadata extraction only; it does not define or claim global top articles.",
+        "caveat": "This probe tests public-page metadata extraction only; records are a bounded deterministic sample and do not define or claim global top articles.",
     }
     OUTPUT.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(report, ensure_ascii=False, indent=2))

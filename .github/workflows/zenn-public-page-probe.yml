@@ -1,0 +1,21 @@
+name: Zenn public page probe
+
+on:
+  pull_request:
+    paths:
+      - "scripts/zenn_public_page_probe.py"
+      - "reports/zenn_sitemap_status.json"
+      - ".github/workflows/zenn-public-page-probe.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - name: Probe public article metadata extraction
+        run: python scripts/zenn_public_page_probe.py

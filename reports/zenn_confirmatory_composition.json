@@ -1,0 +1,734 @@
+{
+  "author_concentration": {
+    "authors_present_in_multiple_years": 6,
+    "authors_with_multiple_articles": 6,
+    "max_articles_per_author": 3,
+    "multi_year_author_years": {
+      "14d494401dd3be07bffe8a408a29339a37fc7e1aa09c6de0e767c57aa029d761": [
+        2024,
+        2026
+      ],
+      "2a2113b475fe18f213d1d9f913265712d03655551ef08ee28f2ce40c8db0b760": [
+        2023,
+        2025
+      ],
+      "6f3b43a33a04b1f2d13073433d1e9e2d5236083eaaeaee18560a913e76f73e18": [
+        2023,
+        2024
+      ],
+      "a12187b2d7e64ca5d0616b4d992dfe26292159b7eec28c9717c47873d2f51054": [
+        2023,
+        2024
+      ],
+      "ccfeacba30be413f372faeda1b41efaca41298175f1fee160ac8144afa347c89": [
+        2023,
+        2024,
+        2025
+      ],
+      "eac874462490e94329469b17c964702ea479838764c99e104bb7369aa15fdcf9": [
+        2023,
+        2024
+      ]
+    },
+    "unique_authors": 214
+  },
+  "length_all": {
+    "iqr": 4318.0,
+    "max": 79439.0,
+    "mean": 5980.787330316742,
+    "median": 3931.0,
+    "min": 1518.0,
+    "n": 221,
+    "q1": 2748.0,
+    "q3": 7066.0,
+    "std_population": 6840.693468261628
+  },
+  "length_by_year": {
+    "2022": {
+      "iqr": 4488.0,
+      "max": 18579.0,
+      "mean": 5402.666666666667,
+      "median": 3673.0,
+      "min": 1613.0,
+      "n": 33,
+      "q1": 2802.0,
+      "q3": 7290.0,
+      "std_population": 3956.804554539974
+    },
+    "2023": {
+      "iqr": 4997.25,
+      "max": 19679.0,
+      "mean": 6113.555555555556,
+      "median": 5381.0,
+      "min": 1784.0,
+      "n": 36,
+      "q1": 2630.0,
+      "q3": 7627.25,
+      "std_population": 4290.9041616763425
+    },
+    "2024": {
+      "iqr": 4633.25,
+      "max": 32230.0,
+      "mean": 6213.047619047619,
+      "median": 3855.0,
+      "min": 1534.0,
+      "n": 84,
+      "q1": 2912.75,
+      "q3": 7546.0,
+      "std_population": 5544.230108656424
+    },
+    "2025": {
+      "iqr": 2652.0,
+      "max": 79439.0,
+      "mean": 5888.15625,
+      "median": 3539.5,
+      "min": 1518.0,
+      "n": 64,
+      "q1": 2622.75,
+      "q3": 5274.75,
+      "std_population": 10117.514938861515
+    },
+    "2026": {
+      "iqr": 1249.5,
+      "max": 8050.0,
+      "mean": 6160.0,
+      "median": 6629.5,
+      "min": 3331.0,
+      "n": 4,
+      "q1": 5770.0,
+      "q3": 7019.5,
+      "std_population": 1733.531511106735
+    }
+  },
+  "limitations": [
+    "This report audits selected-corpus composition only; it does not compute text features or detector outputs.",
+    "Engagement and topic composition are not reported because they are not present in the current selection manifest.",
+    "Author identifiers are SHA-256 hashes from the selection manifest; no author names are persisted here."
+  ],
+  "protocol": {
+    "article_type": "tech",
+    "august_pilot_excluded": true,
+    "feature_blind_selection": true,
+    "max_per_author_per_stratum": 1,
+    "maximum_rows": 420,
+    "minimum_body_letters": 1500,
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "ordering": "ascending sha256(source_url), then source_url",
+    "target_per_stratum": 12,
+    "years": [
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ]
+  },
+  "schema_version": 1,
+  "selected_rows": 221,
+  "source": "reports/zenn_confirmatory_selection.json",
+  "strata": [
+    {
+      "length": {
+        "iqr": 1628.75,
+        "max": 8179.0,
+        "mean": 4563.75,
+        "median": 4114.5,
+        "min": 1847.0,
+        "n": 4,
+        "q1": 3524.75,
+        "q3": 5153.5,
+        "std_population": 2283.433530344161
+      },
+      "month": 1,
+      "selected": 4,
+      "unique_authors": 4,
+      "year": 2022
+    },
+    {
+      "length": {
+        "iqr": 7453.0,
+        "max": 18579.0,
+        "mean": 10826.333333333334,
+        "median": 10227.0,
+        "min": 3673.0,
+        "n": 3,
+        "q1": 6950.0,
+        "q3": 14403.0,
+        "std_population": 6100.0879410783
+      },
+      "month": 2,
+      "selected": 3,
+      "unique_authors": 3,
+      "year": 2022
+    },
+    {
+      "length": {
+        "iqr": 1827.5,
+        "max": 5701.0,
+        "mean": 3761.0,
+        "median": 3536.0,
+        "min": 2046.0,
+        "n": 3,
+        "q1": 2791.0,
+        "q3": 4618.5,
+        "std_population": 1500.6054333723662
+      },
+      "month": 3,
+      "selected": 3,
+      "unique_authors": 3,
+      "year": 2022
+    },
+    {
+      "length": {
+        "iqr": 5392.75,
+        "max": 9046.0,
+        "mean": 5355.666666666667,
+        "median": 5350.0,
+        "min": 2037.0,
+        "n": 6,
+        "q1": 2522.75,
+        "q3": 7915.5,
+        "std_population": 2875.5172674765067
+      },
+      "month": 4,
+      "selected": 6,
+      "unique_authors": 6,
+      "year": 2022
+    },
+    {
+      "length": {
+        "iqr": 511.5,
+        "max": 2802.0,
+        "mean": 2290.5,
+        "median": 2290.5,
+        "min": 1779.0,
+        "n": 2,
+        "q1": 2034.75,
+        "q3": 2546.25,
+        "std_population": 511.5
+      },
+      "month": 5,
+      "selected": 2,
+      "unique_authors": 2,
+      "year": 2022
+    },
+    {
+      "length": {
+        "iqr": 2013.0,
+        "max": 14879.0,
+        "mean": 4896.5,
+        "median": 3524.0,
+        "min": 1613.0,
+        "n": 8,
+        "q1": 2686.75,
+        "q3": 4699.75,
+        "std_population": 4071.215481892355
+      },
+      "month": 6,
+      "selected": 8,
+      "unique_authors": 8,
+      "year": 2022
+    },
+    {
+      "length": {
+        "iqr": 4526.0,
+        "max": 12006.0,
+        "mean": 5769.142857142857,
+        "median": 4844.0,
+        "min": 2382.0,
+        "n": 7,
+        "q1": 3025.0,
+        "q3": 7551.0,
+        "std_population": 3232.7963317303147
+      },
+      "month": 7,
+      "selected": 7,
+      "unique_authors": 7,
+      "year": 2022
+    },
+    {
+      "length": {
+        "iqr": 2368.5,
+        "max": 11020.0,
+        "mean": 6385.0,
+        "median": 5942.5,
+        "min": 2635.0,
+        "n": 4,
+        "q1": 4979.5,
+        "q3": 7348.0,
+        "std_population": 3000.1342469962906
+      },
+      "month": 1,
+      "selected": 4,
+      "unique_authors": 4,
+      "year": 2023
+    },
+    {
+      "length": {
+        "iqr": 3979.0,
+        "max": 17399.0,
+        "mean": 5770.833333333333,
+        "median": 3769.5,
+        "min": 1784.0,
+        "n": 6,
+        "q1": 1916.5,
+        "q3": 5895.5,
+        "std_population": 5485.0838771060635
+      },
+      "month": 2,
+      "selected": 6,
+      "unique_authors": 6,
+      "year": 2023
+    },
+    {
+      "length": {
+        "iqr": 3381.5,
+        "max": 10059.0,
+        "mean": 5447.5,
+        "median": 5578.5,
+        "min": 2256.0,
+        "n": 6,
+        "q1": 3158.75,
+        "q3": 6540.25,
+        "std_population": 2654.4112184563014
+      },
+      "month": 3,
+      "selected": 6,
+      "unique_authors": 6,
+      "year": 2023
+    },
+    {
+      "length": {
+        "iqr": 4928.5,
+        "max": 13447.0,
+        "mean": 5699.0,
+        "median": 4395.0,
+        "min": 2089.0,
+        "n": 11,
+        "q1": 2606.0,
+        "q3": 7534.5,
+        "std_population": 3900.041794647847
+      },
+      "month": 4,
+      "selected": 11,
+      "unique_authors": 11,
+      "year": 2023
+    },
+    {
+      "length": {
+        "iqr": 2941.0,
+        "max": 9534.0,
+        "mean": 6432.0,
+        "median": 6789.5,
+        "min": 2615.0,
+        "n": 4,
+        "q1": 5140.25,
+        "q3": 8081.25,
+        "std_population": 2537.302603159505
+      },
+      "month": 5,
+      "selected": 4,
+      "unique_authors": 4,
+      "year": 2023
+    },
+    {
+      "length": {
+        "iqr": 3782.0,
+        "max": 19679.0,
+        "mean": 7764.2,
+        "median": 4849.0,
+        "min": 2639.0,
+        "n": 5,
+        "q1": 3936.0,
+        "q3": 7718.0,
+        "std_population": 6186.853397325655
+      },
+      "month": 6,
+      "selected": 5,
+      "unique_authors": 5,
+      "year": 2023
+    },
+    {
+      "length": {
+        "iqr": null,
+        "max": null,
+        "mean": null,
+        "median": null,
+        "min": null,
+        "n": 0,
+        "q1": null,
+        "q3": null,
+        "std_population": null
+      },
+      "month": 7,
+      "selected": 0,
+      "unique_authors": 0,
+      "year": 2023
+    },
+    {
+      "length": {
+        "iqr": 7948.25,
+        "max": 32230.0,
+        "mean": 9301.0,
+        "median": 6018.5,
+        "min": 2631.0,
+        "n": 12,
+        "q1": 4235.75,
+        "q3": 12184.0,
+        "std_population": 8020.442298693175
+      },
+      "month": 1,
+      "selected": 12,
+      "unique_authors": 12,
+      "year": 2024
+    },
+    {
+      "length": {
+        "iqr": 2500.75,
+        "max": 8644.0,
+        "mean": 4425.416666666667,
+        "median": 3547.5,
+        "min": 1895.0,
+        "n": 12,
+        "q1": 3137.0,
+        "q3": 5637.75,
+        "std_population": 1875.7374309114327
+      },
+      "month": 2,
+      "selected": 12,
+      "unique_authors": 12,
+      "year": 2024
+    },
+    {
+      "length": {
+        "iqr": 1351.0,
+        "max": 13309.0,
+        "mean": 4166.166666666667,
+        "median": 3147.0,
+        "min": 1811.0,
+        "n": 12,
+        "q1": 2587.5,
+        "q3": 3938.5,
+        "std_population": 3029.0342749610622
+      },
+      "month": 3,
+      "selected": 12,
+      "unique_authors": 12,
+      "year": 2024
+    },
+    {
+      "length": {
+        "iqr": 2328.5,
+        "max": 9338.0,
+        "mean": 4359.833333333333,
+        "median": 3638.0,
+        "min": 1534.0,
+        "n": 12,
+        "q1": 2493.5,
+        "q3": 4822.0,
+        "std_population": 2630.2326840456954
+      },
+      "month": 4,
+      "selected": 12,
+      "unique_authors": 12,
+      "year": 2024
+    },
+    {
+      "length": {
+        "iqr": 9488.75,
+        "max": 18280.0,
+        "mean": 7920.916666666667,
+        "median": 5179.5,
+        "min": 1737.0,
+        "n": 12,
+        "q1": 2755.25,
+        "q3": 12244.0,
+        "std_population": 5912.039755988528
+      },
+      "month": 5,
+      "selected": 12,
+      "unique_authors": 12,
+      "year": 2024
+    },
+    {
+      "length": {
+        "iqr": 4512.5,
+        "max": 30433.0,
+        "mean": 7758.75,
+        "median": 5510.5,
+        "min": 2010.0,
+        "n": 12,
+        "q1": 3645.75,
+        "q3": 8158.25,
+        "std_population": 7364.504340924785
+      },
+      "month": 6,
+      "selected": 12,
+      "unique_authors": 12,
+      "year": 2024
+    },
+    {
+      "length": {
+        "iqr": 3543.0,
+        "max": 16395.0,
+        "mean": 5559.25,
+        "median": 3889.0,
+        "min": 1986.0,
+        "n": 12,
+        "q1": 2842.75,
+        "q3": 6385.75,
+        "std_population": 3994.1899079579744
+      },
+      "month": 7,
+      "selected": 12,
+      "unique_authors": 12,
+      "year": 2024
+    },
+    {
+      "length": {
+        "iqr": 3876.5,
+        "max": 79439.0,
+        "mean": 11456.7,
+        "median": 3524.5,
+        "min": 1635.0,
+        "n": 10,
+        "q1": 2427.75,
+        "q3": 6304.25,
+        "std_population": 22747.22819180394
+      },
+      "month": 1,
+      "selected": 10,
+      "unique_authors": 10,
+      "year": 2025
+    },
+    {
+      "length": {
+        "iqr": 4061.0,
+        "max": 11231.0,
+        "mean": 4671.8,
+        "median": 3173.5,
+        "min": 1567.0,
+        "n": 10,
+        "q1": 2747.75,
+        "q3": 6808.75,
+        "std_population": 2998.569285509341
+      },
+      "month": 2,
+      "selected": 10,
+      "unique_authors": 10,
+      "year": 2025
+    },
+    {
+      "length": {
+        "iqr": 2614.75,
+        "max": 25995.0,
+        "mean": 6910.333333333333,
+        "median": 4507.0,
+        "min": 1556.0,
+        "n": 12,
+        "q1": 2469.25,
+        "q3": 5084.0,
+        "std_population": 7566.127205439312
+      },
+      "month": 3,
+      "selected": 12,
+      "unique_authors": 12,
+      "year": 2025
+    },
+    {
+      "length": {
+        "iqr": 1613.0,
+        "max": 9503.0,
+        "mean": 3627.0,
+        "median": 2748.0,
+        "min": 1664.0,
+        "n": 9,
+        "q1": 2144.0,
+        "q3": 3757.0,
+        "std_population": 2309.232291861903
+      },
+      "month": 4,
+      "selected": 9,
+      "unique_authors": 9,
+      "year": 2025
+    },
+    {
+      "length": {
+        "iqr": 1954.5,
+        "max": 9036.0,
+        "mean": 4556.416666666667,
+        "median": 3779.0,
+        "min": 1614.0,
+        "n": 12,
+        "q1": 3221.0,
+        "q3": 5175.5,
+        "std_population": 2432.301840449815
+      },
+      "month": 5,
+      "selected": 12,
+      "unique_authors": 12,
+      "year": 2025
+    },
+    {
+      "length": {
+        "iqr": 2843.0,
+        "max": 8074.0,
+        "mean": 4148.285714285715,
+        "median": 3562.0,
+        "min": 1518.0,
+        "n": 7,
+        "q1": 2549.5,
+        "q3": 5392.5,
+        "std_population": 2138.45142329582
+      },
+      "month": 6,
+      "selected": 7,
+      "unique_authors": 7,
+      "year": 2025
+    },
+    {
+      "length": {
+        "iqr": 1021.25,
+        "max": 6788.0,
+        "mean": 4068.75,
+        "median": 3263.0,
+        "min": 2961.0,
+        "n": 4,
+        "q1": 3155.25,
+        "q3": 4176.5,
+        "std_population": 1575.0868825242626
+      },
+      "month": 7,
+      "selected": 4,
+      "unique_authors": 4,
+      "year": 2025
+    },
+    {
+      "length": {
+        "iqr": 733.5,
+        "max": 8050.0,
+        "mean": 7316.5,
+        "median": 7316.5,
+        "min": 6583.0,
+        "n": 2,
+        "q1": 6949.75,
+        "q3": 7683.25,
+        "std_population": 733.5
+      },
+      "month": 1,
+      "selected": 2,
+      "unique_authors": 2,
+      "year": 2026
+    },
+    {
+      "length": {
+        "iqr": null,
+        "max": null,
+        "mean": null,
+        "median": null,
+        "min": null,
+        "n": 0,
+        "q1": null,
+        "q3": null,
+        "std_population": null
+      },
+      "month": 2,
+      "selected": 0,
+      "unique_authors": 0,
+      "year": 2026
+    },
+    {
+      "length": {
+        "iqr": null,
+        "max": null,
+        "mean": null,
+        "median": null,
+        "min": null,
+        "n": 0,
+        "q1": null,
+        "q3": null,
+        "std_population": null
+      },
+      "month": 3,
+      "selected": 0,
+      "unique_authors": 0,
+      "year": 2026
+    },
+    {
+      "length": {
+        "iqr": null,
+        "max": null,
+        "mean": null,
+        "median": null,
+        "min": null,
+        "n": 0,
+        "q1": null,
+        "q3": null,
+        "std_population": null
+      },
+      "month": 4,
+      "selected": 0,
+      "unique_authors": 0,
+      "year": 2026
+    },
+    {
+      "length": {
+        "iqr": 0.0,
+        "max": 6676.0,
+        "mean": 6676.0,
+        "median": 6676.0,
+        "min": 6676.0,
+        "n": 1,
+        "q1": 6676.0,
+        "q3": 6676.0,
+        "std_population": 0.0
+      },
+      "month": 5,
+      "selected": 1,
+      "unique_authors": 1,
+      "year": 2026
+    },
+    {
+      "length": {
+        "iqr": null,
+        "max": null,
+        "mean": null,
+        "median": null,
+        "min": null,
+        "n": 0,
+        "q1": null,
+        "q3": null,
+        "std_population": null
+      },
+      "month": 6,
+      "selected": 0,
+      "unique_authors": 0,
+      "year": 2026
+    },
+    {
+      "length": {
+        "iqr": 0.0,
+        "max": 3331.0,
+        "mean": 3331.0,
+        "median": 3331.0,
+        "min": 3331.0,
+        "n": 1,
+        "q1": 3331.0,
+        "q3": 3331.0,
+        "std_population": 0.0
+      },
+      "month": 7,
+      "selected": 1,
+      "unique_authors": 1,
+      "year": 2026
+    }
+  ]
+}

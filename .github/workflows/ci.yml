@@ -21,6 +21,8 @@ jobs:
         run: uv run --locked python -m unittest tests/test_select_zenn_confirmatory_corpus.py
       - name: Validate confirmatory composition audit
         run: uv run --locked python -m unittest tests/test_audit_zenn_confirmatory_composition.py
+      - name: Validate confirmatory entropy measurement
+        run: uv run --locked python -m unittest tests/test_measure_zenn_confirmatory_entropy.py
       - name: Validate JSON
         run: |
           python -m json.tool site/data/baselines.json >/dev/null

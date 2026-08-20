@@ -119,9 +119,6 @@ def compute_pairs(records: list[dict[str, object]], compute_distance) -> list[di
                     "month_b": right["month"],
                     "same_author": left["author_sha256"] == right["author_sha256"],
                     "ncd": float(result.ncd),
-                    "c_x": int(result.c_x),
-                    "c_y": int(result.c_y),
-                    "c_xy": int(result.c_xy),
                 }
             )
             done += 1

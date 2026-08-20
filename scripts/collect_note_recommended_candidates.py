@@ -18,6 +18,8 @@ YEARS = (2022, 2026)
 MONTHS = tuple(range(1, 8))
 REQUEST_INTERVAL_SECONDS = 0.35
 HREF_RE = re.compile(r'href=["\']([^"\']+)["\']', re.I)
+ABSOLUTE_NOTE_RE = re.compile(r"https://note\.com/[A-Za-z0-9_-]+/n/[A-Za-z0-9_-]+")
+INFO_NOTE_RE = re.compile(r"(?:https://note\.com)?/info/n/[A-Za-z0-9_-]+")
 
 _last_request_at = 0.0
 
@@ -48,11 +50,18 @@ def throttled_fetch(url: str) -> str:
     return raw.decode("utf-8", errors="replace")
 
 
+def normalized_embedded_source(source: str) -> str:
+    return html.unescape(source).replace("\\u002F", "/").replace("\\u002f", "/").replace("\\/", "/")
+
+
 def note_links(source: str, base_url: str) -> list[str]:
     links: set[str] = set()
-    for raw_href in HREF_RE.findall(source):
-        href = html.unescape(raw_href)
-        url = urllib.parse.urljoin(base_url, href)
+    decoded = normalized_embedded_source(source)
+    raw_links = list(HREF_RE.findall(decoded))
+    raw_links.extend(ABSOLUTE_NOTE_RE.findall(decoded))
+    raw_links.extend(INFO_NOTE_RE.findall(decoded))
+    for raw_href in raw_links:
+        url = urllib.parse.urljoin(base_url, raw_href)
         if allowed_note_url(url):
             parsed = urllib.parse.urlsplit(url)
             clean = urllib.parse.urlunsplit((parsed.scheme, parsed.netloc, parsed.path.rstrip("/"), "", ""))

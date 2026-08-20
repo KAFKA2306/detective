@@ -32,6 +32,10 @@ TYPE_PATTERNS = [
     re.compile(r'"article_type"\s*:\s*"(tech|idea)"', re.I),
     re.compile(r'"articleType"\s*:\s*"(tech|idea)"', re.I),
 ]
+BODY_LETTERS_PATTERNS = [
+    re.compile(r'"body_letters_count"\s*:\s*(\d+)', re.I),
+    re.compile(r'"bodyLettersCount"\s*:\s*(\d+)', re.I),
+]
 
 
 def fetch(url: str, *, sitemap: bool) -> bytes:
@@ -101,6 +105,7 @@ def main() -> None:
     published_ok = 0
     type_ok = 0
     author_ok = 0
+    body_letters_ok = 0
     errors: dict[str, int] = {}
     observations: list[dict[str, object]] = []
 
@@ -109,23 +114,28 @@ def main() -> None:
             source = fetch(url, sitemap=False).decode("utf-8", errors="replace")
             published_at = first_match(PUBLISHED_PATTERNS, source)
             article_type = first_match(TYPE_PATTERNS, source)
+            body_letters_raw = first_match(BODY_LETTERS_PATTERNS, source)
+            body_letters_count = int(body_letters_raw) if body_letters_raw is not None else None
             path = urllib.parse.urlsplit(url).path.strip("/").split("/")
             author = path[0] if len(path) >= 3 and path[1] == "articles" else None
             published_ok += int(published_at is not None)
             type_ok += int(article_type is not None)
             author_ok += int(author is not None)
+            body_letters_ok += int(body_letters_count is not None)
             observations.append({
                 "source_url_sha256": hashlib.sha256(url.encode()).hexdigest(),
                 "published_at_available": published_at is not None,
                 "article_type_available": article_type is not None,
                 "author_from_canonical_url": author is not None,
+                "body_letters_count": body_letters_count,
             })
         except Exception as exc:
             name = type(exc).__name__
             errors[name] = errors.get(name, 0) + 1
 
+    complete = len(sample)
     report = {
-        "schema_version": 1,
+        "schema_version": 2,
         "checked_at": dt.datetime.now(dt.UTC).isoformat(),
         "source": "Zenn official sitemap plus public /articles/ pages",
         "robots_source": "https://zenn.dev/robots.txt",
@@ -137,11 +147,13 @@ def main() -> None:
         "published_at_available": published_ok,
         "article_type_available": type_ok,
         "author_from_canonical_url": author_ok,
+        "body_letters_count_available": body_letters_ok,
         "errors": dict(sorted(errors.items())),
         "raw_html_persisted": False,
+        "article_body_persisted": False,
         "observations": observations,
-        "status": "compatible" if published_ok == len(sample) and type_ok == len(sample) and author_ok == len(sample) else "blocked",
-        "note": "This probe validates public-page metadata availability only. It does not collect article bodies or define the confirmatory corpus.",
+        "status": "compatible" if published_ok == complete and type_ok == complete and author_ok == complete and body_letters_ok == complete else "blocked",
+        "note": "This probe validates public-page metadata availability, including Zenn's body_letters_count. It does not persist article bodies or define the confirmatory corpus.",
     }
     OUTPUT.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(report, ensure_ascii=False, indent=2))

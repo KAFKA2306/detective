@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "measured_at": "2026-08-20T17:47:56.009421+00:00",
+  "package": "stylometric-ai-detector",
+  "version": "0.2.4",
+  "source_manifest": "reports/zenn_confirmatory_selection.json",
+  "source_manifest_sha256": "5c327554327a92e16ed5a6a9333b2cf51d08d2be181387ee2edf2212a988bfd3",
+  "measured_rows": 221,
+  "errors": [],
+  "artifact_id": 9417955145,
+  "artifact_sha256": "e7c088d3181106aaa7ca398e0a59bbc97b7d55134408a1e5f7fa99cc3162b7f5",
+  "artifact_report_sha256": "2360d22f4d37e97abe8fa285e436067e233ed0156b7d7c9055dc03efbc0fe430",
+  "workflow_run": 32399307191,
+  "label_counts": {
+    "AI": 219,
+    "Human": 2
+  },
+  "endpoint_2026_minus_2022": {
+    "n_2022": 33,
+    "n_2026": 4,
+    "mean_difference": 0.020454545454545503,
+    "bootstrap_95pct_ci": [
+      -0.056590909090909136,
+      0.10446969696969699
+    ],
+    "hedges_g": 0.19572935663648328
+  },
+  "limitations": {
+    "training_language": "English",
+    "training_scope": "single dataset",
+    "training_period": "pre-2024",
+    "generalization_warning": "Upstream warns that the baseline may not generalize across domains, languages, or AI model generations.",
+    "source": "https://github.com/dinis-a/stylometric-ai-detector"
+  },
+  "interpretation": "Detector behavior only; labels and confidence are not authorship ground truth for Japanese Zenn articles."
+}

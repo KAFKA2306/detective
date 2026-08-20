@@ -1,0 +1,35 @@
+name: Zenn confirmatory entropy
+
+on:
+  pull_request:
+    paths:
+      - "scripts/measure_zenn_confirmatory_entropy.py"
+      - "site/analyze.py"
+      - "reports/zenn_confirmatory_selection.json"
+      - ".github/workflows/zenn-confirmatory-entropy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Install pinned stylometry implementation
+        run: python -m pip install --disable-pip-version-check "pystylometry==1.4.3"
+      - name: Measure fixed confirmatory corpus
+        run: python scripts/measure_zenn_confirmatory_entropy.py
+      - name: Validate report
+        run: python -m json.tool reports/zenn_confirmatory_entropy.json >/dev/null
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zenn-confirmatory-entropy
+          path: reports/zenn_confirmatory_entropy.json
+          if-no-files-found: error
+          retention-days: 30

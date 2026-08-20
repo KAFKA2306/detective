@@ -29,10 +29,14 @@ jobs:
         run: uv run --locked python -m unittest tests/test_measure_zenn_confirmatory_detector_drift.py
       - name: Validate confirmatory NCD time-distance analysis
         run: uv run --locked python -m unittest tests/test_analyze_zenn_confirmatory_ncd_time_distance.py
+      - name: Validate confirmatory research summary
+        run: uv run --locked python -m unittest tests/test_build_zenn_confirmatory_research_summary.py
       - name: Validate JSON
         run: |
           python -m json.tool site/data/baselines.json >/dev/null
           python -m json.tool site/data/detectors.json >/dev/null
           python -m json.tool site/data/compatibility.json >/dev/null
+          python -m json.tool reports/zenn_confirmatory_detector_summary.json >/dev/null
+          python -m json.tool reports/zenn_confirmatory_research_summary.json >/dev/null
       - name: Verify pasted-text privacy architecture
         run: node scripts/privacy_architecture_test.mjs

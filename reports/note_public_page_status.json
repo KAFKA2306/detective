@@ -1,7 +1,7 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "status": "compatible",
-  "checked_at": "2026-08-20T21:39:20.805909+00:00",
+  "checked_at": "2026-08-20T22:38:38.920149+00:00",
   "source": "note public /n/ pages selected from official sitemap",
   "collection_paths": [
     "/sitemaps/*",
@@ -23,6 +23,548 @@
     "2026": 44
   },
   "errors": {},
+  "records": [
+    {
+      "source_url": "https://note.com/bnekozel0224/n/nc38dea7565dd",
+      "source_url_sha256": "000016ddb28c5b05d3a791e40dee2d4c8cdd9fef4b42b338d951778a0308b21a",
+      "fetched_at": "2026-08-20T22:37:49.984275+00:00",
+      "published_at": "2026-08-18T15:33:40.000+09:00",
+      "public_reaction_count": 6,
+      "page_sha256": "54736df5a81c82b9e1d4d674c53a8ef986203434d071fddb7c2abf37ad63103c",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/monosashi_labo/n/nd6ede3515417",
+      "source_url_sha256": "000066293035500e9f2030a63f094cd24a5328133d3581a53f0d724a0e660c51",
+      "fetched_at": "2026-08-20T22:37:50.474236+00:00",
+      "published_at": "2026-08-18T12:00:00.000+09:00",
+      "public_reaction_count": null,
+      "page_sha256": "47d0e0a35d29d9e4cf9db3577de918e28d16b68f4db948b62272b54e37c8a403",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/wise_quail5241/n/n341f90ff1012",
+      "source_url_sha256": "0000d1f213dbf6ca0af15d3cf6f5e7cd2309a058a53fe481c4a7356ccb358c3d",
+      "fetched_at": "2026-08-20T22:37:51.269032+00:00",
+      "published_at": "2026-08-19T16:08:54.000+09:00",
+      "public_reaction_count": 5,
+      "page_sha256": "81a5d16b8716d23f1119bc8672e17bc7d21f29965e5fff619224e502a23e7132",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/hiro_honne18/n/nc1e805801a73",
+      "source_url_sha256": "0001cbc99a047261409c5c56e15cf34d0f721cb2567d8759a3e481b2e47e0ab6",
+      "fetched_at": "2026-08-20T22:37:52.095925+00:00",
+      "published_at": "2026-08-18T07:30:53.000+09:00",
+      "public_reaction_count": 2,
+      "page_sha256": "889be997c3bc0848c8c0daaddaacd038bbea7823f46b3c4628a3266c18e2b1a9",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/nijieko2026/n/ncc663d646e94",
+      "source_url_sha256": "000219c13830f3278e77422830c0bb16453f16807ba20cbe50cb49293a37dbe0",
+      "fetched_at": "2026-08-20T22:37:52.864387+00:00",
+      "published_at": "2026-08-16T14:01:29.000+09:00",
+      "public_reaction_count": null,
+      "page_sha256": "7a63191c84326410dadd4db875d3595853e26ce56b8df28687e848dc99c30c7f",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/pokopokodesu/n/n60768b6fbaea",
+      "source_url_sha256": "00025dcdf002708b973cf925c5d8f885aaca424e94f11a978dfdafb1bac136dd",
+      "fetched_at": "2026-08-20T22:37:53.641453+00:00",
+      "published_at": "2026-08-18T21:38:20.000+09:00",
+      "public_reaction_count": null,
+      "page_sha256": "620dac5e83e68fd38363ac1c43ef5b2fc2860481f71fa50f65b5e2c12fc50279",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/fresh_lynx838/n/ne605250056d0",
+      "source_url_sha256": "0002916678ccfba6bab858affd22da521d2eb15ccee7fef5f6b53f078046f766",
+      "fetched_at": "2026-08-20T22:37:54.474133+00:00",
+      "published_at": "2026-08-19T12:32:56.000+09:00",
+      "public_reaction_count": null,
+      "page_sha256": "eeaaeec01ad78977cb98754433275ac0b2e9328b9f7b5b44404ce6eb38e3a23a",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/happy_daphne8/n/n50fa6170418e",
+      "source_url_sha256": "0002b5e050f05aea2edf56df03dc3b73215a8a4dffde083057207a831381190d",
+      "fetched_at": "2026-08-20T22:37:55.295367+00:00",
+      "published_at": "2026-08-19T21:56:11.000+09:00",
+      "public_reaction_count": null,
+      "page_sha256": "c08960e9f7ce1f1e6bbfe4964ce00465dc45e487f1dba4edbfd5a23cb1e2fc5a",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/4kado_makuri/n/na3f8f01517c6",
+      "source_url_sha256": "0003672a1c1b25a12bf31d7050069909c9116aca5bf8e571a671e49779239dbd",
+      "fetched_at": "2026-08-20T22:37:56.000057+00:00",
+      "published_at": "2026-08-16T17:41:54.000+09:00",
+      "public_reaction_count": 2,
+      "page_sha256": "beb1ac76e09dbdd6da436bcfe446e9dd485243b883a4d36f1d7d701da7c415cf",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/alive_okapi1485/n/n0165fb5f68b9",
+      "source_url_sha256": "000406dea9a73c45d4921af8e116179711ca70efc3de177eaa82772e089d94a5",
+      "fetched_at": "2026-08-20T22:37:56.701992+00:00",
+      "published_at": "2026-08-17T17:01:58.000+09:00",
+      "public_reaction_count": 3,
+      "page_sha256": "296e7fdaae270949e0443d4b8d3fb78d6a378f8959385f863ca7455619f384bc",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/kyuuri/n/n20ae11ba88c1",
+      "source_url_sha256": "0004955ad90a2f14a9adf687d8087d3cba18fe01a832eeb3f4688efbbc9e3beb",
+      "fetched_at": "2026-08-20T22:37:57.578595+00:00",
+      "published_at": "2026-08-17T21:53:59.000+09:00",
+      "public_reaction_count": 2,
+      "page_sha256": "56f6ff5546547a151c4f2213b1ed935dc6dabb16c52d7c9a57c425eea452bdf9",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/light_lotus3027/n/n631e89b31831",
+      "source_url_sha256": "0005183ee7c4f4d615e5854010c6e4a7f1d1d66755ed98c2832e3df000c10fe6",
+      "fetched_at": "2026-08-20T22:37:58.848705+00:00",
+      "published_at": "2026-08-19T06:29:04.000+09:00",
+      "public_reaction_count": 3,
+      "page_sha256": "f527580cdbddd8cac2a52d124de3d155b0f8d2490b6cad687bff499c6e87a741",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/cokko8811/n/n57b0e9fc4c00",
+      "source_url_sha256": "0005198fea5c4fbc3355b9cc0be3cf91c937a968ad656a02a5d969f6f3f082c3",
+      "fetched_at": "2026-08-20T22:37:59.818737+00:00",
+      "published_at": "2026-08-17T18:41:01.000+09:00",
+      "public_reaction_count": 1,
+      "page_sha256": "9b7db99c3b5ec072ae1e370750564840173dcbfb7563998ecedd6d1b8e3a3f2b",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/cozy_ram9690/n/nfeb8e87ae94f",
+      "source_url_sha256": "000520708ca867e53c77b5b9e7686eebf5bd00a5a0dc048fbabddcff32f58c53",
+      "fetched_at": "2026-08-20T22:38:00.607479+00:00",
+      "published_at": "2026-08-18T22:42:22.000+09:00",
+      "public_reaction_count": 5,
+      "page_sha256": "91e540e589a4283a3e033ad958446a9b1c1558ee346fc7037a2ede75de52311b",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/gentle_pansy7753/n/n664f2509e30b",
+      "source_url_sha256": "00058e14bdd9d533f200ad84f8c19f85231c4cb1866a45f6437b5bec63dcb8c7",
+      "fetched_at": "2026-08-20T22:38:01.742012+00:00",
+      "published_at": "2026-08-16T22:28:08.000+09:00",
+      "public_reaction_count": 5,
+      "page_sha256": "a96558748a6b78123a5ed60ed0af9a20d2fa231ddcbbd956c1cd4428f9cf2d6f",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/kinonekko_buddy/n/ne54f938c09e0",
+      "source_url_sha256": "00059fd571e7db6fb275de57921f3f03e43edd8fbe6b644f25ad74e6ae234e45",
+      "fetched_at": "2026-08-20T22:38:02.518943+00:00",
+      "published_at": "2026-08-17T16:39:43.000+09:00",
+      "public_reaction_count": null,
+      "page_sha256": "654adb4f4d7cff11f87c649ebb00c240b8508c700344a51f5c3eef82c30bec8f",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/humanizmgroup/n/n90eae6a88950",
+      "source_url_sha256": "0005a02c2e84308b9691ce9d524c78d75556af00ffc5136ce26615ae94a15180",
+      "fetched_at": "2026-08-20T22:38:03.507336+00:00",
+      "published_at": "2026-08-17T02:28:00.000+09:00",
+      "public_reaction_count": 1,
+      "page_sha256": "5697dad36082aa4a959284e08fbb769dc58f7709c919575d397b46d8e186bbef",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/preriha_y/n/nc54c8080849e",
+      "source_url_sha256": "0005b4394d7b7c315555b67d0a2d91350b4cbe95df0e262bc099f0dc88189fde",
+      "fetched_at": "2026-08-20T22:38:04.310628+00:00",
+      "published_at": "2026-08-19T17:30:02.000+09:00",
+      "public_reaction_count": 1,
+      "page_sha256": "e240f241b37e5f34eb354302e3ea499a977530a01f5525ebae8b6eaddf896a58",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/h3adeu/n/n7f4c1ede5b42",
+      "source_url_sha256": "000639c0ee2b180d17f4d04872414bb8f7b9160ca7cdbb725a33ef5070a9fb7d",
+      "fetched_at": "2026-08-20T22:38:05.087931+00:00",
+      "published_at": "2026-08-17T21:11:29.000+09:00",
+      "public_reaction_count": 2,
+      "page_sha256": "e87fc670a71fb393838e978fbc48d0040858d7134566d603bb750a8e1592353d",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/konoyoni_genmetu/n/n036f17b63a45",
+      "source_url_sha256": "0006422e895757a60940d29af7fc87a97b8374a4c41b3d10ceaa6c3adbd965e8",
+      "fetched_at": "2026-08-20T22:38:05.887125+00:00",
+      "published_at": "2026-08-17T12:59:10.000+09:00",
+      "public_reaction_count": 2,
+      "page_sha256": "4797177b3505c2bcf043391f09f4dde74ac50c2ddfb75abbc3ff27843c802edd",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/keibaaiponkotsu/n/n2f26b009639e",
+      "source_url_sha256": "000644db7de23fe74ed9a6409fea6f63329c9585afa87c1121e292ea7a4ce485",
+      "fetched_at": "2026-08-20T22:38:06.665526+00:00",
+      "published_at": "2026-08-16T17:24:12.000+09:00",
+      "public_reaction_count": 1,
+      "page_sha256": "ff5fdb53d04f450e507b80f3be770f9385d671943558ad182cb98a4e281c9e28",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/hayato522/n/ne4a4deabb725",
+      "source_url_sha256": "00065ed4ae0cd2b0a3b31e2d47435d0ffb282efec116d29a13dcc1518bd523be",
+      "fetched_at": "2026-08-20T22:38:07.408239+00:00",
+      "published_at": "2026-08-19T11:46:00.000+09:00",
+      "public_reaction_count": 3,
+      "page_sha256": "4647a66cbd5a82342601c739e9790c44dc5016ab9a4369255dce6b868a2202a2",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/hoshilogy/n/n7d0320e4ba11",
+      "source_url_sha256": "0006612865f7bf88f36c075d6dfd4d71e8a8f89c9125d57a354222072e559d0d",
+      "fetched_at": "2026-08-20T22:38:08.196491+00:00",
+      "published_at": "2026-08-19T22:18:42.000+09:00",
+      "public_reaction_count": 9,
+      "page_sha256": "2c38c341ec8347cef6a2d34dffcff54a25da1d17d742a9d13dbb77c4e15f2dad",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/wakako870321/n/nd19c16d21529",
+      "source_url_sha256": "0006868286faa659c8f19a4f2404b81e297ece44e90efb7d49b0bc72b3349368",
+      "fetched_at": "2026-08-20T22:38:08.983909+00:00",
+      "published_at": "2026-08-19T09:47:24.000+09:00",
+      "public_reaction_count": null,
+      "page_sha256": "704ab7b5986478f5bee9379d0e80224ed0c430b697d69bf31e32e9d150533569",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/crisp_stoat4079/n/n1a85f869234f",
+      "source_url_sha256": "0006d10eb3e8b4e55d6a7ea489137ae03abdc58fe29a9cb381e67d3664281bc2",
+      "fetched_at": "2026-08-20T22:38:09.712598+00:00",
+      "published_at": "2026-08-19T06:30:00.000+09:00",
+      "public_reaction_count": 23,
+      "page_sha256": "a9cc3ca725e15cd2503129a2234ff688a7c0d1359d491f7e79c8f340eb224427",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/fair_murre8183/n/ncf084a1c855d",
+      "source_url_sha256": "0006e092fc2f105066758bb9db7f5d849b001bcb9392ecbbaa99c0d5885ed03f",
+      "fetched_at": "2026-08-20T22:38:10.614909+00:00",
+      "published_at": "2026-08-17T12:34:57.000+09:00",
+      "public_reaction_count": 22,
+      "page_sha256": "dac96d2c8dd124af61c2c59df4b3c7b668279e6a03c3ad12ced65ddc5bbc90b2",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/ogtyu_ki/n/n53dcd0a5851a",
+      "source_url_sha256": "00072c8e3429902bfb74f0656f450340c18a1f47e8ebd7b15b5c7868394d420f",
+      "fetched_at": "2026-08-20T22:38:11.301055+00:00",
+      "published_at": "2026-08-17T23:35:11.000+09:00",
+      "public_reaction_count": 7,
+      "page_sha256": "4d4f8b30f07ce5d041c3d5f0c463dd845d04e6ae16b8e743b5c2d5086cdeb265",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/hma_muta/n/nac065c0abc85",
+      "source_url_sha256": "00072fc253e6ecbdbf35d94ecb23b95f4c5aea214bc1fbe084d46e17d3c83a7e",
+      "fetched_at": "2026-08-20T22:38:12.031112+00:00",
+      "published_at": "2026-08-17T11:20:41.000+09:00",
+      "public_reaction_count": null,
+      "page_sha256": "ef7063b1dcbc06e11dd45d1b0de1b5c193324b7fdbb25b90702602adf4778d66",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/teicho_kenny/n/n3c29ec099e45",
+      "source_url_sha256": "0007548421beed5f01fd0c5f01a964445c8c90e8ce4381b88faa6c77114899cd",
+      "fetched_at": "2026-08-20T22:38:12.960106+00:00",
+      "published_at": "2026-08-17T19:01:57.000+09:00",
+      "public_reaction_count": 2,
+      "page_sha256": "d8a4867b0882ca4e72a7d80ad995010575d2b729ee5e1f836bee6ff5e3c1e484",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/fit_macaw2849/n/n430c43945869",
+      "source_url_sha256": "0007771a7730956d01ce9f42cca5660fd86c1d0207dac5ecb7eb6fd252d43f0b",
+      "fetched_at": "2026-08-20T22:38:13.712747+00:00",
+      "published_at": "2026-08-18T12:27:53.000+09:00",
+      "public_reaction_count": 1,
+      "page_sha256": "5b04505d4dcc3a8a472b125dec408b6fb4026ace416e7f65fbabcd4a728c1681",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/you_raku/n/n110fc747b00e",
+      "source_url_sha256": "0007b02bec0b2f5301a5a7ff3254e78012da915e78df7eead74cc53369574671",
+      "fetched_at": "2026-08-20T22:38:14.559332+00:00",
+      "published_at": "2026-08-16T10:21:25.000+09:00",
+      "public_reaction_count": 11,
+      "page_sha256": "025708613a81b3774fb16eed80963ebb64d08a4e7c91b6c7284d21eff6a856ea",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/keiba4pointer/n/nec9336328fdc",
+      "source_url_sha256": "0007b1e8be68a613ab3a44d710ddac4067ccab2056c9f1cd272eda7b7424dbf3",
+      "fetched_at": "2026-08-20T22:38:15.426475+00:00",
+      "published_at": "2026-08-19T23:44:29.000+09:00",
+      "public_reaction_count": 8,
+      "page_sha256": "d34fc6b71b620fb9408c928cbd40dc18d5e01643baff4b0d415a625ec30a3d97",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/epidor_bijoux_po/n/ndea98ac6cbbb",
+      "source_url_sha256": "0007d1dc8b5b817acf390a2ed0fbeaf306e68e5d6398d51d0c6fee779d7fd88e",
+      "fetched_at": "2026-08-20T22:38:16.144257+00:00",
+      "published_at": "2026-08-19T15:43:20.000+09:00",
+      "public_reaction_count": 1,
+      "page_sha256": "e9bb0338d5c3649c9bceb475c604a7a78df50343a4c5d4d3738df297b24869ca",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/cool_violet1633/n/n20b2c23eaba8",
+      "source_url_sha256": "0007db191df0610fae3a63042617c11e76d15ff7960e1ca84acac9b01e732fc5",
+      "fetched_at": "2026-08-20T22:38:16.901952+00:00",
+      "published_at": "2026-08-20T01:57:53.000+09:00",
+      "public_reaction_count": 1,
+      "page_sha256": "09ef8021f2614893c76ec95dccf1c303a98e4bae3e61bbad812b6cc0def6e3ee",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/mary_kosodate/n/n090418896e7b",
+      "source_url_sha256": "0008128fa0b1f8d7eb5aa58458c55bae329c6004baebbcef63c50f35a479b13a",
+      "fetched_at": "2026-08-20T22:38:17.874759+00:00",
+      "published_at": "2026-08-19T07:09:49.000+09:00",
+      "public_reaction_count": 3,
+      "page_sha256": "ef01529664bbd207b89da4698ddd7bb5714ee04d9aefa0e413715c88ef7c1990",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/grand_holly6673/n/n104959d39bea",
+      "source_url_sha256": "000849e42ab3f19b7639f92f35a7b03a857132f7737415f3f863b2851c3182c1",
+      "fetched_at": "2026-08-20T22:38:18.637677+00:00",
+      "published_at": "2026-08-19T22:09:53.000+09:00",
+      "public_reaction_count": 1,
+      "page_sha256": "6e602c1ce06bc9c38a6f2705ce5b1ceab207ecbd7c1358f94ca186b811e0758a",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/kodomonokarada/n/n3f4f602074eb",
+      "source_url_sha256": "000880be96dd335f940b573c763fd35200f80515336248ebbf5cd00dbe560815",
+      "fetched_at": "2026-08-20T22:38:19.775763+00:00",
+      "published_at": "2026-08-17T21:04:55.000+09:00",
+      "public_reaction_count": 2,
+      "page_sha256": "ffc4dd8a478dedc3f3646e2c269f57a85d0b7d002037f281b707cd89dcf16cb3",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/herokey_turkay/n/n6215ff98f2aa",
+      "source_url_sha256": "0008aa9f6690c026808b4c09bb0117edcd04913d28562d49eba19efd0b97813c",
+      "fetched_at": "2026-08-20T22:38:20.526548+00:00",
+      "published_at": "2026-08-18T13:36:44.000+09:00",
+      "public_reaction_count": 15,
+      "page_sha256": "af958c34c177618228e1e202928702f959e5df0a995a44f3ff5d45ebce790810",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/japan_as_no1/n/n91b7603d62f5",
+      "source_url_sha256": "0008be8c0359fcf29d173010ad1d2bf67bc2d6b824be4855f3e91f7e51cd0be3",
+      "fetched_at": "2026-08-20T22:38:21.271014+00:00",
+      "published_at": "2026-08-17T18:44:05.000+09:00",
+      "public_reaction_count": null,
+      "page_sha256": "090eaa54a24fe172ba1c30f859c838b39637cbfc45a02d223132268e5ed50e68",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/omrk/n/n3330bf92f627",
+      "source_url_sha256": "0008bf980e7dbf51956077e3e092dc2023524ca8ca2ef1eb6f0cd2b94a828a01",
+      "fetched_at": "2026-08-20T22:38:22.145597+00:00",
+      "published_at": "2026-08-17T12:20:58.000+09:00",
+      "public_reaction_count": 4,
+      "page_sha256": "b4ce84f0dffe6cf71cc86baf254ad8124d2713b7b03d2fe75a74fe9e213a79fa",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/neko9999/n/nafdc0948f1fa",
+      "source_url_sha256": "0008fa0cd55090ab3dd815b819f3ec8f9bbd78396d2ae14686f5859bd26681d8",
+      "fetched_at": "2026-08-20T22:38:22.874346+00:00",
+      "published_at": "2026-08-17T12:04:07.000+09:00",
+      "public_reaction_count": null,
+      "page_sha256": "ca08079d8fbce319b13c4d12e507d48b29880ae9ad6bfa993f05355758e509b3",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/harlequincrest/n/nbf34d92e1ba8",
+      "source_url_sha256": "000901e82084e439fef6aea6178e5a99cf392fd35fbca8e4f72928cb0d9384db",
+      "fetched_at": "2026-08-20T22:38:23.771140+00:00",
+      "published_at": "2026-08-19T23:33:09.000+09:00",
+      "public_reaction_count": null,
+      "page_sha256": "11b3880aaea01ab6ed663a6c08c595bd4be79aba617b5c4dc90827e2caf043d5",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/fire_travellife/n/nd616d16fb230",
+      "source_url_sha256": "000918af67fd4ae2680c9dcccee5533ebf712648e0805e076af6f7f9d90156ba",
+      "fetched_at": "2026-08-20T22:38:24.457708+00:00",
+      "published_at": "2026-08-16T12:22:46.000+09:00",
+      "public_reaction_count": 1,
+      "page_sha256": "b40f8deffb5a7382fe1589670557dab734f61dd38da91322e0cff53c78f3bf70",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/setomegumi/n/n4c08ec099abe",
+      "source_url_sha256": "0009342d802c2b1e0bb1310be22fc63331b22b4759eaf94494ded8d83099d640",
+      "fetched_at": "2026-08-20T22:38:25.230653+00:00",
+      "published_at": "2026-08-19T18:08:46.000+09:00",
+      "public_reaction_count": 2,
+      "page_sha256": "1d4d66ac9a3966189c63b51b69724cc819921559ba1f98c90eda697884bf6f1d",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/minetakeiba/n/nae286d751e16",
+      "source_url_sha256": "00098313adbd738cb0a897b11b4693f610bbe51eb8ac778bd00c010315883c0b",
+      "fetched_at": "2026-08-20T22:38:25.992967+00:00",
+      "published_at": "2026-08-16T11:02:31.000+09:00",
+      "public_reaction_count": 58,
+      "page_sha256": "3165eb5c6c7ed14127791af55051bbdb712803d2256e353bf72fdecc6d942b2e",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/unique_kudu2948/n/n129ec7612802",
+      "source_url_sha256": "0009bbf3021590d6028716bd56f0614a8b106a0c7cae28dc401638299d9cb30f",
+      "fetched_at": "2026-08-20T22:38:26.743530+00:00",
+      "published_at": "2026-08-17T10:27:13.000+09:00",
+      "public_reaction_count": null,
+      "page_sha256": "d86d33ff57028a02be9fbe4765eb425001edb158d09211a06c0a320be1deae00",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/keika08/n/n7b8f3e626a46",
+      "source_url_sha256": "0009deae92b08aaf0866b81adc5b15308dfc5689ca175c1e36be68d5e31fd641",
+      "fetched_at": "2026-08-20T22:38:27.560990+00:00",
+      "published_at": "2026-08-18T20:17:51.000+09:00",
+      "public_reaction_count": 5,
+      "page_sha256": "15eb0420ffd2ba2723339382a34525f4bd40bb051ad76e313e94fcbb85dd9b0c",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/dropout260/n/n3b6baae07e1d",
+      "source_url_sha256": "0009ff1f69ac4c456df9f7534ef8539f1b3b32cb319d9a0989e92b4d207e874d",
+      "fetched_at": "2026-08-20T22:38:28.368405+00:00",
+      "published_at": "2026-08-16T16:19:28.000+09:00",
+      "public_reaction_count": null,
+      "page_sha256": "65b05818e1e0f84ebe6b404a025d66fb755e26e5d361e4fb704f90cdae82dc22",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/holy_godwit1039/n/n4c8fac264276",
+      "source_url_sha256": "000a1e61ab5d892b6779845002f9b0e825fd188b375a769f6ab2cf02281b7afc",
+      "fetched_at": "2026-08-20T22:38:29.125688+00:00",
+      "published_at": "2026-08-17T19:21:00.000+09:00",
+      "public_reaction_count": 4,
+      "page_sha256": "593b1a0b80a610322db7a177214eb3532d2c3fd98b62946baa442caf5bbf78e7",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/yametai72/n/n0b422c43ad22",
+      "source_url_sha256": "000a66ab7134ff6cc7f4bf77633c89666b6d6a3083675ce84cc1938308ccbbad",
+      "fetched_at": "2026-08-20T22:38:29.891339+00:00",
+      "published_at": "2026-08-17T13:24:13.000+09:00",
+      "public_reaction_count": 5,
+      "page_sha256": "f0a1082e9e332a0596c9a1661d6ba3615936717c793c11ea0141fe8df2aa2951",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/kururi061524/n/n2aa2945419f2",
+      "source_url_sha256": "000a987d5a64396881ef2f38c8b335ebad6d7fe78529a3c54e74bbd19febdb2a",
+      "fetched_at": "2026-08-20T22:38:30.723725+00:00",
+      "published_at": "2026-08-19T17:59:39.000+09:00",
+      "public_reaction_count": null,
+      "page_sha256": "82b7fe2f9a336c0a3e4b445cb415143dbe5a4a72bea2100ad89312660ea2fb59",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/famous_unicorn78/n/n5f5c0c49c8fd",
+      "source_url_sha256": "000aa5cd2016652e8a6b09500a266aa379fc4cea6920bf1e0baa57553f6f4b77",
+      "fetched_at": "2026-08-20T22:38:31.754987+00:00",
+      "published_at": "2026-08-18T07:04:44.000+09:00",
+      "public_reaction_count": null,
+      "page_sha256": "4fc703ac5165127f017e62cdd3fe95f6099f25c5d60723e1e8121b12e9fb4223",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/keiba_hitaxis/n/n4d81f57dd7fa",
+      "source_url_sha256": "000b08d61903605883bd9bc34f545bd6986c7ee5472f9d3d2fd3a87f610586e5",
+      "fetched_at": "2026-08-20T22:38:32.600264+00:00",
+      "published_at": "2026-08-19T17:31:43.000+09:00",
+      "public_reaction_count": 792,
+      "page_sha256": "cf642f43412e06ef6baab92c404e8da39987214aa975bca9d71e04c6f353b6f0",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/hideyuki_kato/n/n1085120f9586",
+      "source_url_sha256": "000b12e76b8f8ac2977c5c14294c9d95c7a2c61c43763d1eaf6086c454c70950",
+      "fetched_at": "2026-08-20T22:38:33.499217+00:00",
+      "published_at": "2026-08-17T14:38:08.000+09:00",
+      "public_reaction_count": 2,
+      "page_sha256": "fbe6d3f580eb4e657f374f99aef32c09793c3f3f5c1d63281748bda8334103de",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/muromi_lyrics/n/nd43bcb1cc0fd",
+      "source_url_sha256": "000b1aef35c872b953bc89680dfc828a7f0f2535ecd418a5f0bc56599de49bfa",
+      "fetched_at": "2026-08-20T22:38:34.198140+00:00",
+      "published_at": "2026-08-16T12:22:00.000+09:00",
+      "public_reaction_count": 3,
+      "page_sha256": "ad6a19b446ceb24ce5e46efba147e2ca2f9d90a741ee6e14e6daa8955434ddd6",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/totonebito/n/n7d59ede3be30",
+      "source_url_sha256": "000b50eb796e0d31f07a5a3602d0f0067a2be78e8435ce9764339d6cfc546a60",
+      "fetched_at": "2026-08-20T22:38:34.969377+00:00",
+      "published_at": "2026-08-18T14:29:39.000+09:00",
+      "public_reaction_count": 3,
+      "page_sha256": "565288e7a33ba46cfc41406c705719e6d665976fd83f3cd8385bdc724974f2df",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/rapid_chives9397/n/n8925a86bd0d5",
+      "source_url_sha256": "000b7a858a9ed60130f6d20f68785025b69f984334c38941ee6062f6b10203bf",
+      "fetched_at": "2026-08-20T22:38:35.798132+00:00",
+      "published_at": "2026-08-20T04:39:21.000+09:00",
+      "public_reaction_count": 4,
+      "page_sha256": "7f9594a68a8b01d63221176a3273c391a710599fec8b05bcc29d6add72ed7711",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/nanana202001/n/ne9c85d1c47c3",
+      "source_url_sha256": "000b8c39ac4292520f797e0deec42b5704f2afec74ba5f2a6830a7c105b1132a",
+      "fetched_at": "2026-08-20T22:38:36.531309+00:00",
+      "published_at": "2026-08-19T23:38:23.000+09:00",
+      "public_reaction_count": null,
+      "page_sha256": "9d7fca2e2b15edc593d0c20334a46c06e994ff5660162075ef9ef45dc038a4cf",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/opera_life0522/n/n794e12d37b85",
+      "source_url_sha256": "000b936da95ec152bd748b480bedba0decad8e42036210fe07da114f56963713",
+      "fetched_at": "2026-08-20T22:38:37.273602+00:00",
+      "published_at": "2026-08-17T11:31:31.000+09:00",
+      "public_reaction_count": 4,
+      "page_sha256": "709718969e5bd314f08484eda341c174f16fa770ab44c602e492dfec22c9e5f2",
+      "error": null
+    },
+    {
+      "source_url": "https://note.com/haito_dangi/n/na7a87163a611",
+      "source_url_sha256": "000bb8cc46ae17f4946a715eceff230f94073d3aff56bbfed72832a43fe96390",
+      "fetched_at": "2026-08-20T22:38:38.026972+00:00",
+      "published_at": "2026-08-17T08:10:38.000+09:00",
+      "public_reaction_count": 3,
+      "page_sha256": "df4dd7a1dfb1ddb53e2a6ef497c3b9108cfbfba732abe61212f50613b0acf5a1",
+      "error": null
+    }
+  ],
   "raw_html_persisted": false,
-  "caveat": "This probe tests public-page metadata extraction only; it does not define or claim global top articles."
+  "caveat": "This probe tests public-page metadata extraction only; records are a bounded deterministic sample and do not define or claim global top articles."
 }

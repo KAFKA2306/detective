@@ -13,7 +13,6 @@ from zenn_public_page_probe import (
     NS,
     PUBLISHED_PATTERNS,
     TYPE_PATTERNS,
-    article_urls,
     fetch,
     first_match,
 )
@@ -24,7 +23,7 @@ SUMMARY = ROOT / "reports" / "zenn_confirmatory_collection.json"
 STATUS = ROOT / "reports" / "zenn_sitemap_status.json"
 YEARS = range(2022, 2027)
 MONTHS = range(1, 8)
-CANDIDATES_PER_STRATUM = 36
+CANDIDATES_PER_SITEMAP = 144
 
 
 def parse_datetime(value: str) -> dt.datetime:
@@ -34,11 +33,7 @@ def parse_datetime(value: str) -> dt.datetime:
     return parsed
 
 
-def target(year: int, month: int) -> dt.datetime:
-    return dt.datetime(year, month, 15, 12, tzinfo=dt.timezone(dt.timedelta(hours=9)))
-
-
-def sitemap_candidates() -> dict[tuple[int, int], list[str]]:
+def sitemap_candidates() -> tuple[list[str], dict[str, int]]:
     status = json.loads(STATUS.read_text(encoding="utf-8"))
     if status.get("status") != "compatible":
         raise RuntimeError("official Zenn sitemap probe is not compatible")
@@ -49,30 +44,28 @@ def sitemap_candidates() -> dict[tuple[int, int], list[str]]:
         for node in root.findall("sm:sitemap", NS)
     ]
     article_maps = [url for url in sitemap_urls if "/article" in urllib.parse.urlsplit(url).path]
-    ranked: dict[tuple[int, int], list[tuple[float, str, str]]] = defaultdict(list)
+    selected: set[str] = set()
+    counts: dict[str, int] = {}
 
-    for sitemap_url in article_maps:
+    for sitemap_url in sorted(article_maps):
         doc = ET.fromstring(fetch(sitemap_url, sitemap=True))
-        for node in doc.findall("sm:url", NS):
-            loc = node.findtext("sm:loc", default="", namespaces=NS)
-            lastmod = node.findtext("sm:lastmod", default="", namespaces=NS)
-            if not loc or "/articles/" not in urllib.parse.urlsplit(loc).path or not lastmod:
-                continue
-            try:
-                stamp = parse_datetime(lastmod)
-            except ValueError:
-                continue
-            key = (stamp.year, stamp.month)
-            if stamp.year in YEARS and stamp.month in MONTHS:
-                distance = abs((stamp - target(*key)).total_seconds())
-                ranked[key].append((distance, hashlib.sha256(loc.encode()).hexdigest(), loc))
+        urls = {
+            node.findtext("sm:loc", default="", namespaces=NS)
+            for node in doc.findall("sm:url", NS)
+        }
+        article_urls = sorted(
+            (
+                url
+                for url in urls
+                if url and "/articles/" in urllib.parse.urlsplit(url).path
+            ),
+            key=lambda url: (hashlib.sha256(url.encode()).hexdigest(), url),
+        )
+        sample = article_urls[:CANDIDATES_PER_SITEMAP]
+        selected.update(sample)
+        counts[sitemap_url] = len(sample)
 
-    result: dict[tuple[int, int], list[str]] = {}
-    for year in YEARS:
-        for month in MONTHS:
-            rows = sorted(ranked.get((year, month), []))
-            result[(year, month)] = [url for _, _, url in rows[:CANDIDATES_PER_STRATUM]]
-    return result
+    return sorted(selected), counts
 
 
 def public_metadata(url: str, fetched_at: str) -> dict[str, object] | None:
@@ -115,8 +108,7 @@ def public_metadata(url: str, fetched_at: str) -> dict[str, object] | None:
 
 
 def main() -> None:
-    by_stratum = sitemap_candidates()
-    candidate_urls = sorted({url for urls in by_stratum.values() for url in urls})
+    candidate_urls, sitemap_sample_counts = sitemap_candidates()
     fetched_at = dt.datetime.now(dt.UTC).isoformat()
     records: dict[str, dict[str, object]] = {}
     errors: dict[str, int] = defaultdict(int)
@@ -145,8 +137,16 @@ def main() -> None:
         "schema_version": 1,
         "generated_at": fetched_at,
         "source": "https://zenn.dev/robots.txt -> official sitemap -> public /articles/ pages",
-        "candidate_rule": "For each 2022-2026 Jan-Jul stratum, take up to 36 sitemap URLs whose lastmod is in that stratum, ranked by distance from month midpoint then SHA-256(URL). Revalidate publication stratum from the public article page.",
+        "candidate_rule": (
+            "From every official article sitemap, take a deterministic SHA-256(URL)-ordered sample "
+            f"of up to {CANDIDATES_PER_SITEMAP} public article URLs. Do not use sitemap lastmod for "
+            "candidate strata or publication labels; derive publication strata only from each public article page."
+        ),
+        "sitemap_lastmod_used_for_candidate_selection": False,
         "sitemap_lastmod_used_as_publication_label": False,
+        "article_sitemap_count": len(sitemap_sample_counts),
+        "candidates_per_sitemap": CANDIDATES_PER_SITEMAP,
+        "sitemap_sample_counts": dict(sorted(sitemap_sample_counts.items())),
         "candidate_url_count": len(candidate_urls),
         "metadata_record_count": len(ordered),
         "errors": dict(sorted(errors.items())),

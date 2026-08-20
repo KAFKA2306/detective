@@ -2,15 +2,9 @@ name: Zenn confirmatory metadata
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "scripts/collect_zenn_confirmatory_metadata.py"
-      - "scripts/audit_zenn_confirmatory_composition.py"
-      - ".github/workflows/zenn-confirmatory-metadata.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: zenn-confirmatory-metadata
@@ -22,8 +16,6 @@ jobs:
     timeout-minutes: 35
     steps:
       - uses: actions/checkout@v6
-        with:
-          ref: main
       - name: Collect bounded public-page metadata
         run: python scripts/collect_zenn_confirmatory_metadata.py
       - name: Apply frozen confirmatory selector
@@ -35,16 +27,13 @@ jobs:
           python -m json.tool reports/zenn_confirmatory_collection.json >/dev/null
           python -m json.tool reports/zenn_confirmatory_selection.json >/dev/null
           python -m json.tool reports/zenn_confirmatory_composition.json >/dev/null
-      - name: Commit metadata and selection manifests
-        run: |
-          git add corpus/zenn_confirmatory_candidates.jsonl reports/zenn_confirmatory_collection.json reports/zenn_confirmatory_selection.json reports/zenn_confirmatory_composition.json
-          if git diff --cached --quiet; then
-            echo "No confirmatory metadata changes"
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "data: collect confirmatory Zenn metadata"
-          git fetch origin main
-          git rebase origin/main
-          git push origin HEAD:main
+      - name: Upload recollection for comparison
+        uses: actions/upload-artifact@v4
+        with:
+          name: zenn-confirmatory-recollection-${{ github.run_id }}
+          path: |
+            corpus/zenn_confirmatory_candidates.jsonl
+            reports/zenn_confirmatory_collection.json
+            reports/zenn_confirmatory_selection.json
+            reports/zenn_confirmatory_composition.json
+          retention-days: 30

@@ -38,6 +38,17 @@ class NoteRecommendedCandidateTest(unittest.TestCase):
             ["https://note.com/alice/n/na1", "https://note.com/bob/n/nb2"],
         )
 
+    def test_hydrated_json_links_are_normalized(self) -> None:
+        source = r'''{"path":"\u002Finfo\u002Fn\u002Fnabc123","url":"https:\/\/note.com\/alice\/n\/na1"}'''
+        self.assertEqual(
+            mod.summary_links(source, "https://note.com/info/m/key/archive/2022-01"),
+            ["https://note.com/info/n/nabc123"],
+        )
+        self.assertEqual(
+            mod.candidate_links(source, "https://note.com/info/n/nroundup"),
+            ["https://note.com/alice/n/na1"],
+        )
+
     def test_disallowed_collection_paths_are_rejected(self) -> None:
         self.assertFalse(mod.allowed_note_url("https://note.com/api/v3/foo"))
         self.assertFalse(mod.allowed_note_url("https://note.com/search?q=x"))

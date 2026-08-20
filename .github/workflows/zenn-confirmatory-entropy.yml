@@ -1,0 +1,32 @@
+name: Zenn confirmatory entropy
+
+on:
+  pull_request:
+    paths:
+      - "scripts/measure_zenn_confirmatory_entropy.py"
+      - "tests/test_measure_zenn_confirmatory_entropy.py"
+      - "reports/zenn_confirmatory_selection.json"
+      - ".github/workflows/zenn-confirmatory-entropy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v9.0.0
+      - name: Measure frozen selected corpus
+        run: uv run --locked python scripts/measure_zenn_confirmatory_entropy.py
+      - name: Validate report
+        run: python -m json.tool reports/zenn_confirmatory_entropy.json >/dev/null
+      - name: Upload derived measurements
+        uses: actions/upload-artifact@v4
+        with:
+          name: zenn-confirmatory-entropy-${{ github.sha }}
+          path: reports/zenn_confirmatory_entropy.json
+          if-no-files-found: error
+          retention-days: 90

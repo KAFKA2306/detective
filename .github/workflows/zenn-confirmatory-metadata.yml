@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - "scripts/collect_zenn_confirmatory_metadata.py"
+      - "scripts/audit_zenn_confirmatory_composition.py"
       - ".github/workflows/zenn-confirmatory-metadata.yml"
 
 permissions:
@@ -27,13 +28,16 @@ jobs:
         run: python scripts/collect_zenn_confirmatory_metadata.py
       - name: Apply frozen confirmatory selector
         run: python scripts/select_zenn_confirmatory_corpus.py corpus/zenn_confirmatory_candidates.jsonl reports/zenn_confirmatory_selection.json
+      - name: Audit selected-corpus composition
+        run: python scripts/audit_zenn_confirmatory_composition.py
       - name: Validate generated JSON
         run: |
           python -m json.tool reports/zenn_confirmatory_collection.json >/dev/null
           python -m json.tool reports/zenn_confirmatory_selection.json >/dev/null
+          python -m json.tool reports/zenn_confirmatory_composition.json >/dev/null
       - name: Commit metadata and selection manifests
         run: |
-          git add corpus/zenn_confirmatory_candidates.jsonl reports/zenn_confirmatory_collection.json reports/zenn_confirmatory_selection.json
+          git add corpus/zenn_confirmatory_candidates.jsonl reports/zenn_confirmatory_collection.json reports/zenn_confirmatory_selection.json reports/zenn_confirmatory_composition.json
           if git diff --cached --quiet; then
             echo "No confirmatory metadata changes"
             exit 0

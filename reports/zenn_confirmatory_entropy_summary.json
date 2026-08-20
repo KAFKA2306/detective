@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "measured_at": "2026-08-20T14:54:01.466608+00:00",
+  "source_manifest": "reports/zenn_confirmatory_selection.json",
+  "source_manifest_sha256": "5c327554327a92e16ed5a6a9333b2cf51d08d2be181387ee2edf2212a988bfd3",
+  "selected_rows_requested": 221,
+  "measured_rows": 221,
+  "errors": [],
+  "measurement_workflow_run": 32382892573,
+  "measurement_artifact_id": 9411829452,
+  "measurement_artifact_sha256": "83985a490cee2ad595352b279d096500396b1b6bcde7a50454953780ee0967ae",
+  "protocol": {
+    "normalization": "Unicode NFKC, collapse all whitespace runs to one ASCII space, strip ends",
+    "prefix_characters": 1000,
+    "features": [
+      "Shannon entropy of overlapping character bigrams",
+      "Shannon entropy of overlapping character trigrams"
+    ],
+    "entropy_log_base": 2,
+    "bootstrap_replicates": 10000,
+    "bootstrap_seed": 20260820,
+    "raw_html_persisted": false,
+    "article_body_persisted": false
+  },
+  "by_year": {
+    "2022": {
+      "n": 33,
+      "char_bigram_entropy_mean_bits": 8.4191862607773,
+      "char_trigram_entropy_mean_bits": 8.951458990089044
+    },
+    "2023": {
+      "n": 36,
+      "char_bigram_entropy_mean_bits": 8.514615394037882,
+      "char_trigram_entropy_mean_bits": 9.027105492676196
+    },
+    "2024": {
+      "n": 84,
+      "char_bigram_entropy_mean_bits": 8.496800866684518,
+      "char_trigram_entropy_mean_bits": 8.992897803164182
+    },
+    "2025": {
+      "n": 64,
+      "char_bigram_entropy_mean_bits": 8.636706694146431,
+      "char_trigram_entropy_mean_bits": 9.131717849133187
+    },
+    "2026": {
+      "n": 4,
+      "char_bigram_entropy_mean_bits": 8.509877485572218,
+      "char_trigram_entropy_mean_bits": 9.11148888621421
+    }
+  },
+  "endpoint_comparison_2026_minus_2022": {
+    "char_bigram_entropy_bits": {
+      "mean_difference": 0.09069122479491831,
+      "bootstrap_95pct_ci": [-0.3287972058220827, 0.4289007921340904],
+      "hedges_g": 0.22008785318127028
+    },
+    "char_trigram_entropy_bits": {
+      "mean_difference": 0.16002989612516494,
+      "bootstrap_95pct_ci": [-0.14713266225501087, 0.4167082557115531],
+      "hedges_g": 0.4252156312521969
+    }
+  },
+  "interpretation": "Both 2022-to-2026 mean-difference bootstrap intervals include zero. This measurement does not establish a directional endpoint shift. The 2026 endpoint has only four selected records, so endpoint inference remains weak.",
+  "full_year_month_and_record_level_report": "GitHub Actions artifact 9411829452 from workflow run 32382892573; raw article text is not included."
+}

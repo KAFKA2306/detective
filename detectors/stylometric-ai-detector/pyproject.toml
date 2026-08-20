@@ -2,4 +2,7 @@
 name = "detective-env-stylometric-ai-detector"
 version = "0.0.0"
 requires-python = ">=3.12,<3.13"
-dependencies = ["stylometric-ai-detector==0.2.4"]
+dependencies = [
+    "scikit-learn==1.6.1",
+    "stylometric-ai-detector==0.2.4",
+]

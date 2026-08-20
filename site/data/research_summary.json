@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "source_manifest_sha256": "5c327554327a92e16ed5a6a9333b2cf51d08d2be181387ee2edf2212a988bfd3",
+  "selected_records": 221,
+  "composition": {
+    "unique_authors": 214,
+    "authors_present_in_multiple_years": 6,
+    "2026_records": 4
+  },
+  "entropy": {
+    "bigram_mean_difference_2026_minus_2022": 0.09069122479491831,
+    "bigram_bootstrap_95pct_ci": [-0.3287972058220827, 0.4289007921340904],
+    "bigram_ci_includes_zero": true,
+    "trigram_mean_difference_2026_minus_2022": 0.16002989612516494,
+    "trigram_bootstrap_95pct_ci": [-0.14713266225501087, 0.4167082557115531],
+    "trigram_ci_includes_zero": true
+  },
+  "ncd": {
+    "pair_count": 24310,
+    "month_gap_range": [0, 54],
+    "month_gap_pearson_r": 0.007318536482328841,
+    "different_author_month_gap_pearson_r": 0.0073856689254758,
+    "same_author_pairs": 8,
+    "inferential_author_effect_claimed": false
+  },
+  "detector_behavior": {
+    "package": "stylometric-ai-detector",
+    "version": "0.2.4",
+    "measured_rows": 221,
+    "errors": [],
+    "label_counts": {"AI": 219, "Human": 2},
+    "mean_confidence_difference_2026_minus_2022": 0.020454545454545503,
+    "bootstrap_95pct_ci": [-0.056590909090909136, 0.10446969696969699],
+    "ci_includes_zero": true,
+    "labels_are_authorship_ground_truth": false,
+    "artifact_sha256": "e7c088d3181106aaa7ca398e0a59bbc97b7d55134408a1e5f7fa99cc3162b7f5"
+  },
+  "conclusion": "Across the frozen corpus, the entropy endpoint intervals and detector-confidence endpoint interval include zero, while NCD has near-zero linear correlation with publication-month distance. These measurements do not establish a stable temporal signal. The 2026 endpoint has four records, and same-author NCD has eight pairs, so those comparisons remain weak.",
+  "primary_sources": [
+    "https://aclanthology.org/2026.findings-acl.682/",
+    "https://arxiv.org/abs/2606.25152",
+    "https://zenn.dev/robots.txt"
+  ]
+}

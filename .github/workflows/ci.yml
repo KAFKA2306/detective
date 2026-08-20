@@ -17,6 +17,8 @@ jobs:
         run: uv lock --check
       - name: Validate detector catalog
         run: uv run --locked python scripts/check_catalog.py
+      - name: Validate confirmatory corpus selector
+        run: uv run --locked python -m unittest tests/test_select_zenn_confirmatory_corpus.py
       - name: Validate JSON
         run: |
           python -m json.tool site/data/baselines.json >/dev/null

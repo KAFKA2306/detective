@@ -1,0 +1,35 @@
+name: Zenn confirmatory NCD
+
+on:
+  pull_request:
+    paths:
+      - "scripts/measure_zenn_confirmatory_ncd.py"
+      - "scripts/measure_zenn_confirmatory_entropy.py"
+      - "tests/test_measure_zenn_confirmatory_ncd.py"
+      - "reports/zenn_confirmatory_selection.json"
+      - ".github/workflows/zenn-confirmatory-ncd.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v9.0.0
+      - name: Unit tests
+        run: python -m unittest tests.test_measure_zenn_confirmatory_ncd
+      - name: Measure frozen selected corpus with pinned upstream
+        run: uv run --with pystylometry==1.4.3 python scripts/measure_zenn_confirmatory_ncd.py
+      - name: Validate report
+        run: python -m json.tool reports/zenn_confirmatory_ncd.json >/dev/null
+      - name: Upload derived measurements
+        uses: actions/upload-artifact@v4
+        with:
+          name: zenn-confirmatory-ncd-${{ github.sha }}
+          path: reports/zenn_confirmatory_ncd.json
+          if-no-files-found: error
+          retention-days: 90

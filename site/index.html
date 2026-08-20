@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <title>detective — 文章分布の測定</title>
-  <meta name="description" content="2026年研究と公開OSSを使った文章分布のメタレビュー・測定UI">
+  <meta name="description" content="2022–2026の公開文章を固定コーパスで測定し、年代シグナルの検証結果と根拠を公開するUI">
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
@@ -13,8 +13,25 @@
     <header class="hero">
       <p class="eyebrow">KAFKA2306 / detective</p>
       <h1>文章の統計は、年代で本当に変わっている？</h1>
-      <p class="lede">watermarkを仮定せず、2026年研究と公開OSSで2022–2026の文章分布を実測します。現在の各年12件・8月同季節・固定1,000文字コーパスはpilotであり、年代判定にはまだ使いません。</p>
+      <p class="lede">2022–2026のZenn公開記事から固定した221件を同じ1,000文字の正規化条件で測定しました。entropy、Normalized Compression Distance、既存detectorの挙動を比較した結果、現在のコーパスでは安定したpublication-time signalを確認できていません。</p>
     </header>
+
+    <section class="panel" aria-labelledby="confirmatory-title">
+      <div class="section-head">
+        <div>
+          <p class="kicker">CONFIRMATORY EVIDENCE</p>
+          <h2 id="confirmatory-title">固定コーパスで確認できたこと</h2>
+        </div>
+      </div>
+      <div class="metric-grid">
+        <div class="metric"><strong>221</strong><span>固定記事数</span></div>
+        <div class="metric"><strong>214</strong><span>unique authors</span></div>
+        <div class="metric"><strong>24,310</strong><span>NCD pairs</span></div>
+        <div class="metric"><strong>0.0073</strong><span>月差とNCDのPearson r</span></div>
+      </div>
+      <p class="note">2022→2026のbigram entropy平均差は +0.0907 bits（bootstrap 95% CI −0.3288〜0.4289）、trigramは +0.1600 bits（−0.1471〜0.4167）。detector confidence差は +0.0205（−0.0566〜0.1045）で、いずれも区間は0を含みます。2026年は4件、same-author NCDは8 pairsのため、これらの比較は弱い証拠です。</p>
+      <p class="note">既存detectorのAI/Human labelは著者性のground truthとして扱いません。測定値・provenance・一次情報は <a href="./data/research_summary.json">machine-readable summary</a> と <a href="https://github.com/KAFKA2306/detective/blob/main/reports/zenn_confirmatory_research_summary.json">GitHub evidence</a> から確認できます。</p>
+    </section>
 
     <section class="panel input-panel" aria-labelledby="checker-title">
       <div class="section-head">
@@ -46,7 +63,7 @@
     <section class="panel">
       <div class="section-head">
         <div>
-          <p class="kicker">VALIDATION GATE</p>
+          <p class="kicker">VALIDATION</p>
           <h2>年代判定へ使えるシグナル</h2>
         </div>
       </div>
@@ -77,8 +94,8 @@
 
     <section class="panel warning">
       <p class="kicker">INTERPRETATION</p>
-      <h2>現在は測定段階です</h2>
-      <p>character n-gram entropyだけでは年代を識別できることを示していません。2026年研究・公開OSSの複数指標を同一コーパスで実測し、out-of-sampleで分離性能を確認できた指標だけを年代比較に昇格します。AI生成の証明にも使用しません。</p>
+      <h2>年代推定には使いません</h2>
+      <p>固定221件の確証測定では、character n-gram entropy、NCD、既存detector confidenceのいずれからも安定したpublication-time signalは確認できませんでした。個別文章の年代やAI生成の有無を、この結果から推定しません。</p>
     </section>
 
     <footer>

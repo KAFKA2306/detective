@@ -46,6 +46,14 @@ class NoteRecommendedCandidateMetadataAuditTest(unittest.TestCase):
         self.assertIsNone(mod.parse_publication(None))
         self.assertIsNone(mod.parse_publication("not-a-date"))
 
+    def test_only_404_and_410_are_permanent_unavailable_http_statuses(self) -> None:
+        self.assertTrue(mod.is_permanent_unavailable_http_status(404))
+        self.assertTrue(mod.is_permanent_unavailable_http_status(410))
+        self.assertFalse(mod.is_permanent_unavailable_http_status(403))
+        self.assertFalse(mod.is_permanent_unavailable_http_status(429))
+        self.assertFalse(mod.is_permanent_unavailable_http_status(500))
+        self.assertFalse(mod.is_permanent_unavailable_http_status(None))
+
 
 if __name__ == "__main__":
     unittest.main()

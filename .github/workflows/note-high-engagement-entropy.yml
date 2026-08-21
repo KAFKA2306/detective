@@ -1,0 +1,41 @@
+name: Note high-engagement entropy
+
+on:
+  pull_request:
+    paths:
+      - reports/note_high_engagement_selection.json
+      - scripts/measure_note_high_engagement_entropy.py
+      - scripts/note_public_page_probe.py
+      - tests/test_measure_note_high_engagement_entropy.py
+      - .github/workflows/note-high-engagement-entropy.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: astral-sh/setup-uv@v9.0.0
+      - name: Validate frozen selection JSON
+        run: python -m json.tool reports/note_high_engagement_selection.json >/dev/null
+      - name: Test note entropy measurement
+        run: uv run --locked python -m unittest tests/test_measure_note_high_engagement_entropy.py
+      - name: Measure frozen note sample
+        run: uv run --locked python scripts/measure_note_high_engagement_entropy.py
+      - name: Validate measurement JSON
+        if: always()
+        run: python -m json.tool reports/note_high_engagement_entropy.json >/dev/null
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: note-high-engagement-entropy-evidence
+          path: |
+            reports/note_high_engagement_selection.json
+            reports/note_high_engagement_entropy.json
+          if-no-files-found: warn
+          retention-days: 30

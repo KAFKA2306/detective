@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "status": "pair_complete_secondary_analysis",
+  "source_workflow_run_id": 32440930754,
+  "source_workflow_artifact_id": 9432400222,
+  "source_workflow_artifact_digest": "sha256:eebb5462580e9edde79e57bf83c030f1178d0504fe2d85a44ef2064a54f34527",
+  "source_selection_manifest_sha256": "173072807c7dd71e04b4ad39b490fb3ea4c5d62c918812fc025fb424f9502922",
+  "rule": "Keep the frozen 36-record selection unchanged. For secondary analysis only, exclude the sole insufficient-length 2022 record and the 2026 record with the same publication month and selection rank.",
+  "excluded_records": [
+    {
+      "year": 2022,
+      "month": 3,
+      "selection_rank_within_year_month": 2,
+      "source_url_sha256": "d3bb04e69ba9c6b423143f690cb760448efd1637d238c1fd26d7a3bcaa20edf0",
+      "reason": "insufficient_length_under_1000_character_contract"
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "selection_rank_within_year_month": 2,
+      "source_url_sha256": "40fed5da0d5398b70ced5a43b2d427d5b4ebbd43f479e2b49853f0fbf8317513",
+      "reason": "matched_counterpart_excluded_for_pair_complete_sensitivity"
+    }
+  ],
+  "analyzed_rows": 34,
+  "comparisons": {
+    "char_bigram_entropy_bits": {
+      "n_2022": 17,
+      "n_2026": 17,
+      "mean_2022": 8.99704329205618,
+      "mean_2026": 9.076038252445688,
+      "mean_difference_2026_minus_2022": 0.07899496038950815,
+      "bootstrap_95pct_ci": [-0.003589449206700124, 0.16255027161780156],
+      "hedges_g_2026_minus_2022": 0.607432371029175
+    },
+    "char_trigram_entropy_bits": {
+      "n_2022": 17,
+      "n_2026": 17,
+      "mean_2022": 9.546870321318163,
+      "mean_2026": 9.59003261564364,
+      "mean_difference_2026_minus_2022": 0.04316229432547658,
+      "bootstrap_95pct_ci": [-0.019921249659958562, 0.10692522372496072],
+      "hedges_g_2026_minus_2022": 0.4370761839267342
+    }
+  },
+  "interpretation": "After balancing the measurable cohorts at 17 versus 17 by excluding the matched 2026 March rank-2 counterpart, both bootstrap intervals include zero. The previously positive bigram interval from the 17-versus-18 primary analysis is therefore not robust to this pair-complete sensitivity analysis and is not treated as a validated publication-time signal."
+}

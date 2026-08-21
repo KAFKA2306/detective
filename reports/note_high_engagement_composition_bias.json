@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "status": "composition_and_exposure_bias_audit",
+  "source_selection_report": "reports/note_high_engagement_selection.json",
+  "source_entropy_report": "reports/note_high_engagement_entropy_summary.json",
+  "source_metadata_sha256": "7785dad5578c4e70bb67340193c2b26443b1117f67edbb38e022b157e8026d86",
+  "source_selection_manifest_sha256": "173072807c7dd71e04b4ad39b490fb3ea4c5d62c918812fc025fb424f9502922",
+  "metadata_checked_at": "2026-08-21T01:45:27.592500+00:00",
+  "selected_records": 36,
+  "by_year": {
+    "2022": {
+      "selected_records": 18,
+      "unique_authors": 18,
+      "selected_by_month": {
+        "1": 3,
+        "2": 2,
+        "3": 3,
+        "4": 3,
+        "5": 2,
+        "6": 3,
+        "7": 2
+      },
+      "public_reaction_count": {
+        "mean": 4979.722222222223,
+        "median": 1768.0,
+        "min": 748,
+        "max": 29338
+      },
+      "article_age_days_at_metadata_check": {
+        "mean": 1588.535732166281,
+        "median": 1578.711268431713
+      }
+    },
+    "2026": {
+      "selected_records": 18,
+      "unique_authors": 18,
+      "selected_by_month": {
+        "1": 3,
+        "2": 2,
+        "3": 3,
+        "4": 3,
+        "5": 2,
+        "6": 3,
+        "7": 2
+      },
+      "public_reaction_count": {
+        "mean": 3821.722222222222,
+        "median": 2681.5,
+        "min": 912,
+        "max": 10458
+      },
+      "article_age_days_at_metadata_check": {
+        "mean": 129.85597200681585,
+        "median": 117.01726958912036
+      }
+    }
+  },
+  "cross_year_author_overlap": 0,
+  "body_length_characters_all_audited": {
+    "n": 36,
+    "mean": 5062.916666666667,
+    "median": 4105.5,
+    "std_population": 3753.9245565659535,
+    "min": 121.0,
+    "max": 19732.0
+  },
+  "measurement_eligibility": {
+    "audited_rows": 36,
+    "measured_rows": 35,
+    "insufficient_length_rows": 1,
+    "insufficient_length_year": 2022,
+    "insufficient_length_month": 3,
+    "insufficient_length_rank_within_year_month": 2,
+    "insufficient_length_normalized_body_characters": 121
+  },
+  "interpretation": {
+    "month_composition_balanced": true,
+    "author_repetition_within_year_detected": false,
+    "cross_year_author_overlap_detected": false,
+    "reaction_count_comparable_as_year_outcome": false,
+    "reason_reaction_count_not_comparable": "Public reaction counts are cumulative observations taken at one metadata-audit time. Median article age at that observation was about 1578.71 days for the 2022 cohort and 117.02 days for the 2026 cohort, so the reaction totals have materially different exposure durations.",
+    "publication_time_signal_validated": false
+  },
+  "provenance": {
+    "reaction_and_author_statistics": "Derived only from the frozen 36-record selection report; no network recollection and no text feature used for selection.",
+    "body_length_statistics": "Copied from the exact-head entropy summary generated from the same frozen selection.",
+    "raw_html_persisted": false,
+    "article_body_persisted": false,
+    "selection_recomputed": false
+  }
+}

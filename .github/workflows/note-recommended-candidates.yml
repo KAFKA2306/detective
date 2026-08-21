@@ -6,7 +6,9 @@ on:
     paths:
       - reports/note_recommended_candidate_manifest.json
       - scripts/audit_note_recommended_candidate_metadata.py
+      - scripts/select_note_high_engagement_sample.py
       - tests/test_audit_note_recommended_candidate_metadata.py
+      - tests/test_select_note_high_engagement_sample.py
       - .github/workflows/note-recommended-candidates.yml
 
 permissions:
@@ -28,6 +30,13 @@ jobs:
       - name: Validate metadata artifact
         if: always()
         run: python -m json.tool reports/note_recommended_candidate_metadata.json >/dev/null
+      - name: Select matched upper-quartile engagement sample
+        if: steps.audit.outcome == 'success'
+        run: |
+          python scripts/select_note_high_engagement_sample.py \
+            reports/note_recommended_candidate_metadata.json \
+            reports/note_high_engagement_selection.json
+          python -m json.tool reports/note_high_engagement_selection.json >/dev/null
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -35,7 +44,8 @@ jobs:
           path: |
             reports/note_recommended_candidate_manifest.json
             reports/note_recommended_candidate_metadata.json
-          if-no-files-found: error
+            reports/note_high_engagement_selection.json
+          if-no-files-found: warn
           retention-days: 30
       - name: Enforce metadata audit result
         if: always() && steps.audit.outcome != 'success'

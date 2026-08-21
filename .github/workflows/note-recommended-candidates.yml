@@ -23,12 +23,16 @@ jobs:
       - name: Collect bounded recommendation candidates
         run: python scripts/collect_note_recommended_candidates.py
       - name: Audit candidate public-page metadata
+        id: audit
+        continue-on-error: true
         run: python scripts/audit_note_recommended_candidate_metadata.py
       - name: Validate artifacts
+        if: always()
         run: |
           python -m json.tool reports/note_recommended_candidate_manifest.json >/dev/null
           python -m json.tool reports/note_recommended_candidate_metadata.json >/dev/null
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: note-recommended-candidate-evidence
           path: |
@@ -36,3 +40,6 @@ jobs:
             reports/note_recommended_candidate_metadata.json
           if-no-files-found: error
           retention-days: 30
+      - name: Enforce metadata audit result
+        if: always() && steps.audit.outcome != 'success'
+        run: exit 1

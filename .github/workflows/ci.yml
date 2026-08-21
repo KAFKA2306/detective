@@ -21,8 +21,10 @@ jobs:
         run: uv run --locked python scripts/check_catalog.py
       - name: Validate note public-page parser
         run: uv run --locked python -m unittest tests/test_note_public_page_probe.py
-      - name: Validate note recommendation candidate collector
-        run: uv run --locked python -m unittest tests/test_collect_note_recommended_candidates.py
+      - name: Validate frozen note recommendation candidate manifest
+        run: python -m json.tool reports/note_recommended_candidate_manifest.json >/dev/null
+      - name: Validate note recommendation candidate metadata audit
+        run: uv run --locked python -m unittest tests/test_audit_note_recommended_candidate_metadata.py
       - name: Validate confirmatory corpus selector
         run: uv run --locked python -m unittest tests/test_select_zenn_confirmatory_corpus.py
       - name: Validate confirmatory composition audit

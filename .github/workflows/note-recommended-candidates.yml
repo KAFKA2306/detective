@@ -1,12 +1,11 @@
-name: Note recommended candidates
+name: Note recommended candidate metadata
 
 on:
   workflow_dispatch:
   pull_request:
     paths:
-      - scripts/collect_note_recommended_candidates.py
+      - reports/note_recommended_candidate_manifest.json
       - scripts/audit_note_recommended_candidate_metadata.py
-      - tests/test_collect_note_recommended_candidates.py
       - tests/test_audit_note_recommended_candidate_metadata.py
       - .github/workflows/note-recommended-candidates.yml
 
@@ -14,23 +13,21 @@ permissions:
   contents: read
 
 jobs:
-  collect:
+  audit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
-      - name: Collect bounded recommendation candidates
-        run: python scripts/collect_note_recommended_candidates.py
+      - name: Validate frozen candidate manifest
+        run: python -m json.tool reports/note_recommended_candidate_manifest.json >/dev/null
       - name: Audit candidate public-page metadata
         id: audit
         continue-on-error: true
         run: python scripts/audit_note_recommended_candidate_metadata.py
-      - name: Validate artifacts
+      - name: Validate metadata artifact
         if: always()
-        run: |
-          python -m json.tool reports/note_recommended_candidate_manifest.json >/dev/null
-          python -m json.tool reports/note_recommended_candidate_metadata.json >/dev/null
+        run: python -m json.tool reports/note_recommended_candidate_metadata.json >/dev/null
       - uses: actions/upload-artifact@v4
         if: always()
         with:

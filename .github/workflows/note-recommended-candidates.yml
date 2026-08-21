@@ -5,7 +5,9 @@ on:
   pull_request:
     paths:
       - scripts/collect_note_recommended_candidates.py
+      - scripts/audit_note_recommended_candidate_metadata.py
       - tests/test_collect_note_recommended_candidates.py
+      - tests/test_audit_note_recommended_candidate_metadata.py
       - .github/workflows/note-recommended-candidates.yml
 
 permissions:
@@ -20,11 +22,17 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Collect bounded recommendation candidates
         run: python scripts/collect_note_recommended_candidates.py
-      - name: Validate artifact
-        run: python -m json.tool reports/note_recommended_candidate_manifest.json >/dev/null
+      - name: Audit candidate public-page metadata
+        run: python scripts/audit_note_recommended_candidate_metadata.py
+      - name: Validate artifacts
+        run: |
+          python -m json.tool reports/note_recommended_candidate_manifest.json >/dev/null
+          python -m json.tool reports/note_recommended_candidate_metadata.json >/dev/null
       - uses: actions/upload-artifact@v4
         with:
-          name: note-recommended-candidate-manifest
-          path: reports/note_recommended_candidate_manifest.json
+          name: note-recommended-candidate-evidence
+          path: |
+            reports/note_recommended_candidate_manifest.json
+            reports/note_recommended_candidate_metadata.json
           if-no-files-found: error
           retention-days: 30

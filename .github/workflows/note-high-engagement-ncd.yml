@@ -1,0 +1,35 @@
+name: note high-engagement NCD
+
+on:
+  pull_request:
+    paths:
+      - "scripts/measure_note_high_engagement_ncd.py"
+      - "scripts/measure_note_high_engagement_entropy.py"
+      - "tests/test_measure_note_high_engagement_ncd.py"
+      - "reports/note_high_engagement_selection.json"
+      - ".github/workflows/note-high-engagement-ncd.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v9.0.0
+      - name: Unit tests
+        run: python -m unittest tests.test_measure_note_high_engagement_ncd
+      - name: Measure frozen selected corpus with pinned upstream
+        run: uv run --with pystylometry==1.4.3 python scripts/measure_note_high_engagement_ncd.py
+      - name: Validate report
+        run: python -m json.tool reports/note_high_engagement_ncd.json >/dev/null
+      - name: Upload derived measurements
+        uses: actions/upload-artifact@v4
+        with:
+          name: note-high-engagement-ncd-${{ github.sha }}
+          path: reports/note_high_engagement_ncd.json
+          if-no-files-found: error
+          retention-days: 90

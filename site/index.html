@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <title>detective — 文章分布の測定</title>
-  <meta name="description" content="2022–2026の公開文章を固定コーパスで測定し、年代シグナルの検証結果と根拠を公開するUI">
+  <meta name="description" content="2022–2026のZenn primary studyとnote replicationを固定コーパスで比較し、年代シグナルの検証結果と根拠を公開するUI">
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
@@ -13,14 +13,14 @@
     <header class="hero">
       <p class="eyebrow">KAFKA2306 / detective</p>
       <h1>文章の統計は、年代で本当に変わっている？</h1>
-      <p class="lede">2022–2026のZenn公開記事から固定した221件を同じ1,000文字の正規化条件で測定しました。entropy、Normalized Compression Distance、既存detectorの挙動を比較した結果、現在のコーパスでは安定したpublication-time signalを確認できていません。</p>
+      <p class="lede">Zennの固定221件をprimary study、noteの固定36件を別cohortのreplicationとして同じ1,000文字の正規化条件で検証しました。媒体を混ぜてeffect sizeを合成せず別々に評価した結果、どちらからも安定したpublication-time signalは確認できていません。</p>
     </header>
 
-    <section class="panel" aria-labelledby="confirmatory-title">
+    <section class="panel" aria-labelledby="zenn-title">
       <div class="section-head">
         <div>
-          <p class="kicker">CONFIRMATORY EVIDENCE</p>
-          <h2 id="confirmatory-title">固定コーパスで確認できたこと</h2>
+          <p class="kicker">ZENN PRIMARY STUDY</p>
+          <h2 id="zenn-title">固定221件の確証測定</h2>
         </div>
       </div>
       <div class="metric-grid">
@@ -29,8 +29,32 @@
         <div class="metric"><strong>24,310</strong><span>NCD pairs</span></div>
         <div class="metric"><strong>0.0073</strong><span>月差とNCDのPearson r</span></div>
       </div>
-      <p class="note">2022→2026のbigram entropy平均差は +0.0907 bits（bootstrap 95% CI −0.3288〜0.4289）、trigramは +0.1600 bits（−0.1471〜0.4167）。detector confidence差は +0.0205（−0.0566〜0.1045）で、いずれも区間は0を含みます。2026年は4件、same-author NCDは8 pairsのため、これらの比較は弱い証拠です。</p>
-      <p class="note">既存detectorのAI/Human labelは著者性のground truthとして扱いません。測定値・provenance・一次情報は <a href="./data/research_summary.json">machine-readable summary</a> と <a href="https://github.com/KAFKA2306/detective/blob/main/reports/zenn_confirmatory_research_summary.json">GitHub evidence</a> から確認できます。</p>
+      <p class="note">2022→2026のbigram entropy平均差は +0.0907 bits（bootstrap 95% CI −0.3288〜0.4289）、trigramは +0.1600 bits（−0.1471〜0.4167）。detector confidence差は +0.0205（−0.0566〜0.1045）で、いずれも区間は0を含みます。2026年は4件、same-author NCDは8 pairsのため、endpoint比較は弱い証拠です。</p>
+      <p class="note">既存detectorのAI/Human labelは著者性のground truthとして扱いません。Zenn単独の測定値とprovenanceは <a href="./data/research_summary.json">machine-readable summary</a> と <a href="https://github.com/KAFKA2306/detective/blob/main/reports/zenn_confirmatory_research_summary.json">GitHub evidence</a> から確認できます。</p>
+    </section>
+
+    <section class="panel" aria-labelledby="note-title">
+      <div class="section-head">
+        <div>
+          <p class="kicker">NOTE REPLICATION</p>
+          <h2 id="note-title">別cohortでも結果は再現するか</h2>
+        </div>
+      </div>
+      <div class="metric-grid">
+        <div class="metric"><strong>36</strong><span>固定記事数</span></div>
+        <div class="metric"><strong>18 / 18</strong><span>2022 / 2026</span></div>
+        <div class="metric"><strong>35</strong><span>1,000文字測定可能</span></div>
+        <div class="metric"><strong>595</strong><span>NCD pairs</span></div>
+      </div>
+      <p class="note">primary entropyではbigram差が正方向でしたが、短文1件と対応する2026記事を双方除いた17対17のsensitivity analysisでは、bigram差 +0.0790 bits（bootstrap 95% CI −0.0036〜0.1626）、trigram差 +0.0432 bits（−0.0199〜0.1069）となり、両区間とも0を含みます。</p>
+      <p class="note">NCDはbetween-year minus within-year meanが −0.00024、17対17のbalanced analysisでも −0.00030 でした。note側でも「年代が離れるほど文章距離が大きい」という方向は確認できていません。候補はnote編集部の固定推薦集合から選んでおり、note全体のランダム標本ではありません。</p>
+    </section>
+
+    <section class="panel warning" aria-labelledby="external-validity-title">
+      <p class="kicker">EXTERNAL VALIDITY</p>
+      <h2 id="external-validity-title">2媒体を別々に検証しても、年代推定の根拠は得られない</h2>
+      <p>Zennとnoteはsampling frameが異なるため数値をpoolしていません。それぞれの固定cohortを独立に評価した結果、validated publication-time signalは0件です。この結果から個別文章の年代やAI生成の有無を推定しません。</p>
+      <p class="note">媒体別の数値、限界、protocol boundary、一次情報URLは <a href="./data/external_validity.json">external-validity evidence</a> と <a href="https://github.com/KAFKA2306/detective/blob/main/reports/external_validity_zenn_note_summary.json">GitHub evidence</a> で確認できます。</p>
     </section>
 
     <section class="panel input-panel" aria-labelledby="checker-title">
@@ -90,12 +114,6 @@
         <span id="checked-at" class="muted"></span>
       </div>
       <div id="detectors" class="detector-list"></div>
-    </section>
-
-    <section class="panel warning">
-      <p class="kicker">INTERPRETATION</p>
-      <h2>年代推定には使いません</h2>
-      <p>固定221件の確証測定では、character n-gram entropy、NCD、既存detector confidenceのいずれからも安定したpublication-time signalは確認できませんでした。個別文章の年代やAI生成の有無を、この結果から推定しません。</p>
     </section>
 
     <footer>

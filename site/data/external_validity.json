@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "status": "cross_medium_external_validity_summary",
+  "generated_from": {
+    "repository": "KAFKA2306/detective",
+    "base_commit": "80b333aa779c232930909eb6538d670c3a3fca56"
+  },
+  "research_question": "Do the frozen Zenn and note cohorts provide convergent evidence for a stable publication-time signal under the repository's fixed text measurement contracts?",
+  "zenn": {
+    "source_report": "reports/zenn_confirmatory_research_summary.json",
+    "selected_records": 221,
+    "unique_authors": 214,
+    "entropy": {
+      "bigram_difference_2026_minus_2022": 0.09069122479491831,
+      "bigram_bootstrap_95pct_ci": [-0.3287972058220827, 0.4289007921340904],
+      "trigram_difference_2026_minus_2022": 0.16002989612516494,
+      "trigram_bootstrap_95pct_ci": [-0.14713266225501087, 0.4167082557115531]
+    },
+    "ncd": {
+      "pair_count": 24310,
+      "publication_month_gap_pearson_r": 0.007318536482328841,
+      "different_author_publication_month_gap_pearson_r": 0.0073856689254758
+    },
+    "detector_behavior": {
+      "package": "stylometric-ai-detector",
+      "version": "0.2.4",
+      "confidence_difference_2026_minus_2022": 0.020454545454545503,
+      "bootstrap_95pct_ci": [-0.056590909090909136, 0.10446969696969699],
+      "labels_are_authorship_ground_truth": false
+    },
+    "publication_time_signal_validated": false,
+    "limits": [
+      "The 2026 endpoint contains four records.",
+      "Only eight same-author NCD pairs are available for author-effect inspection.",
+      "Detector labels are not treated as authorship ground truth."
+    ]
+  },
+  "note": {
+    "source_reports": [
+      "reports/note_high_engagement_entropy_summary.json",
+      "reports/note_high_engagement_entropy_sensitivity.json",
+      "reports/note_high_engagement_ncd_summary.json",
+      "reports/note_high_engagement_composition_bias.json"
+    ],
+    "frozen_selected_records": 36,
+    "records_by_year": {"2022": 18, "2026": 18},
+    "unique_authors_by_year": {"2022": 18, "2026": 18},
+    "cross_year_author_overlap": 0,
+    "entropy_primary": {
+      "measured_records": 35,
+      "bigram_difference_2026_minus_2022": 0.08892694978872662,
+      "bigram_bootstrap_95pct_ci": [0.004058146608786117, 0.1738183227918082],
+      "trigram_difference_2026_minus_2022": 0.049843626459111334,
+      "trigram_bootstrap_95pct_ci": [-0.01252151630678, 0.11195844582474912]
+    },
+    "entropy_pair_complete_sensitivity": {
+      "records_by_year": {"2022": 17, "2026": 17},
+      "bigram_difference_2026_minus_2022": 0.07899496038950815,
+      "bigram_bootstrap_95pct_ci": [-0.003589449206700124, 0.16255027161780156],
+      "trigram_difference_2026_minus_2022": 0.04316229432547658,
+      "trigram_bootstrap_95pct_ci": [-0.019921249659958562, 0.10692522372496072]
+    },
+    "ncd": {
+      "primary_measured_records": 35,
+      "primary_pair_count": 595,
+      "primary_between_minus_within_mean": -0.00023532514834245788,
+      "pair_complete_measured_records": 34,
+      "pair_complete_pair_count": 561,
+      "pair_complete_between_minus_within_mean": -0.00029963328722837357
+    },
+    "composition_and_exposure": {
+      "month_composition_balanced": true,
+      "author_repetition_within_year_detected": false,
+      "reaction_count_comparable_as_year_outcome": false,
+      "median_article_age_days_at_reaction_observation": {
+        "2022": 1578.711268431713,
+        "2026": 117.01726958912036
+      }
+    },
+    "publication_time_signal_validated": false,
+    "limits": [
+      "The cohort is selected from a fixed note editorial-recommendation candidate set and is not a random sample of all note articles.",
+      "One frozen 2022 record is shorter than the fixed 1,000-character measurement window and is retained rather than replaced.",
+      "Public reaction counts have materially different exposure durations between years and are not interpreted as a year-outcome comparison."
+    ]
+  },
+  "cross_medium_interpretation": {
+    "direct_numeric_pooling_performed": false,
+    "reason_not_pooled": "Zenn and note use different sampling frames and cohort construction, so their effect estimates are kept separate rather than combined into a single effect size.",
+    "convergent_result": "Neither medium provides robust evidence for a stable publication-time signal under the fixed measurements. Zenn endpoint entropy intervals and detector-confidence interval include zero and NCD is nearly uncorrelated with publication-month distance. In note, the initially positive bigram interval does not survive the balanced pair-complete sensitivity analysis, and between-year NCD is not larger than within-year NCD.",
+    "validated_publication_time_signal_count": 0,
+    "single_article_year_inference_supported": false,
+    "ai_authorship_inference_supported": false
+  },
+  "protocol_boundaries": {
+    "raw_html_persisted": false,
+    "article_body_persisted": false,
+    "note_selection_recomputed_for_this_summary": false,
+    "new_network_collection_for_this_summary": false
+  },
+  "primary_sources": [
+    "https://aclanthology.org/2026.findings-acl.682/",
+    "https://note.com/robots.txt",
+    "https://zenn.dev/robots.txt"
+  ]
+}

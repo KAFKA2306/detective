@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "status": "pair_complete_sensitivity_analysis",
+  "source_workflow_run_id": 32441013546,
+  "source_workflow_artifact_id": 9432426559,
+  "source_workflow_artifact_zip_sha256": "744192b343c5ee8972f578ec1d6e324b740c322ef5f193320910dba7ce5f44a3",
+  "source_exact_head_sha": "bab637981a536ebbcaa3c6005e87342749de01e3",
+  "source_entropy_report_sha256": "f6fbecc3da77b5f75f11d49cdb5b5d458dd8e3d8fe8a5a86b0ca2a7a51a9eee5",
+  "source_selection_manifest_sha256": "173072807c7dd71e04b4ad39b490fb3ea4c5d62c918812fc025fb424f9502922",
+  "rule": "Keep the frozen 36-record selection unchanged. For this secondary sensitivity analysis only, omit the sole insufficient-length record and omit the selected record in the other comparison year with the same publication month and within-month selection rank.",
+  "text_features_used_to_choose_counterpart": false,
+  "excluded_insufficient_length": {
+    "source_url_sha256": "d3bb04e69ba9c6b423143f690cb760448efd1637d238c1fd26d7a3bcaa20edf0",
+    "year": 2022,
+    "month": 3,
+    "selection_rank_within_year_month": 2,
+    "normalized_body_characters": 121
+  },
+  "excluded_matched_counterpart": {
+    "source_url_sha256": "40fed5da0d5398b70ced5a43b2d427d5b4ebbd43f479e2b49853f0fbf8317513",
+    "year": 2026,
+    "month": 3,
+    "selection_rank_within_year_month": 2
+  },
+  "analysis": {
+    "n_2022": 17,
+    "n_2026": 17,
+    "char_bigram_entropy_bits": {
+      "mean_2022": 8.99704329205618,
+      "mean_2026": 9.076038252445688,
+      "mean_difference_2026_minus_2022": 0.07899496038950815,
+      "mean_difference_bootstrap_95pct_ci": [-0.003589449206700124, 0.16255027161780156],
+      "hedges_g_2026_minus_2022": 0.607432371029175
+    },
+    "char_trigram_entropy_bits": {
+      "mean_2022": 9.546870321318163,
+      "mean_2026": 9.59003261564364,
+      "mean_difference_2026_minus_2022": 0.04316229432547658,
+      "mean_difference_bootstrap_95pct_ci": [-0.019921249659958562, 0.10692522372496072],
+      "hedges_g_2026_minus_2022": 0.4370761839267342
+    }
+  },
+  "interpretation": "The pair-complete bigram bootstrap interval includes zero; the earlier positive bigram interval does not persist after removing the same month/rank counterpart from 2026. The trigram interval also includes zero. This secondary analysis reduces the 17-versus-18 imbalance but does not make the editorially selected cohort population-representative."
+}

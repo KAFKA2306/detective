@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "status": "measured_with_one_insufficient_length_record",
+  "source_workflow_run_id": 32440930754,
+  "source_workflow_artifact_id": 9432400222,
+  "source_workflow_artifact_digest": "sha256:eebb5462580e9edde79e57bf83c030f1178d0504fe2d85a44ef2064a54f34527",
+  "source_exact_head_sha": "93cb3b39e8e2b22a594a25f9f108e61f93c25e0b",
+  "source_selection_manifest_sha256": "173072807c7dd71e04b4ad39b490fb3ea4c5d62c918812fc025fb424f9502922",
+  "source_metadata_sha256": "7785dad5578c4e70bb67340193c2b26443b1117f67edbb38e022b157e8026d86",
+  "selected_rows": 36,
+  "audited_rows": 36,
+  "measured_rows": 35,
+  "insufficient_length_rows": 1,
+  "errors": 0,
+  "body_length_characters_all_audited": {
+    "n": 36,
+    "mean": 5062.916666666667,
+    "median": 4105.5,
+    "std_population": 3753.9245565659535,
+    "min": 121.0,
+    "max": 19732.0
+  },
+  "by_year": {
+    "2022": {
+      "measured": 17,
+      "char_bigram_entropy_bits_mean": 8.99704329205618,
+      "char_trigram_entropy_bits_mean": 9.546870321318163
+    },
+    "2026": {
+      "measured": 18,
+      "char_bigram_entropy_bits_mean": 9.085970241844906,
+      "char_trigram_entropy_bits_mean": 9.596713947777275
+    }
+  },
+  "endpoint_comparison_2026_minus_2022": {
+    "char_bigram_entropy_bits": {
+      "mean_difference": 0.08892694978872662,
+      "bootstrap_95pct_ci": [0.004058146608786117, 0.1738183227918082],
+      "hedges_g": 0.6754416568041478
+    },
+    "char_trigram_entropy_bits": {
+      "mean_difference": 0.049843626459111334,
+      "bootstrap_95pct_ci": [-0.01252151630678, 0.11195844582474912],
+      "hedges_g": 0.5015525910402654
+    }
+  },
+  "insufficient_length_record": {
+    "source_url_sha256": "d3bb04e69ba9c6b423143f690cb760448efd1637d238c1fd26d7a3bcaa20edf0",
+    "year": 2022,
+    "month": 3,
+    "selection_rank_within_year_month": 2,
+    "normalized_body_characters": 121,
+    "measurement_status": "insufficient_length"
+  },
+  "protocol": {
+    "normalization": "Unicode NFKC, collapse all whitespace runs to one ASCII space, strip ends",
+    "prefix_characters": 1000,
+    "raw_html_persisted": false,
+    "article_body_persisted": false,
+    "selection_recomputed": false,
+    "insufficient_length_policy": "retain the frozen selected record, do not replace it, and do not compute 1,000-character entropy"
+  },
+  "interpretation": "The bigram endpoint interval is above zero in this bounded high-engagement note cohort, while the trigram interval includes zero. This is not treated as a validated publication-time signal because one 2022 record is unmeasurable under the fixed 1,000-character protocol, the analyzed sample is 17 versus 18, and the cohort is an editorially recommended high-engagement subset rather than a population-wide sample."
+}

@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "source_workflow_run": 32455144912,
+  "source_artifact_id": 9437308859,
+  "source_artifact_sha256": "a75896b4f81f6d1b156d9e9f62fdd7d4c5398ea5e5d3e88925bdc451b6f076e7",
+  "source_exact_head": "b86c66f5e6cf4d089889b8b6bc19851df7a57d77",
+  "source_manifest": "reports/note_high_engagement_selection.json",
+  "source_manifest_sha256": "173072807c7dd71e04b4ad39b490fb3ea4c5d62c918812fc025fb424f9502922",
+  "protocol": {
+    "package": "pystylometry",
+    "package_version": "1.4.3",
+    "function": "pystylometry.authorship.compute_compression_distance",
+    "normalization": "Unicode NFKC, collapse all whitespace runs to one ASCII space, strip ends",
+    "prefix_characters": 1000,
+    "selection_recomputed": false,
+    "raw_html_persisted": false,
+    "article_body_persisted": false
+  },
+  "primary": {
+    "selected_rows_requested": 36,
+    "audited_rows": 36,
+    "measured_rows": 35,
+    "insufficient_length_rows": 1,
+    "pair_count": 595,
+    "errors": 0,
+    "overall_mean_ncd": 0.8875264864592897,
+    "within_year": {
+      "n": 289,
+      "mean": 0.8876475108212943
+    },
+    "between_year": {
+      "n": 306,
+      "mean": 0.8874121856729519
+    },
+    "between_minus_within_mean": -0.00023532514834245788,
+    "year_pairs": {
+      "2022-2022": {
+        "n": 136,
+        "mean": 0.887739962012734
+      },
+      "2022-2026": {
+        "n": 306,
+        "mean": 0.8874121856729519
+      },
+      "2026-2026": {
+        "n": 153,
+        "mean": 0.8875653319844591
+      }
+    }
+  },
+  "pair_complete_sensitivity": {
+    "rule": "keep the frozen selection unchanged; exclude the known insufficient 2022-03 rank-2 record and the corresponding 2026-03 rank-2 record from this secondary NCD analysis",
+    "measured_rows": 34,
+    "records_by_year": {
+      "2022": 17,
+      "2026": 17
+    },
+    "pair_count": 561,
+    "within_year": {
+      "n": 272,
+      "mean": 0.8874213043793256
+    },
+    "between_year": {
+      "n": 289,
+      "mean": 0.8871216710920973
+    },
+    "between_minus_within_mean": -0.00029963328722837357,
+    "year_pairs": {
+      "2022-2022": {
+        "n": 136,
+        "mean": 0.887739962012734
+      },
+      "2022-2026": {
+        "n": 289,
+        "mean": 0.8871216710920973
+      },
+      "2026-2026": {
+        "n": 136,
+        "mean": 0.8871026467459173
+      }
+    }
+  },
+  "interpretation": {
+    "publication_time_signal_validated": false,
+    "statement": "Between-year NCD is not larger than within-year NCD in either the primary 35-record analysis or the balanced 17-vs-17 sensitivity analysis. These descriptive results do not support a stable publication-year separation in this fixed note cohort.",
+    "limits": [
+      "The cohort is a feature-blind high-engagement sample selected from a fixed note editorial-recommendation candidate set, not a random sample of all note articles.",
+      "One frozen 2022 selection record is shorter than the 1,000-character measurement contract and is retained as insufficient_length rather than replaced.",
+      "NCD is used as a cohort similarity measurement, not a single-article publication-year classifier."
+    ]
+  }
+}

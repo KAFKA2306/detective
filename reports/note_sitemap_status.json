@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "status": "compatible",
-  "checked_at": "2026-08-17T03:15:15.910613+00:00",
+  "checked_at": "2026-08-24T03:26:39.812204+00:00",
   "robots_url": "https://note.com/robots.txt",
   "collector_policy": "robots+sitemap only; no /api/* or /search collection",
   "robots_disallow": [
@@ -28,7 +28,7 @@
   "sitemap_url": "https://note.com/sitemaps/production/note.com/sitemap.xml.gz",
   "sitemap": {
     "kind": "sitemapindex",
-    "child_sitemap_count": 8,
+    "child_sitemap_count": 10,
     "child_sitemaps_sample": [
       "https://note.com/sitemaps/production/note.com/indexes.xml.gz",
       "https://note.com/sitemaps/production/note.com/notes.xml.gz",
@@ -37,6 +37,8 @@
       "https://note.com/sitemaps/production/note.com/notes3.xml.gz",
       "https://note.com/sitemaps/production/note.com/notes4.xml.gz",
       "https://note.com/sitemaps/production/note.com/notes5.xml.gz",
+      "https://note.com/sitemaps/production/note.com/notes6.xml.gz",
+      "https://note.com/sitemaps/production/note.com/notes7.xml.gz",
       "https://note.com/sitemaps/production/note.com/magazines.xml.gz"
     ]
   },

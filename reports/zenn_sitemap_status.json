@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "status": "compatible",
-  "checked_at": "2026-08-17T03:14:58.311636+00:00",
+  "checked_at": "2026-08-24T03:26:23.532490+00:00",
   "sitemap_index": "https://zenn.dev/sitemaps/_index.xml",
-  "child_count": 25,
+  "child_count": 18,
   "categories": {
-    "article": 13,
+    "article": 6,
     "book": 1,
     "other": 3,
     "publication": 1,

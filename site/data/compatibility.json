@@ -6,7 +6,7 @@
   "package": "pystylometry",
   "package_version": "1.4.3",
   "canonical_analyzer": "site/analyze.py",
-  "checked_at": "2026-08-24T02:49:18.210Z",
+  "checked_at": "2026-08-31T07:35:27.329Z",
   "error": null,
   "analysis_window_chars": 1000
 }

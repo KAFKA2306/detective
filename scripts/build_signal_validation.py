@@ -4,9 +4,7 @@ import json
 import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-BASELINES = ROOT / "site" / "data" / "baselines.json"
-NCD = ROOT / "reports" / "zenn_pystylometry_ncd_year_separation.json"
-STYLO = ROOT / "reports" / "zenn_stylometric_ai_detector_2026_measurement.json"
+CONFIRMATORY = ROOT / "reports" / "zenn_confirmatory_research_summary.json"
 EXPLAIN = ROOT / "reports" / "explain_ai_generated_text_japanese_compatibility.json"
 OUTPUT = ROOT / "site" / "data" / "signal_validation.json"
 
@@ -16,15 +14,12 @@ def load(path: pathlib.Path) -> dict:
 
 
 def main() -> None:
-    baseline = load(BASELINES)
-    ncd = load(NCD)
-    stylo = load(STYLO)
+    confirmatory = load(CONFIRMATORY)
     explain = load(EXPLAIN)
 
-    ncd_eval = ncd["evaluation"]
-    ncd_pair = ncd["pairwise"]
-    ncd_lift = float(ncd_eval["accuracy"]) - float(ncd_eval["chance_accuracy_balanced_5_class"])
-    pair_gap = float(ncd_pair["between_year_mean_ncd"]) - float(ncd_pair["within_year_mean_ncd"])
+    entropy = confirmatory["entropy"]
+    ncd = confirmatory["ncd"]
+    detector = confirmatory["detector_behavior"]
 
     signals = [
         {
@@ -32,14 +27,23 @@ def main() -> None:
             "package": "pystylometry",
             "version": "1.4.3",
             "kind": "distribution_measurement",
-            "status": "measured_not_validated",
+            "status": "rejected_for_year_inference",
             "use_for_year_inference": False,
             "evidence": {
-                "sample_count": sum(int(v) for v in baseline.get("sample_counts", {}).values()),
-                "years": baseline.get("years"),
-                "metrics": baseline.get("distance_metrics"),
+                "sample_count": confirmatory["selected_records"],
+                "2026_record_count": confirmatory["composition"]["2026_records"],
+                "bigram_mean_difference_2026_minus_2022": entropy[
+                    "bigram_mean_difference_2026_minus_2022"
+                ],
+                "bigram_bootstrap_95pct_ci": entropy["bigram_bootstrap_95pct_ci"],
+                "bigram_ci_includes_zero": entropy["bigram_ci_includes_zero"],
+                "trigram_mean_difference_2026_minus_2022": entropy[
+                    "trigram_mean_difference_2026_minus_2022"
+                ],
+                "trigram_bootstrap_95pct_ci": entropy["trigram_bootstrap_95pct_ci"],
+                "trigram_ci_includes_zero": entropy["trigram_ci_includes_zero"],
             },
-            "reason": "The current pilot only measures per-year entropy distributions. It has no out-of-sample validation showing that the two entropy metrics identify publication year.",
+            "reason": "The frozen confirmatory corpus does not establish a stable entropy trend: both 2022-to-2026 endpoint bootstrap intervals include zero, and the 2026 endpoint has only four records.",
         },
         {
             "id": "pystylometry-normalized-compression-distance",
@@ -48,32 +52,30 @@ def main() -> None:
             "kind": "language_independent_similarity",
             "status": "rejected_for_year_inference",
             "use_for_year_inference": False,
-            "evidence": {
-                "evaluation": ncd_eval["method"],
-                "accuracy": ncd_eval["accuracy"],
-                "chance_accuracy": ncd_eval["chance_accuracy_balanced_5_class"],
-                "accuracy_lift": ncd_lift,
-                "within_year_mean_ncd": ncd_pair["within_year_mean_ncd"],
-                "between_year_mean_ncd": ncd_pair["between_year_mean_ncd"],
-                "between_minus_within_mean_ncd": pair_gap,
-            },
-            "reason": "Leave-one-out 1-NN on the fixed 60-article pilot is only slightly above the balanced five-class chance rate, and within-year versus between-year NCD means are nearly identical.",
+            "evidence": ncd,
+            "reason": "Across 24,310 confirmatory pairs, NCD has near-zero linear correlation with publication-month distance. Same-author evidence is only eight pairs, so no inferential author effect is claimed.",
         },
         {
             "id": "stylometric-ai-detector-0.2.4",
-            "package": "stylometric-ai-detector",
-            "version": "0.2.4",
+            "package": detector["package"],
+            "version": detector["version"],
             "kind": "2026_ai_human_baseline",
             "status": "rejected_for_japanese_authorship_and_year_inference",
             "use_for_year_inference": False,
             "use_for_ai_authorship": False,
             "evidence": {
-                "2022_label_counts": stylo["years"]["2022"]["upstream_label_counts"],
-                "2023_label_counts": stylo["years"]["2023"]["upstream_label_counts"],
-                "2024_label_counts": stylo["years"]["2024"]["upstream_label_counts"],
-                "2025_label_counts": stylo["years"]["2025"]["upstream_label_counts"],
+                "measured_rows": detector["measured_rows"],
+                "label_counts": detector["label_counts"],
+                "mean_confidence_difference_2026_minus_2022": detector[
+                    "mean_confidence_difference_2026_minus_2022"
+                ],
+                "bootstrap_95pct_ci": detector["bootstrap_95pct_ci"],
+                "ci_includes_zero": detector["ci_includes_zero"],
+                "labels_are_authorship_ground_truth": detector[
+                    "labels_are_authorship_ground_truth"
+                ],
             },
-            "reason": "The upstream English/pre-2024 benchmark labels essentially all historical Japanese Zenn pilot articles as AI, including all 12 samples from 2022 and 2023. Its own documentation warns against cross-language/domain generalization.",
+            "reason": "On the frozen confirmatory corpus, the upstream detector labels 219 of 221 Japanese Zenn articles as AI and its 2022-to-2026 confidence-difference interval includes zero. These labels are not authorship ground truth and are not usable for year inference.",
         },
         {
             "id": "explain-ai-generated-text-0.1.1.1.7",
@@ -95,6 +97,12 @@ def main() -> None:
     output = {
         "schema_version": 1,
         "status": "validated_ready" if validated else "measurement_only",
+        "research_decision": {
+            "year_inference": "stop_current_corpus",
+            "source": "reports/zenn_confirmatory_research_summary.json",
+            "selected_records": confirmatory["selected_records"],
+            "reason": confirmatory["conclusion"],
+        },
         "validated_year_inference_signals": validated,
         "validated_year_inference_signal_count": len(validated),
         "policy": {
@@ -102,6 +110,7 @@ def main() -> None:
             "single_metric_year_labels_forbidden": True,
             "out_of_sample_validation_required": True,
             "failed_or_blocked_upstream_oss_is_not_patched_into_acceptance": True,
+            "confirmatory_negative_result_stops_same_angle_research": True,
         },
         "signals": signals,
     }

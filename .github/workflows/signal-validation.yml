@@ -6,9 +6,7 @@ on:
     branches: [main]
     paths:
       - "scripts/build_signal_validation.py"
-      - "site/data/baselines.json"
-      - "reports/zenn_pystylometry_ncd_year_separation.json"
-      - "reports/zenn_stylometric_ai_detector_2026_measurement.json"
+      - "reports/zenn_confirmatory_research_summary.json"
       - "reports/explain_ai_generated_text_japanese_compatibility.json"
       - ".github/workflows/signal-validation.yml"
 

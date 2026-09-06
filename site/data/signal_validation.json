@@ -1,13 +1,20 @@
 {
   "schema_version": 1,
   "status": "measurement_only",
+  "research_decision": {
+    "year_inference": "stop_current_corpus",
+    "source": "reports/zenn_confirmatory_research_summary.json",
+    "selected_records": 221,
+    "reason": "Across the frozen corpus, the entropy endpoint intervals and detector-confidence endpoint interval include zero, while NCD has near-zero linear correlation with publication-month distance. These measurements do not establish a stable temporal signal. The 2026 endpoint has four records, and same-author NCD has eight pairs, so those comparisons remain weak."
+  },
   "validated_year_inference_signals": [],
   "validated_year_inference_signal_count": 0,
   "policy": {
     "pilot_measurement_does_not_imply_year_inference": true,
     "single_metric_year_labels_forbidden": true,
     "out_of_sample_validation_required": true,
-    "failed_or_blocked_upstream_oss_is_not_patched_into_acceptance": true
+    "failed_or_blocked_upstream_oss_is_not_patched_into_acceptance": true,
+    "confirmatory_negative_result_stops_same_angle_research": true
   },
   "signals": [
     {
@@ -15,23 +22,25 @@
       "package": "pystylometry",
       "version": "1.4.3",
       "kind": "distribution_measurement",
-      "status": "measured_not_validated",
+      "status": "rejected_for_year_inference",
       "use_for_year_inference": false,
       "evidence": {
-        "sample_count": 60,
-        "years": [
-          2022,
-          2023,
-          2024,
-          2025,
-          2026
+        "sample_count": 221,
+        "2026_record_count": 4,
+        "bigram_mean_difference_2026_minus_2022": 0.09069122479491831,
+        "bigram_bootstrap_95pct_ci": [
+          -0.3287972058220827,
+          0.4289007921340904
         ],
-        "metrics": [
-          "char_bigram_entropy",
-          "char_trigram_entropy"
-        ]
+        "bigram_ci_includes_zero": true,
+        "trigram_mean_difference_2026_minus_2022": 0.16002989612516494,
+        "trigram_bootstrap_95pct_ci": [
+          -0.14713266225501087,
+          0.4167082557115531
+        ],
+        "trigram_ci_includes_zero": true
       },
-      "reason": "The current pilot only measures per-year entropy distributions. It has no out-of-sample validation showing that the two entropy metrics identify publication year."
+      "reason": "The frozen confirmatory corpus does not establish a stable entropy trend: both 2022-to-2026 endpoint bootstrap intervals include zero, and the 2026 endpoint has only four records."
     },
     {
       "id": "pystylometry-normalized-compression-distance",
@@ -41,15 +50,17 @@
       "status": "rejected_for_year_inference",
       "use_for_year_inference": false,
       "evidence": {
-        "evaluation": "leave-one-out 1-nearest-neighbor by upstream NCD",
-        "accuracy": 0.26666666666666666,
-        "chance_accuracy": 0.2,
-        "accuracy_lift": 0.06666666666666665,
-        "within_year_mean_ncd": 0.8831587015089262,
-        "between_year_mean_ncd": 0.8874531949765984,
-        "between_minus_within_mean_ncd": 0.004294493467672189
+        "pair_count": 24310,
+        "month_gap_range": [
+          0,
+          54
+        ],
+        "month_gap_pearson_r": 0.007318536482328841,
+        "different_author_month_gap_pearson_r": 0.0073856689254758,
+        "same_author_pairs": 8,
+        "inferential_author_effect_claimed": false
       },
-      "reason": "Leave-one-out 1-NN on the fixed 60-article pilot is only slightly above the balanced five-class chance rate, and within-year versus between-year NCD means are nearly identical."
+      "reason": "Across 24,310 confirmatory pairs, NCD has near-zero linear correlation with publication-month distance. Same-author evidence is only eight pairs, so no inferential author effect is claimed."
     },
     {
       "id": "stylometric-ai-detector-0.2.4",
@@ -60,21 +71,20 @@
       "use_for_year_inference": false,
       "use_for_ai_authorship": false,
       "evidence": {
-        "2022_label_counts": {
-          "AI": 12
+        "measured_rows": 221,
+        "label_counts": {
+          "AI": 219,
+          "Human": 2
         },
-        "2023_label_counts": {
-          "AI": 12
-        },
-        "2024_label_counts": {
-          "AI": 11,
-          "Human": 1
-        },
-        "2025_label_counts": {
-          "AI": 12
-        }
+        "mean_confidence_difference_2026_minus_2022": 0.020454545454545503,
+        "bootstrap_95pct_ci": [
+          -0.056590909090909136,
+          0.10446969696969699
+        ],
+        "ci_includes_zero": true,
+        "labels_are_authorship_ground_truth": false
       },
-      "reason": "The upstream English/pre-2024 benchmark labels essentially all historical Japanese Zenn pilot articles as AI, including all 12 samples from 2022 and 2023. Its own documentation warns against cross-language/domain generalization."
+      "reason": "On the frozen confirmatory corpus, the upstream detector labels 219 of 221 Japanese Zenn articles as AI and its 2022-to-2026 confidence-difference interval includes zero. These labels are not authorship ground truth and are not usable for year inference."
     },
     {
       "id": "explain-ai-generated-text-0.1.1.1.7",

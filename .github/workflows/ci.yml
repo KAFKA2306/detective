@@ -47,11 +47,16 @@ jobs:
         run: uv run --locked python -m unittest tests/test_analyze_zenn_confirmatory_ncd_time_distance.py
       - name: Validate confirmatory research summary
         run: uv run --locked python -m unittest tests/test_build_zenn_confirmatory_research_summary.py
+      - name: Verify signal validation registry is current
+        run: |
+          python scripts/build_signal_validation.py >/dev/null
+          git diff --exit-code -- site/data/signal_validation.json
       - name: Validate JSON
         run: |
           python -m json.tool site/data/baselines.json >/dev/null
           python -m json.tool site/data/detectors.json >/dev/null
           python -m json.tool site/data/compatibility.json >/dev/null
+          python -m json.tool site/data/signal_validation.json >/dev/null
           python -m json.tool reports/zenn_confirmatory_detector_summary.json >/dev/null
           python -m json.tool reports/zenn_confirmatory_research_summary.json >/dev/null
       - name: Verify pasted-text privacy architecture

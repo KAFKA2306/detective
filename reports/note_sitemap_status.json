@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "status": "compatible",
-  "checked_at": "2026-10-12T09:22:08.583964+00:00",
+  "checked_at": "2026-10-19T07:53:16.796818+00:00",
   "robots_url": "https://note.com/robots.txt",
   "collector_policy": "robots+sitemap only; no /api/* or /search collection",
   "robots_disallow": [
@@ -28,7 +28,7 @@
   "sitemap_url": "https://note.com/sitemaps/production/note.com/sitemap.xml.gz",
   "sitemap": {
     "kind": "sitemapindex",
-    "child_sitemap_count": 10,
+    "child_sitemap_count": 9,
     "child_sitemaps_sample": [
       "https://note.com/sitemaps/production/note.com/indexes.xml.gz",
       "https://note.com/sitemaps/production/note.com/notes.xml.gz",
@@ -38,8 +38,7 @@
       "https://note.com/sitemaps/production/note.com/notes4.xml.gz",
       "https://note.com/sitemaps/production/note.com/notes5.xml.gz",
       "https://note.com/sitemaps/production/note.com/notes6.xml.gz",
-      "https://note.com/sitemaps/production/note.com/notes7.xml.gz",
-      "https://note.com/sitemaps/production/note.com/magazines.xml.gz"
+      "https://note.com/sitemaps/production/note.com/notes7.xml.gz"
     ]
   },
   "error": null

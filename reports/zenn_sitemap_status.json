@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "status": "compatible",
-  "checked_at": "2026-10-12T09:21:49.116920+00:00",
+  "checked_at": "2026-10-19T07:53:09.570809+00:00",
   "sitemap_index": "https://zenn.dev/sitemaps/_index.xml",
-  "child_count": 18,
+  "child_count": 19,
   "categories": {
     "article": 6,
     "book": 1,
-    "other": 3,
+    "other": 4,
     "publication": 1,
     "user": 7
   },
@@ -33,10 +33,6 @@
       "lastmod": null
     },
     {
-      "loc": "https://zenn.dev/sitemaps/user4.xml.gz",
-      "lastmod": null
-    },
-    {
       "loc": "https://zenn.dev/sitemaps/user5.xml.gz",
       "lastmod": null
     },
@@ -50,6 +46,10 @@
     },
     {
       "loc": "https://zenn.dev/sitemaps/publication1.xml.gz",
+      "lastmod": null
+    },
+    {
+      "loc": "https://zenn.dev/sitemaps/hackathon_project1.xml.gz",
       "lastmod": null
     }
   ],

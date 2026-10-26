@@ -1,71 +1,64 @@
 {
   "schema_version": 1,
   "status": "compatible",
-  "generated_at": "2026-10-19T08:00:16.162818+00:00",
+  "generated_at": "2026-10-26T08:00:11.484695+00:00",
   "source": "https://note.com/sitemaps/production/note.com/sitemap.xml.gz",
-  "note_sitemap_count": 8,
-  "total_url_count": 390611,
-  "lastmod_min": "2026-10-14T00:00:00+09:00",
-  "lastmod_max": "2026-10-18T23:20:44+09:00",
+  "note_sitemap_count": 7,
+  "total_url_count": 342525,
+  "lastmod_min": "2026-10-20T00:00:00+09:00",
+  "lastmod_max": "2026-10-24T23:36:35+09:00",
   "lastmod_year_counts": {
-    "2026": 390611
+    "2026": 342525
   },
   "sitemaps": [
     {
       "sitemap": "https://note.com/sitemaps/production/note.com/notes.xml.gz",
       "url_count": 50000,
       "article_like_url_count": 50000,
-      "lastmod_min": "2026-10-18T05:19:12+09:00",
-      "lastmod_max": "2026-10-18T23:20:44+09:00"
+      "lastmod_min": "2026-10-24T03:11:29+09:00",
+      "lastmod_max": "2026-10-24T23:33:26+09:00"
     },
     {
       "sitemap": "https://note.com/sitemaps/production/note.com/notes1.xml.gz",
       "url_count": 50000,
       "article_like_url_count": 50000,
-      "lastmod_min": "2026-10-17T12:55:42+09:00",
-      "lastmod_max": "2026-10-18T21:52:21+09:00"
+      "lastmod_min": "2026-10-23T10:00:00+09:00",
+      "lastmod_max": "2026-10-24T23:18:43+09:00"
     },
     {
       "sitemap": "https://note.com/sitemaps/production/note.com/notes2.xml.gz",
       "url_count": 50000,
       "article_like_url_count": 50000,
-      "lastmod_min": "2026-10-17T00:27:06+09:00",
-      "lastmod_max": "2026-10-18T23:18:53+09:00"
+      "lastmod_min": "2026-10-22T14:49:37+09:00",
+      "lastmod_max": "2026-10-24T23:19:19+09:00"
     },
     {
       "sitemap": "https://note.com/sitemaps/production/note.com/notes3.xml.gz",
       "url_count": 50000,
       "article_like_url_count": 50000,
-      "lastmod_min": "2026-10-16T08:56:45+09:00",
-      "lastmod_max": "2026-10-18T21:55:22+09:00"
+      "lastmod_min": "2026-10-22T00:26:59+09:00",
+      "lastmod_max": "2026-10-24T21:01:17+09:00"
     },
     {
       "sitemap": "https://note.com/sitemaps/production/note.com/notes4.xml.gz",
       "url_count": 50000,
       "article_like_url_count": 50000,
-      "lastmod_min": "2026-10-15T15:26:05+09:00",
-      "lastmod_max": "2026-10-18T21:53:17+09:00"
+      "lastmod_min": "2026-10-21T07:07:48+09:00",
+      "lastmod_max": "2026-10-24T21:01:07+09:00"
     },
     {
       "sitemap": "https://note.com/sitemaps/production/note.com/notes5.xml.gz",
       "url_count": 50000,
       "article_like_url_count": 50000,
-      "lastmod_min": "2026-10-15T02:51:55+09:00",
-      "lastmod_max": "2026-10-18T23:05:40+09:00"
+      "lastmod_min": "2026-10-20T12:14:52+09:00",
+      "lastmod_max": "2026-10-24T23:36:35+09:00"
     },
     {
       "sitemap": "https://note.com/sitemaps/production/note.com/notes6.xml.gz",
-      "url_count": 50000,
-      "article_like_url_count": 50000,
-      "lastmod_min": "2026-10-14T10:54:29+09:00",
-      "lastmod_max": "2026-10-18T21:30:35+09:00"
-    },
-    {
-      "sitemap": "https://note.com/sitemaps/production/note.com/notes7.xml.gz",
-      "url_count": 40611,
-      "article_like_url_count": 40611,
-      "lastmod_min": "2026-10-14T00:00:00+09:00",
-      "lastmod_max": "2026-10-18T21:34:28+09:00"
+      "url_count": 42525,
+      "article_like_url_count": 42525,
+      "lastmod_min": "2026-10-20T00:00:00+09:00",
+      "lastmod_max": "2026-10-24T23:05:41+09:00"
     }
   ],
   "caveat": "sitemap lastmod is inventory metadata, not a publication-date label"

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "status": "compatible",
-  "checked_at": "2026-11-09T09:54:35.103486+00:00",
+  "checked_at": "2026-11-16T09:52:48.026354+00:00",
   "robots_url": "https://note.com/robots.txt",
   "collector_policy": "robots+sitemap only; no /api/* or /search collection",
   "robots_disallow": [
@@ -15,6 +15,7 @@
     "/login?*",
     "/signup?*",
     "/m/*/archive",
+    "/tag/vm/investment_money/*?",
     "/*/archives",
     "/*/archives/*",
     "/*/followers",
@@ -29,15 +30,14 @@
   "sitemap_url": "https://note.com/sitemaps/production/note.com/sitemap.xml.gz",
   "sitemap": {
     "kind": "sitemapindex",
-    "child_sitemap_count": 7,
+    "child_sitemap_count": 6,
     "child_sitemaps_sample": [
       "https://note.com/sitemaps/production/note.com/indexes.xml.gz",
       "https://note.com/sitemaps/production/note.com/notes.xml.gz",
       "https://note.com/sitemaps/production/note.com/notes1.xml.gz",
       "https://note.com/sitemaps/production/note.com/notes2.xml.gz",
       "https://note.com/sitemaps/production/note.com/notes3.xml.gz",
-      "https://note.com/sitemaps/production/note.com/notes4.xml.gz",
-      "https://note.com/sitemaps/production/note.com/notes5.xml.gz"
+      "https://note.com/sitemaps/production/note.com/notes4.xml.gz"
     ]
   },
   "error": null
